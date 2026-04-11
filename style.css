@@ -1037,3 +1037,12 @@ img {
   line-height: 1.2;
   color: var(--text);
 }
+
+
+.reason-icon {
+  display: none !important;
+}
+
+.reason-card h3 {
+  margin-top: 0;
+}

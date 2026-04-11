@@ -29,14 +29,16 @@ const updateAge = () => {
   const birthText = ageEl.dataset.birth;
   if (!birthText) return;
 
-  const birthDate = new Date(`${birthText}T00:00:00`);
-  if (Number.isNaN(birthDate.getTime())) return;
+  const parts = birthText.split('-').map((value) => Number(value));
+  if (parts.length !== 3 || parts.some((value) => Number.isNaN(value))) return;
 
+  const [year, month, day] = parts;
   const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
+  let age = today.getFullYear() - year;
+
   const hasHadBirthday =
-    today.getMonth() > birthDate.getMonth() ||
-    (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+    today.getMonth() + 1 > month ||
+    (today.getMonth() + 1 === month && today.getDate() >= day);
 
   if (!hasHadBirthday) age -= 1;
   ageEl.textContent = String(age);
