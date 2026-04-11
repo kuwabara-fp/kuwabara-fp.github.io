@@ -301,7 +301,7 @@ img {
 }
 
 .section {
-  padding: 64px 0;
+  padding: 72px 0;
 }
 
 .section-soft,
@@ -501,6 +501,40 @@ img {
   padding: 28px;
 }
 
+.profile-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 20px 0 22px;
+}
+
+.profile-fact {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  border: 1px solid var(--line);
+}
+
+.profile-fact-wide {
+  grid-column: span 2;
+}
+
+.fact-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.profile-fact strong {
+  display: block;
+  color: var(--primary-dark);
+  line-height: 1.45;
+  font-size: 1.02rem;
+}
+
 .profile-lead {
   margin: 0 0 14px;
   font-size: 1.18rem;
@@ -585,148 +619,6 @@ img {
 
 .plan-block li + li {
   margin-top: 8px;
-}
-
-
-.compact-section .section-intro,
-.compact-section .note {
-  margin-top: 18px;
-}
-
-.compact-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin: -6px 0 22px;
-  color: var(--muted);
-}
-
-.compact-head p {
-  margin: 0;
-  font-weight: 700;
-}
-
-.compact-head span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 30px;
-  padding: 0 12px;
-  border-radius: 999px;
-  background: var(--primary-soft);
-  color: var(--primary-dark);
-  font-size: 0.84rem;
-  font-weight: 700;
-}
-
-.accordion-list {
-  display: grid;
-  gap: 14px;
-}
-
-.accordion-item {
-  background: var(--surface);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  border: 1px solid #e7edf6;
-  overflow: hidden;
-}
-
-.accordion-item summary {
-  list-style: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 18px 20px;
-}
-
-.accordion-item summary::-webkit-details-marker {
-  display: none;
-}
-
-.accordion-item summary::after {
-  content: "+";
-  flex: 0 0 auto;
-  color: var(--primary);
-  font-size: 1.35rem;
-  font-weight: 700;
-  margin-left: 8px;
-}
-
-.accordion-item[open] summary::after {
-  content: "−";
-}
-
-.accordion-item[open] {
-  border-color: rgba(45, 99, 183, 0.22);
-}
-
-.accordion-item .accordion-body {
-  padding: 0 20px 18px;
-  color: var(--muted);
-}
-
-.accordion-title {
-  font-weight: 800;
-  color: var(--primary-dark);
-  line-height: 1.35;
-}
-
-.accordion-icon {
-  display: inline-grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  background: var(--primary-soft);
-  color: var(--primary-dark);
-  font-weight: 800;
-  margin-right: 14px;
-  flex: 0 0 42px;
-}
-
-.reason-accordion summary {
-  justify-content: flex-start;
-}
-
-.summary-main,
-.summary-side {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.summary-main {
-  min-width: 0;
-}
-
-.summary-side {
-  margin-left: auto;
-  text-align: right;
-  padding-right: 8px;
-}
-
-.summary-meta {
-  color: var(--muted);
-  font-size: 0.9rem;
-  line-height: 1.35;
-}
-
-.summary-price {
-  color: var(--primary-dark);
-  font-size: 1.18rem;
-  line-height: 1.2;
-}
-
-.pricing-accordion .featured {
-  border: 2px solid rgba(45, 99, 183, 0.35);
-}
-
-.pricing-accordion .plan-badge {
-  width: fit-content;
-  margin: 0;
 }
 
 .steps {
@@ -905,32 +797,6 @@ img {
   to { transform: scale(1.08); }
 }
 
-
-@media (max-width: 760px) {
-  .compact-head,
-  .accordion-item summary {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .accordion-item summary::after {
-    position: absolute;
-    right: 18px;
-    top: 14px;
-  }
-
-  .accordion-item summary {
-    position: relative;
-    padding-right: 48px;
-  }
-
-  .summary-side {
-    margin-left: 0;
-    text-align: left;
-    padding-right: 0;
-  }
-}
-
 @media (max-width: 1080px) {
   .reason-cards,
   .cards,
@@ -1017,8 +883,16 @@ img {
 }
 
 @media (max-width: 640px) {
+  .profile-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-fact-wide {
+    grid-column: span 1;
+  }
+
   .section {
-    padding: 44px 0;
+    padding: 52px 0;
   }
 
   .hero-grid {

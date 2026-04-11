@@ -41,20 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   targets.forEach((el) => observer.observe(el));
-});
 
 
-document.querySelectorAll('.accordion-list').forEach((group) => {
-  const items = group.querySelectorAll('details');
-
-  items.forEach((item) => {
-    item.addEventListener('toggle', () => {
-      if (!item.open) return;
-      items.forEach((other) => {
-        if (other !== item) {
-          other.open = false;
-        }
-      });
-    });
-  });
+const ageEl = document.getElementById('age-display');
+if (ageEl) {
+  const birthText = ageEl.dataset.birth;
+  const birthDate = new Date(`${birthText}T00:00:00`);
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const hasHadBirthday =
+    today.getMonth() > birthDate.getMonth() ||
+    (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+  if (!hasHadBirthday) age -= 1;
+  ageEl.textContent = String(age);
+}
 });
