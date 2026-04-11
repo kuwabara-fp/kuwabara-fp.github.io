@@ -22,11 +22,29 @@ const updateHeader = () => {
   header.classList.toggle('is-scrolled', window.scrollY > 12);
 };
 
-updateHeader();
-window.addEventListener('scroll', updateHeader, { passive: true });
+const updateAge = () => {
+  const ageEl = document.getElementById('age-display');
+  if (!ageEl) return;
 
-document.addEventListener('DOMContentLoaded', () => {
+  const birthText = ageEl.dataset.birth;
+  if (!birthText) return;
+
+  const birthDate = new Date(`${birthText}T00:00:00`);
+  if (Number.isNaN(birthDate.getTime())) return;
+
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const hasHadBirthday =
+    today.getMonth() > birthDate.getMonth() ||
+    (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+  if (!hasHadBirthday) age -= 1;
+  ageEl.textContent = String(age);
+};
+
+const setupReveal = () => {
   const targets = document.querySelectorAll('.reveal');
+  if (!targets.length) return;
 
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach((entry) => {
@@ -41,18 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   targets.forEach((el) => observer.observe(el));
+};
 
+const initSite = () => {
+  updateHeader();
+  updateAge();
+  setupReveal();
+};
 
-const ageEl = document.getElementById('age-display');
-if (ageEl) {
-  const birthText = ageEl.dataset.birth;
-  const birthDate = new Date(`${birthText}T00:00:00`);
-  const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const hasHadBirthday =
-    today.getMonth() > birthDate.getMonth() ||
-    (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
-  if (!hasHadBirthday) age -= 1;
-  ageEl.textContent = String(age);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initSite);
+} else {
+  initSite();
 }
-});
+
+window.addEventListener('scroll', updateHeader, { passive: true });
