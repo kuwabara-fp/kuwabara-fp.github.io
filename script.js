@@ -1,24 +1,44 @@
-const navToggle = document.querySelector('.nav-toggle');
-const globalNav = document.querySelector('.global-nav');
-const navLinks = document.querySelectorAll('.global-nav a');
-const yearEl = document.getElementById('current-year');
+const toggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('.global-nav');
+const header = document.querySelector('.site-header');
 
-if (yearEl) {
-  yearEl.textContent = new Date().getFullYear();
-}
-
-if (navToggle && globalNav) {
-  navToggle.addEventListener('click', () => {
-    const isOpen = globalNav.classList.toggle('is-open');
-    navToggle.setAttribute('aria-expanded', String(isOpen));
-    navToggle.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+if (toggle && nav) {
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    nav.classList.toggle('is-open');
   });
 
-  navLinks.forEach((link) => {
+  nav.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      globalNav.classList.remove('is-open');
-      navToggle.setAttribute('aria-expanded', 'false');
-      navToggle.setAttribute('aria-label', 'メニューを開く');
+      nav.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
     });
   });
 }
+
+const updateHeader = () => {
+  if (!header) return;
+  header.classList.toggle('is-scrolled', window.scrollY > 12);
+};
+
+updateHeader();
+window.addEventListener('scroll', updateHeader, { passive: true });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const targets = document.querySelectorAll('.reveal');
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -8% 0px'
+  });
+
+  targets.forEach((el) => observer.observe(el));
+});
