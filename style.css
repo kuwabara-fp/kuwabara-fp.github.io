@@ -1982,3 +1982,138 @@ img {
     font-size: 0.68rem;
   }
 }
+
+
+/* --- v24: line buttons unified, social buttons refined, hero line breaks --- */
+.hero h1 {
+  white-space: normal;
+}
+
+.hero h1 span {
+  display: inline-block;
+}
+
+/* Social button layout */
+.profile-links,
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.profile-link-chip,
+.footer-social a {
+  width: 148px;
+  min-width: 148px;
+  min-height: 52px;
+  justify-content: flex-start;
+}
+
+.social-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 18px;
+  border-radius: 16px;
+  color: #fff;
+  border: 1px solid transparent;
+  box-shadow: 0 14px 28px rgba(31, 56, 104, 0.12);
+  overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+}
+
+.social-pill::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 15px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 100%);
+  pointer-events: none;
+}
+
+.social-pill > * {
+  position: relative;
+  z-index: 1;
+}
+
+.social-pill:hover,
+.social-pill:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(1.02);
+}
+
+.social-pill .social-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.24);
+}
+
+.social-pill-youtube {
+  background: linear-gradient(135deg, #ff4e5b 0%, #cf202f 100%);
+}
+
+.social-pill-note {
+  background: linear-gradient(135deg, #2c3340 0%, #11161f 100%);
+}
+
+.social-pill-x {
+  background: linear-gradient(135deg, #24324a 0%, #0f1726 100%);
+}
+
+.social-pill-line,
+.profile-link-chip.line-chip,
+.footer-social a.line-chip,
+.footer-line.line-chip,
+.button.line {
+  background: linear-gradient(135deg, #24c95f 0%, #119345 100%);
+  color: #fff;
+}
+
+.social-pill-line,
+.profile-link-chip.line-chip,
+.footer-social a.line-chip,
+.footer-line.line-chip {
+  border-color: rgba(17, 147, 69, 0.42);
+  box-shadow: 0 14px 28px rgba(17, 147, 69, 0.18);
+}
+
+.social-pill-line:hover,
+.profile-link-chip.line-chip:hover,
+.footer-social a.line-chip:hover,
+.footer-line.line-chip:hover,
+.button.line:hover {
+  background: linear-gradient(135deg, #20bb59 0%, #0e863e 100%);
+}
+
+.profile-link-chip.line-chip::before,
+.footer-social a.line-chip::before,
+.footer-line.line-chip::before,
+.button.line::before {
+  background: linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.03) 100%);
+}
+
+.footer-line {
+  min-height: 52px;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .profile-link-chip,
+  .footer-social a {
+    width: calc(50% - 6px);
+    min-width: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .profile-link-chip,
+  .footer-social a {
+    width: 100%;
+  }
+}
