@@ -2117,3 +2117,156 @@ img {
     width: 100%;
   }
 }
+
+
+
+/* --- v25: refined no-mark social buttons, consistent size, unified green LINE --- */
+.profile-links,
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.profile-link-chip,
+.footer-social a {
+  width: 116px;
+  min-width: 116px;
+  min-height: 46px;
+  justify-content: center;
+  padding: 0 12px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.social-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 12px;
+  border-radius: 14px;
+  overflow: hidden;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  border: 1px solid rgba(31, 77, 147, 0.14);
+  background: linear-gradient(180deg, #ffffff 0%, #f6f9ff 100%);
+  color: var(--primary-dark);
+  box-shadow:
+    0 12px 26px rgba(27, 49, 93, 0.10),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.social-pill::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 13px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(243,247,255,0.90) 100%);
+}
+
+.social-pill::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 8px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--pill-accent, linear-gradient(90deg, #6f8ec7 0%, #2d63b7 100%));
+  opacity: 0.95;
+}
+
+.social-pill > span {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  transform: translateY(-1px);
+}
+
+.social-pill:hover,
+.social-pill:focus-visible {
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 30px rgba(27, 49, 93, 0.13),
+    inset 0 1px 0 rgba(255,255,255,0.96);
+  border-color: rgba(31, 77, 147, 0.22);
+}
+
+.social-pill-youtube { --pill-accent: linear-gradient(90deg, #ff6a75 0%, #cf202f 100%); }
+.social-pill-note { --pill-accent: linear-gradient(90deg, #4b5568 0%, #11161f 100%); }
+.social-pill-x { --pill-accent: linear-gradient(90deg, #52617c 0%, #1a2435 100%); }
+
+.social-pill-line,
+.profile-link-chip.line-chip,
+.footer-social a.line-chip,
+.footer-line.line-chip,
+.button.line {
+  background: linear-gradient(135deg, #26cc61 0%, #119345 100%);
+  color: #fff;
+}
+
+.social-pill-line,
+.profile-link-chip.line-chip,
+.footer-social a.line-chip,
+.footer-line.line-chip {
+  border-color: rgba(17, 147, 69, 0.44);
+  box-shadow:
+    0 14px 28px rgba(17, 147, 69, 0.22),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.social-pill-line::before,
+.profile-link-chip.line-chip::before,
+.footer-social a.line-chip::before,
+.footer-line.line-chip::before,
+.button.line::before {
+  background: linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.03) 100%);
+}
+
+.social-pill-line::after,
+.profile-link-chip.line-chip::after,
+.footer-social a.line-chip::after,
+.footer-line.line-chip::after {
+  left: 16px;
+  right: 16px;
+  bottom: 8px;
+  background: rgba(255,255,255,0.52);
+}
+
+.social-pill-line > span {
+  color: #fff;
+}
+
+.social-pill .social-mark,
+.profile-link-chip .social-mark,
+.footer-social a .social-mark,
+.btn-mark.btn-mark-line {
+  display: none !important;
+}
+
+.button.line {
+  background: linear-gradient(135deg, #26cc61 0%, #119345 100%);
+  color: #fff;
+}
+
+.button.line:hover {
+  background: linear-gradient(135deg, #22bf5a 0%, #0f863e 100%);
+}
+
+@media (max-width: 767px) {
+  .profile-link-chip,
+  .footer-social a {
+    width: calc(50% - 6px);
+    min-width: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .profile-link-chip,
+  .footer-social a {
+    width: 100%;
+  }
+}
