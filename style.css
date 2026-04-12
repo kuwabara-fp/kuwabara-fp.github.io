@@ -2270,3 +2270,172 @@ img {
     width: 100%;
   }
 }
+
+
+/* --- v26: compact premium social buttons --- */
+.profile-links,
+.footer-social {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(84px, 94px));
+  gap: 12px;
+  width: fit-content;
+  align-items: stretch;
+}
+
+.profile-link-chip,
+.footer-social a {
+  width: auto;
+  min-width: 0;
+  min-height: 58px;
+  padding: 10px 12px 12px;
+  border-radius: 20px;
+  justify-content: center;
+  text-align: center;
+}
+
+.social-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 58px;
+  padding: 10px 12px 12px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(31, 77, 147, 0.12);
+  background: linear-gradient(180deg, #ffffff 0%, #f3f7ff 100%);
+  color: var(--primary-dark);
+  box-shadow:
+    0 14px 28px rgba(27, 49, 93, 0.10),
+    inset 0 1px 0 rgba(255,255,255,0.96),
+    inset 0 -8px 18px rgba(111, 142, 199, 0.06);
+  letter-spacing: 0.01em;
+  font-weight: 800;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, filter 0.22s ease;
+}
+
+.social-pill::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 19px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(247,250,255,0.86) 100%);
+}
+
+.social-pill::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 10px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--pill-accent, linear-gradient(90deg, #6f8ec7 0%, #2d63b7 100%));
+  box-shadow: 0 4px 10px rgba(45,99,183,0.18);
+}
+
+.social-pill > span {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  font-size: 0.92rem;
+  line-height: 1.05;
+  transform: translateY(-2px);
+}
+
+.social-pill:hover,
+.social-pill:focus-visible {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 18px 34px rgba(27, 49, 93, 0.14),
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 0 -10px 18px rgba(111, 142, 199, 0.08);
+  border-color: rgba(31, 77, 147, 0.20);
+  filter: saturate(1.03);
+}
+
+.social-pill-youtube {
+  --pill-accent: linear-gradient(90deg, #ff6f7a 0%, #cf202f 100%);
+}
+
+.social-pill-note {
+  --pill-accent: linear-gradient(90deg, #4b5568 0%, #11161f 100%);
+}
+
+.social-pill-x {
+  --pill-accent: linear-gradient(90deg, #52617c 0%, #1a2435 100%);
+}
+
+.social-pill-line,
+.profile-link-chip.line-chip,
+.footer-social a.line-chip {
+  border-color: rgba(17, 147, 69, 0.32);
+  background: linear-gradient(180deg, #29cf64 0%, #119345 100%);
+  color: #ffffff;
+  box-shadow:
+    0 16px 30px rgba(17, 147, 69, 0.22),
+    inset 0 1px 0 rgba(255,255,255,0.22),
+    inset 0 -8px 16px rgba(0,0,0,0.08);
+}
+
+.social-pill-line::before,
+.profile-link-chip.line-chip::before,
+.footer-social a.line-chip::before {
+  background: linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.03) 100%);
+}
+
+.social-pill-line::after,
+.profile-link-chip.line-chip::after,
+.footer-social a.line-chip::after {
+  left: 20px;
+  right: 20px;
+  bottom: 10px;
+  background: rgba(255,255,255,0.58);
+  box-shadow: none;
+}
+
+.social-pill-line > span {
+  color: #ffffff;
+}
+
+.social-pill-line:hover,
+.profile-link-chip.line-chip:hover,
+.footer-social a.line-chip:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 20px 36px rgba(17, 147, 69, 0.26),
+    inset 0 1px 0 rgba(255,255,255,0.24),
+    inset 0 -10px 18px rgba(0,0,0,0.10);
+  filter: saturate(1.02);
+}
+
+.social-pill .social-mark,
+.profile-link-chip .social-mark,
+.footer-social a .social-mark {
+  display: none !important;
+}
+
+@media (max-width: 767px) {
+  .profile-links,
+  .footer-social {
+    grid-template-columns: repeat(2, minmax(84px, 1fr));
+    width: 100%;
+    max-width: 240px;
+  }
+
+  .profile-link-chip,
+  .footer-social a,
+  .social-pill {
+    min-height: 56px;
+    border-radius: 18px;
+  }
+
+  .social-pill::before {
+    border-radius: 17px;
+  }
+
+  .social-pill > span {
+    font-size: 0.9rem;
+  }
+}
