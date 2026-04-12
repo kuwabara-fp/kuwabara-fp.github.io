@@ -1740,3 +1740,94 @@ img {
     background: linear-gradient(135deg, #4b3ec8 0%, #332a9f 100%);
   }
 }
+
+
+/* --- v22 uploaded social logos --- */
+.social-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.social-logo img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.youtube-logo {
+  width: 56px;
+}
+
+.note-logo,
+.line-logo {
+  width: 26px;
+  height: 26px;
+}
+
+.note-logo img,
+.line-logo img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.youtube-logo img {
+  width: 56px;
+  height: auto;
+  object-fit: contain;
+}
+
+.btn-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.line-logo-inline {
+  width: 22px;
+  height: 22px;
+}
+
+.line-logo-inline img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .youtube-logo {
+    width: 48px;
+  }
+
+  .youtube-logo img {
+    width: 48px;
+  }
+
+  .note-logo,
+  .line-logo {
+    width: 24px;
+    height: 24px;
+  }
+
+  .note-logo img,
+  .line-logo img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .line-logo-inline {
+    width: 20px;
+    height: 20px;
+  }
+
+  .line-logo-inline img {
+    width: 20px;
+    height: 20px;
+  }
+}
