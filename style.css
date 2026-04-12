@@ -1423,3 +1423,61 @@ img {
     font-size: 0.9rem;
   }
 }
+
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 4px;
+}
+
+.profile-link-chip,
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f4f8ff 0%, #ffffff 100%);
+  border: 1px solid rgba(45, 99, 183, 0.18);
+  color: var(--primary-dark);
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.profile-link-chip:hover,
+.footer-social a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(22, 44, 86, 0.12);
+  border-color: rgba(45, 99, 183, 0.34);
+}
+
+.footer-left {
+  display: grid;
+  gap: 10px;
+}
+
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 767px) {
+  .profile-links {
+    gap: 8px;
+  }
+
+  .profile-link-chip,
+  .footer-social a {
+    min-height: 40px;
+    padding: 0 14px;
+    font-size: 0.95rem;
+  }
+
+  .footer-left {
+    width: 100%;
+  }
+}
