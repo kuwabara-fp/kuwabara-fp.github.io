@@ -357,37 +357,35 @@
 <div class="container">
 <p class="section-label reveal">BOOKING</p>
 <h2 class="reveal">空き時間を見て、そのまま予約できます</h2>
-<p class="section-intro reveal">Googleカレンダーの予約ページを、このホームページ上に直接表示するための準備版です。埋め込みコードを取得したら、この枠の中にそのまま入れるだけで使える形にしています。</p>
+<p class="section-intro reveal">Googleカレンダーをこのホームページ上に直接表示しています。空き時間を見ながら、そのまま日程調整しやすい形にしています。</p>
 <div class="booking-card reveal">
   <div class="booking-card-head">
     <div>
-      <p class="booking-mini">初心者向け / 準備版</p>
+      <p class="booking-mini">初心者向け / 設定済み</p>
       <h3>Googleカレンダー予約エリア</h3>
     </div>
-    <span class="booking-state">埋め込み前</span>
+    <span class="booking-state booking-state-live">表示中</span>
   </div>
-  <div class="booking-steps">
-    <div class="booking-step"><span>1</span><p>Googleカレンダーで「予約スケジュール」を作成</p></div>
-    <div class="booking-step"><span>2</span><p>「ウェブサイトに埋め込む」からコードをコピー</p></div>
-    <div class="booking-step"><span>3</span><p>下の枠をそのコードに差し替える</p></div>
-  </div>
+  <div class="booking-steps booking-steps-simple">
+<div class="booking-step"><span>✓</span><p>このままアップロードすれば、ホームページ上でGoogleカレンダーを表示できます</p></div>
+</div>
 
   <!-- GOOGLE_CALENDAR_EMBED_START -->
-  <div class="calendar-embed-placeholder">
-    <div class="calendar-placeholder-inner">
-      <p class="calendar-placeholder-label">ここに Google カレンダー予約ページが表示されます</p>
-      <h4>空き時間が一目で分かる形にできます</h4>
-      <p>現在は準備段階のため、埋め込み前の案内を表示しています。予約スケジュールの埋め込みコードを取得できたら、この枠を差し替えるだけで、訪問者がホームページ上でそのまま空き時間を確認できるようになります。</p>
-      <ul>
-        <li>ホームページ上で空き時間をそのまま表示</li>
-        <li>日程を選んで、その場で予約へ進める導線</li>
-        <li>別ページへ飛ばず、離脱を減らしやすい構成</li>
-      </ul>
-    </div>
-  </div>
+<div class="calendar-embed-shell">
+  <iframe
+    src="https://calendar.google.com/calendar/embed?src=1e240k%40gmail.com&ctz=Asia%2FTokyo"
+    title="Googleカレンダー"
+    style="border: 0"
+    width="800"
+    height="600"
+    frameborder="0"
+    scrolling="no"
+    loading="lazy">
+  </iframe>
+</div>
   <!-- GOOGLE_CALENDAR_EMBED_END -->
 
-  <p class="booking-help">この準備版は、そのままアップロードして使えます。後から予約枠だけ差し替える前提の構成です。</p>
+  <p class="booking-help">このままアップロードすれば表示されます。カレンダーの見え方は Google カレンダー側の公開設定に応じて変わります。</p>
 </div>
 </div>
 </section>
