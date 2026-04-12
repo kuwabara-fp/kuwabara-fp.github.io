@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>教育費準備度チェック | くわばらＦＰオフィス</title>
+  <meta name="description" content="6つの質問に答えるだけで、教育費への備えをざっくり確認できる無料チェックページです。"/>
+  <link href="./style.css" rel="stylesheet"/>
+  <link href="./mini-tools.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a class="brand" href="../index.html">くわばらＦＰオフィス</a>
+    <button aria-controls="global-nav" aria-expanded="false" class="menu-toggle" type="button">メニュー</button>
+    <nav aria-label="グローバルナビゲーション" class="global-nav" id="global-nav">
+      <a href="../index.html#reasons">選ばれる理由</a>
+      <a href="../index.html#services">相談内容</a>
+      <a href="../index.html#fees">料金</a>
+      <a href="../index.html#contact">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero-simple">
+    <div class="container">
+      <div class="page-breadcrumb"><a href="../index.html">ホーム</a><span>›</span><span>教育費準備度チェック</span></div>
+      <h1 class="page-title">3分でわかる<br>教育費準備度チェック</h1>
+      <p class="page-lead">6つの質問に答えるだけで、今の備えの状態をざっくり確認できます。結果に応じて、次にやることも表示されます。</p>
+    </div>
+  </section>
+
+  <section class="page-shell">
+    <div class="container page-grid">
+      <div class="page-panel">
+        <form class="tool-form" id="education-check-form">
+          <div class="question-card reveal">
+            <h2 class="question-title">Q1. 毎月の教育費積立をしていますか？</h2>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="q1" value="2"><div><strong>している</strong><span>毎月の積立額が決まっている状態です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q1" value="1"><div><strong>ときどきしている</strong><span>積立はあるものの、金額や頻度が安定していません。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q1" value="0"><div><strong>していない</strong><span>まだ教育費専用の準備は始めていません。</span></div></label>
+            </div>
+          </div>
+
+          <div class="question-card reveal">
+            <h2 class="question-title">Q2. 高校・大学で必要になりそうなお金を把握していますか？</h2>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="q2" value="2"><div><strong>はい</strong><span>ざっくりでも必要額の見通しがあります。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q2" value="1"><div><strong>なんとなく</strong><span>学費がかかることは分かるが、具体額は未整理です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q2" value="0"><div><strong>いいえ</strong><span>まだ必要額を確認していません。</span></div></label>
+            </div>
+          </div>
+
+          <div class="question-card reveal">
+            <h2 class="question-title">Q3. 児童手当やボーナスの使い道を決めていますか？</h2>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="q3" value="2"><div><strong>決めている</strong><span>教育費に回す割合や目的が決まっています。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q3" value="1"><div><strong>一部だけ決めている</strong><span>一部は教育費に充てるが、まだ流動的です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q3" value="0"><div><strong>決めていない</strong><span>使い道が毎回変わっています。</span></div></label>
+            </div>
+          </div>
+
+          <div class="question-card reveal">
+            <h2 class="question-title">Q4. 家計の中で、教育費を優先して確保できそうですか？</h2>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="q4" value="2"><div><strong>できそう</strong><span>他の支出とのバランスを見ながら確保できています。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q4" value="1"><div><strong>工夫すればできそう</strong><span>固定費や使い方を見直せば余地がありそうです。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q4" value="0"><div><strong>難しそう</strong><span>今の家計では余裕がほとんどありません。</span></div></label>
+            </div>
+          </div>
+
+          <div class="question-card reveal">
+            <h2 class="question-title">Q5. 教育費以外の将来資金とのバランスを考えていますか？</h2>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="q5" value="2"><div><strong>考えている</strong><span>住宅や老後資金も含めて見通しを持っています。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q5" value="1"><div><strong>少し考えている</strong><span>気になっているが、整理はまだ途中です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q5" value="0"><div><strong>考えていない</strong><span>教育費だけでも手一杯です。</span></div></label>
+            </div>
+          </div>
+
+          <div class="question-card reveal">
+            <h2 class="question-title">Q6. 家族で教育方針やお金の話を共有できていますか？</h2>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="q6" value="2"><div><strong>できている</strong><span>方向性や価値観を話し合えています。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q6" value="1"><div><strong>少しできている</strong><span>断片的には話している状態です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q6" value="0"><div><strong>まだできていない</strong><span>具体的な話し合いはこれからです。</span></div></label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="button primary" type="submit">結果を見る</button>
+            <button class="button secondary" id="reset-check" type="button">やり直す</button>
+          </div>
+          <p class="form-note">※このチェックは一般的な整理の目安です。個別事情に応じた具体的な判断は、面談で一緒に確認します。</p>
+        </form>
+
+        <section aria-live="polite" class="result-card result-hidden" id="result-card">
+          <p class="result-label">CHECK RESULT</p>
+          <h2 class="result-title" id="result-title"></h2>
+          <p class="result-copy" id="result-copy"></p>
+          <p class="result-subcopy" id="result-score"></p>
+          <ol class="result-next" id="result-next"></ol>
+          <div class="result-actions">
+            <a class="button line" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank">LINEで相談する</a>
+            <a class="button secondary" href="../index.html#fees">料金を見る</a>
+          </div>
+        </section>
+      </div>
+
+      <aside class="page-side">
+        <div class="page-panel">
+          <h2 class="side-card-title">このページで分かること</h2>
+          <ul class="side-list">
+            <li>教育費の準備がどの程度できているか</li>
+            <li>今の家計で優先的に整理したいこと</li>
+            <li>次に着手しやすい行動のヒント</li>
+          </ul>
+        </div>
+        <div class="notice-box">
+          結果が低くても問題ありません。大事なのは、今の状態を把握して、次の一歩を決めることです。
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <p>© 2026 くわばらＦＰオフィス</p>
+    </div>
+  </div>
+</footer>
+
+<script src="./script.js"></script>
+<script src="./education-check.js"></script>
+</body>
+</html>

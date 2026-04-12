@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>面談後アクションプラン | くわばらＦＰオフィス</title>
+  <meta name="description" content="面談で整理した内容を、スマホで保存・確認・印刷できるアクションプランです。"/>
+  <link href="./style.css" rel="stylesheet"/>
+  <link href="./mini-tools.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a class="brand" href="../index.html">くわばらＦＰオフィス</a>
+    <button aria-controls="global-nav" aria-expanded="false" class="menu-toggle" type="button">メニュー</button>
+    <nav aria-label="グローバルナビゲーション" class="global-nav" id="global-nav">
+      <a href="../index.html#services">相談内容</a>
+      <a href="../index.html#fees">料金</a>
+      <a href="../index.html#flow">流れ</a>
+      <a href="../index.html#contact">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero-simple">
+    <div class="container">
+      <div class="page-breadcrumb"><a href="../index.html">ホーム</a><span>›</span><span>面談後アクションプラン</span></div>
+      <h1 class="page-title">面談後アクションプラン</h1>
+      <p class="page-lead">面談で整理した内容を、そのままスマホで持ち帰れるシートです。ブラウザ内保存と印刷に対応しています。</p>
+    </div>
+  </section>
+
+  <section class="page-shell">
+    <div class="container page-grid">
+      <div class="page-panel">
+        <form class="sheet-grid" id="action-plan-form">
+          <div class="sheet-meta">
+            <span>保存方法：この端末のブラウザ内に保存</span>
+            <span id="save-status">未保存</span>
+          </div>
+
+          <div class="field-group">
+            <label for="today-summary">今日の整理ポイント</label>
+            <textarea id="today-summary" name="todaySummary" placeholder="例：教育費の備えは方向性が見えてきたが、固定費の見直し余地がある"></textarea>
+          </div>
+
+          <div class="priority-grid">
+            <div class="field-group">
+              <label for="priority-1">優先順位1</label>
+              <input id="priority-1" name="priority1" type="text" placeholder="例：通信費の確認"/>
+            </div>
+            <div class="field-group">
+              <label for="priority-2">優先順位2</label>
+              <input id="priority-2" name="priority2" type="text" placeholder="例：保険証券の棚卸し"/>
+            </div>
+            <div class="field-group">
+              <label for="priority-3">優先順位3</label>
+              <input id="priority-3" name="priority3" type="text" placeholder="例：教育費積立額の決定"/>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>今月やること</label>
+            <div class="task-grid">
+              <label class="task-row"><input name="task1done" type="checkbox"/><input name="task1text" type="text" placeholder="例：家計簿アプリの固定費を見直す"/></label>
+              <label class="task-row"><input name="task2done" type="checkbox"/><input name="task2text" type="text" placeholder="例：保険証券を1か所に集める"/></label>
+              <label class="task-row"><input name="task3done" type="checkbox"/><input name="task3text" type="text" placeholder="例：教育費に回す金額を決める"/></label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="within-3months">3か月以内にやること</label>
+            <textarea id="within-3months" name="within3months" placeholder="例：教育費の必要額をざっくり試算し、家族で共有する"></textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="next-meeting-note">次回までのメモ</label>
+            <textarea id="next-meeting-note" name="nextMeetingNote" placeholder="例：通信費と保険の見直し後、毎月の改善額を確認する"></textarea>
+          </div>
+
+          <div class="sheet-actions">
+            <button class="button primary" id="save-plan" type="button">この内容を保存</button>
+            <button class="button secondary" id="print-plan" type="button">印刷する</button>
+            <button class="button secondary" id="clear-plan" type="button">内容を消す</button>
+          </div>
+          <p class="print-note">※印刷を押すと、入力内容をA4で保存・印刷しやすい表示になります。</p>
+        </form>
+      </div>
+
+      <aside class="page-side">
+        <div class="page-panel">
+          <h2 class="side-card-title">このシートの使い方</h2>
+          <ul class="side-list">
+            <li>面談後すぐに、整理ポイントと優先順位を入力する</li>
+            <li>今月やることを3つまでに絞る</li>
+            <li>完了した項目にチェックを付ける</li>
+            <li>必要なら印刷して家族と共有する</li>
+          </ul>
+        </div>
+
+        <div class="status-box">
+          <strong id="progress-label">進捗：0 / 3 完了</strong>
+          <p>今月やることの進み具合がここに表示されます。</p>
+        </div>
+
+        <div class="notice-box">
+          このページは一般的な整理ツールです。個別の状況に応じた具体的な判断や優先順位の調整は、面談で一緒に確認します。
+        </div>
+
+        <a class="button line" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank">LINEで相談する</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <p>© 2026 くわばらＦＰオフィス</p>
+    </div>
+  </div>
+</footer>
+
+<script src="./script.js"></script>
+<script src="./action-plan.js"></script>
+</body>
+</html>

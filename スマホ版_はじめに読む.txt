@@ -1,0 +1,24 @@
+スマホ向け・フォルダを作らない版です。
+
+アップロードするファイルは、次の10個です。
+- index.html
+- style.css
+- script.js
+- mini-tools.css
+- hero-bg-clean.jpg
+- profile-photo.jpg
+- education-check.html
+- education-check.js
+- action-plan.html
+- action-plan.js
+
+重要:
+- ZIPのままアップロードしないでください。必ず解凍してください。
+- すべてリポジトリの一番上（root）に置いてください。
+- フォルダは1つも作らなくて大丈夫です。
+- 既存の index.html / style.css / script.js / 画像は上書きしてください。
+
+確認URL:
+- トップページ: https://kuwabara-fp.github.io/
+- 診断ページ: https://kuwabara-fp.github.io/education-check.html
+- 整理シート: https://kuwabara-fp.github.io/action-plan.html
