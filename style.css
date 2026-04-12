@@ -1314,3 +1314,112 @@ img {
     padding: 0 10px;
   }
 }
+
+
+.contact-grid {
+  align-items: stretch;
+}
+
+.contact-visual {
+  display: flex;
+}
+
+.contact-offer-card {
+  width: 100%;
+  padding: 28px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f7ff 100%);
+  border: 1px solid rgba(45,99,183,0.10);
+  box-shadow: 0 22px 44px rgba(20, 44, 92, 0.12);
+}
+
+.contact-offer-label {
+  margin: 0 0 18px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--primary-dark);
+}
+
+.contact-offer-items {
+  display: grid;
+  gap: 14px;
+}
+
+.contact-offer-item {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  padding: 16px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid rgba(45,99,183,0.08);
+}
+
+.contact-offer-no {
+  display: inline-grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #2d63b7 0%, #7aa6ff 100%);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  box-shadow: 0 12px 28px rgba(45,99,183,0.18);
+}
+
+.contact-offer-item strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--primary-dark);
+  font-size: 1rem;
+}
+
+.contact-offer-item p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.75;
+  font-size: 0.95rem;
+}
+
+.contact-offer-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.contact-offer-footer span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(45,99,183,0.08);
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 0.86rem;
+}
+
+@media (max-width: 767px) {
+  .contact-offer-card {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .contact-offer-item {
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 12px;
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .contact-offer-no {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    font-size: 0.9rem;
+  }
+}
