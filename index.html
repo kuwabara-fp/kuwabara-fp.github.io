@@ -27,6 +27,9 @@
 <meta name="theme-color" content="#1f4d93"/>
 <link href="style.css" rel="stylesheet"/>
 <link href="mini-tools.css" rel="stylesheet"/>
+<link rel="icon" href="./favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png"/>
+<link rel="apple-touch-icon" href="./apple-touch-icon.png"/>
 </head>
 <body>
 <header class="site-header" id="top">
@@ -34,15 +37,14 @@
 <a class="brand" href="#top">くわばらＦＰオフィス</a>
 <button aria-controls="global-nav" aria-expanded="false" class="menu-toggle" type="button">メニュー</button>
 <nav aria-label="グローバルナビゲーション" class="global-nav" id="global-nav">
-<a href="#reasons">相談の特徴</a>
-<a href="#profile">プロフィールと実績</a>
-<a href="#needs">こんなお悩み</a>
-<a href="#tools">相談前整理チェック</a>
-<a href="#services">相談できる内容</a>
+<a href="#reasons">相談のしやすさと特徴</a>
+<a href="#profile">プロフィールと経歴</a>
+<a href="#needs">こんなお悩みに</a>
+<a href="#precheck">相談前3分チェック</a>
+<a href="#services">相談できること</a>
 <a href="#fees">料金プラン</a>
 <a href="#flow">ご相談の流れ</a>
-<a href="#faq">FAQ</a>
-<a href="#contact">LINE・お問い合わせ</a>
+<a href="#contact">予約・お問い合わせ</a>
 </nav>
 </div>
 </header>
@@ -69,7 +71,7 @@
 </section>
 <section class="section section-soft" id="reasons">
 <div class="container">
-<p class="section-label reveal">FEATURE</p>
+<p class="section-label reveal">FEATURES</p>
 <h2 class="reveal">相談しやすいと感じてもらうために、
           最初に伝えていること</h2>
 <p class="section-intro reveal">はじめてFP相談を受ける方が不安になりやすい点を、先に明確にしています。営業色を抑え、オンラインでも安心して相談できる設計にしています。</p>
@@ -185,42 +187,6 @@
 </div>
 </div>
 </section>
-<section class="section tools-home-section" id="tools">
-<div class="container">
-<p class="section-label reveal">TOOLS</p>
-<h2 class="reveal">相談前に使えるチェックツール</h2>
-<p class="section-intro reveal">相談前の不安整理に使えるページです。どちらもスマホで完結し、LINEにつながる導線を置いています。</p>
-<div class="cards tools-home-grid">
-<article class="card tool-home-card reveal stagger-1 lift-on-hover">
-<div class="tool-home-head">
-<span class="tool-chip">まずはこちら</span>
-<h3>教育費準備度チェック</h3>
-</div>
-<p>6つの質問に答えるだけで、教育費への備えをざっくり確認できます。結果に応じて、次にやることも表示されます。</p>
-<ul class="tool-home-points">
-<li>3分で回答</li>
-<li>個人情報の入力不要</li>
-<li>LINE相談へつながる</li>
-</ul>
-<a class="button primary" href="./education-check.html">診断をはじめる</a>
-</article>
-<article class="card tool-home-card reveal stagger-2 lift-on-hover">
-<div class="tool-home-head">
-<span class="tool-chip tool-chip-soft">相談前の整理に</span>
-<h3>相談前整理チェック</h3>
-</div>
-<p>今の悩みがどこから手をつけるとよいかを、相談前に整理できます。予約前の迷いを減らしたい方に向けたチェックです。</p>
-<ul class="tool-home-points">
-<li>相談テーマの整理</li>
-<li>優先順位を確認</li>
-<li>LINE相談に進みやすい</li>
-</ul>
-<a class="button primary" href="./action-plan.html">チェックをはじめる</a>
-</article>
-</div>
-<p class="tools-home-note reveal">これらのページは一般的な整理の目安です。個別事情に応じた具体的な判断は、面談で一緒に確認します。</p>
-</div>
-</section>
 <section class="section section-soft" id="services">
 <div class="container">
 <p class="section-label reveal">SERVICE</p>
@@ -320,10 +286,10 @@
 <div class="container">
 <p class="section-label reveal">PRICE</p>
 <h2 class="reveal">料金プラン</h2>
-<p class="section-intro reveal">最初の一歩は無料相談から。内容を深めたい方ほど、家計見直しやライフプラン設計へ進める構成にしています。</p>
+<p class="section-intro reveal">無料で相談の入口をつくり、15,000円で家計の整理を深め、20,000円で将来設計まで見える化します。迷ったら、まずは15,000円プランがおすすめです。</p>
 <div class="pricing-cards pricing-cards-three">
 <article class="pricing-card reveal stagger-1 lift-on-hover">
-<p class="plan-badge">入口プラン</p>
+<p class="plan-badge">入口</p>
 <h3>初回相談プラン</h3>
 <p class="plan-time">60分 / オンライン対応</p>
 <p class="plan-price">0円（無料）</p>
@@ -338,11 +304,11 @@
 </ul>
 </div>
 <div class="plan-actions">
-<a class="button line lift-on-hover" href="https://app.spirinc.com/t/i51z4D0myb7D1Fd-R63M6/as/he_EM0oRj1WhJec_xsWiC/confirm" rel="noopener noreferrer" target="_blank"><span>初回無料相談を予約する</span></a>
+<a class="button reserve lift-on-hover" href="https://app.spirinc.com/t/i51z4D0myb7D1Fd-R63M6/as/he_EM0oRj1WhJec_xsWiC/confirm" rel="noopener noreferrer" target="_blank"><span>初回無料相談を予約する</span></a>
 </div>
 </article>
 <article class="pricing-card featured reveal stagger-2 lift-on-hover">
-<p class="plan-badge">おすすめ</p>
+<p class="plan-badge">いちばんおすすめ</p>
 <h3>家計見直しプラン</h3>
 <p class="plan-time">90分 + 面談後フィードバック</p>
 <p class="plan-price">15,000円</p>
@@ -354,7 +320,7 @@
 <li>家計の現状整理シート</li>
 <li>見直し候補の整理</li>
 <li>改善優先順位つきアクション案</li>
-<li>面談後の確認ポイント</li>
+<li>30日で取り組むこと</li>
 </ul>
 </div>
 <div class="plan-actions">
@@ -362,7 +328,7 @@
 </div>
 </article>
 <article class="pricing-card reveal stagger-3 lift-on-hover">
-<p class="plan-badge plan-badge-soft">じっくり設計</p>
+<p class="plan-badge plan-badge-soft">しっかり設計</p>
 <h3>ライフプラン設計プラン</h3>
 <p class="plan-time">120分 + シミュレーション作成</p>
 <p class="plan-price">20,000円</p>
@@ -374,7 +340,7 @@
 <li>簡易ライフプラン表</li>
 <li>教育費・住宅・老後資金の見通し</li>
 <li>積立目安と改善案</li>
-<li>中長期のアクション整理</li>
+<li>中長期の判断ポイント</li>
 </ul>
 </div>
 <div class="plan-actions">
@@ -397,19 +363,23 @@
 </div>
 </div>
 </section>
-<section class="section trust-section">
-<div class="container trust-box reveal">
-<div class="trust-copy">
-<p class="section-label">CONFIDENTIALITY</p>
-<h2>家計や将来の話は、
-            安心して話せることが前提です。</h2>
-<p>相談内容には、収入、貯蓄、保険、家族の事情など、外に出したくない情報が多く含まれます。だからこそ、秘密保持を大切にし、話しやすい雰囲気と整理された進行を心がけています。</p>
+<section class="section section-soft precheck-section" id="precheck">
+<div class="container">
+<p class="section-label reveal">CHECK</p>
+<h2 class="reveal">相談の前に、3分だけ整理しておくと進めやすいです</h2>
+<div class="precheck-card reveal">
+<div class="precheck-copy">
+<p>まだ悩みがまとまっていなくても大丈夫です。教育費、家計、住宅、老後のうち、今いちばん気になるものを先に整理できます。</p>
+<ul class="precheck-list">
+<li>個人情報の入力は少なめ</li>
+<li>3分で答えやすい</li>
+<li>結果を見てLINE相談へ進める</li>
+</ul>
 </div>
-<div class="trust-points">
-<div class="trust-point"><strong>オンライン対応</strong><span>自宅から相談可能</span></div>
-<div class="trust-point"><strong>初回無料</strong><span>まずは悩みを整理</span></div>
-<div class="trust-point"><strong>中立的</strong><span>押しつけではなく整理</span></div>
-<div class="trust-point"><strong>秘密保持</strong><span>相談内容は丁寧に扱います</span></div>
+<div class="precheck-actions">
+<a class="button primary lift-on-hover" href="./education-check.html">3分チェックをはじめる</a>
+<p class="precheck-note">相談前に少し整理しておくと、初回相談がスムーズです。</p>
+</div>
 </div>
 </div>
 </section>
@@ -425,7 +395,7 @@
 <a class="button reserve lift-on-hover" href="https://app.spirinc.com/t/i51z4D0myb7D1Fd-R63M6/as/he_EM0oRj1WhJec_xsWiC/confirm" rel="noopener noreferrer" target="_blank"><span>Spirで予約する</span></a>
 <a class="button mail lift-on-hover" href="mailto:1e240k@gmail.com"><span>メールで問い合わせる</span></a>
 </div>
-<p class="spir-note" id="spir-note">※ 友だち追加後は、1. 悩みをひと言送る → 2. 日程調整 or 方向性のご案内 → 3. 相談へ進む、の流れです。</p>
+<p class="spir-note" id="spir-note">※ LINE後は、1. 悩みをひと言送る → 2. 日程調整 or 方向性のご案内 → 3. 相談へ進む、の流れです。</p>
 <ul class="contact-points">
 <li>初回相談無料</li>
 <li>無理な勧誘なし</li>
@@ -468,30 +438,7 @@
 </div>
 </div>
 </section>
-<section class="section" id="faq">
-<div class="container">
-<p class="section-label reveal">FAQ</p>
-<h2 class="reveal">よくある質問</h2>
-<div class="faq-list">
-<details class="reveal stagger-1">
-<summary>まだ相談内容がまとまっていません。大丈夫ですか？</summary>
-<p>大丈夫です。初回相談では、まず悩みを整理し、優先順位を一緒に確認します。</p>
-</details>
-<details class="reveal stagger-2">
-<summary>オンラインだけでも相談できますか？</summary>
-<p>はい。Zoomなどを利用したオンライン相談に対応しています。</p>
-</details>
-<details class="reveal stagger-3">
-<summary>保険や金融商品の勧誘はありますか？</summary>
-<p>無理な勧誘を前提とした相談は行いません。必要な情報整理を優先して進めます。</p>
-</details>
-<details class="reveal stagger-4">
-<summary>相談内容が外に漏れることはありませんか？</summary>
-<p>家計や将来計画などの相談内容は、外部に漏らさない前提で丁寧に取り扱います。</p>
-</details>
-</div>
-</div>
-</section>
+
 </main>
 <footer class="site-footer">
 <div class="container footer-inner">
@@ -509,8 +456,7 @@
 </footer>
 <div class="mobile-cta">
 <a class="icon-chip line-chip footer-line" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank"><span>LINE相談</span></a>
-<a class="reserve" href="https://app.spirinc.com/t/i51z4D0myb7D1Fd-R63M6/as/he_EM0oRj1WhJec_xsWiC/confirm" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-icon"><svg focusable="false" role="img" viewbox="0 0 24 24"><path d="M12 2.5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 12 2.5Zm0 1.8a7.7 7.7 0 0 1 6.87 4.22H5.13A7.7 7.7 0 0 1 12 4.3Zm0 15.4a7.7 7.7 0 0 1-6.87-4.22h13.74A7.7 7.7 0 0 1 12 19.7Zm-5.9-6a7.9 7.9 0 0 1 0-3.4h11.8a7.9 7.9 0 0 1 0 3.4Z"></path></svg></span><span>Spir予約</span></a>
-<a class="mail" href="mailto:1e240k@gmail.com"><span aria-hidden="true" class="btn-icon"><svg focusable="false" role="img" viewbox="0 0 24 24"><path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h14.5A1.75 1.75 0 0 1 21 6.75v10.5A1.75 1.75 0 0 1 19.25 19H4.75A1.75 1.75 0 0 1 3 17.25Zm1.75-.25a.25.25 0 0 0-.16.06L12 12.22l7.41-5.66a.25.25 0 0 0-.16-.06Zm14.75 1.58-5.83 4.45 5.83 4.08Zm-1.48 9.42-5.16-3.61-.41.31a.75.75 0 0 1-.9 0l-.41-.31-5.16 3.61Zm-12.52-.89 5.83-4.08L4.5 8.08Z"></path></svg></span><span>メール相談</span></a>
+<a class="reserve" href="https://app.spirinc.com/t/i51z4D0myb7D1Fd-R63M6/as/he_EM0oRj1WhJec_xsWiC/confirm" rel="noopener noreferrer" target="_blank"><span>Spir予約</span></a>
 </div>
 <script src="script.js"></script>
 </body>
