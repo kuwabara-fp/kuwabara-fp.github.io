@@ -1,74 +1,84 @@
-const form = document.getElementById('precheck-form');
-const resetButton = document.getElementById('reset-precheck');
+const form = document.getElementById('consult-precheck-form');
 const resultCard = document.getElementById('result-card');
 const resultTitle = document.getElementById('result-title');
 const resultCopy = document.getElementById('result-copy');
+const resultScore = document.getElementById('result-score');
 const resultNext = document.getElementById('result-next');
+const resetButton = document.getElementById('reset-check');
 
-const getValue = (name) => {
+const patterns = [
+  {
+    min: 10,
+    title: '相談に進みやすい状態です',
+    copy: '悩みのテーマや優先順位がかなり見えています。LINEでひと言送れば、そのまま相談を進めやすい段階です。',
+    scoreLabel: '相談準備度：かなり高い',
+    next: [
+      'LINEで相談したいテーマをひと言送る',
+      '気になっている時期や期限をあわせて伝える',
+      '必要ならSpirで日程を選ぶ'
+    ]
+  },
+  {
+    min: 6,
+    title: '少し整理すると、もっと相談しやすくなります',
+    copy: '相談したいことは見えていますが、家計や家族の話を少し整えると、よりスムーズに進めやすくなります。',
+    scoreLabel: '相談準備度：途中まで整っている',
+    next: [
+      '気になるテーマを1つに絞る',
+      '家計や貯蓄のざっくり感を確認する',
+      'LINEで「気になっていること」を一文送る'
+    ]
+  },
+  {
+    min: 0,
+    title: 'まずは整理から始めるのがおすすめです',
+    copy: 'まだ悩みがまとまっていなくても大丈夫です。相談前に整理ツールを使うと、LINEで送る一言が作りやすくなります。',
+    scoreLabel: '相談準備度：これから整える段階',
+    next: [
+      '教育費準備度チェックも試してみる',
+      '気になっていることを箇条書きにする',
+      'LINEで「相談したい」とだけ送る'
+    ]
+  }
+];
+
+const getCheckedValue = (name) => {
   const checked = form.querySelector(`input[name="${name}"]:checked`);
   return checked ? Number(checked.value) : null;
-};
-
-const renderResult = (title, copy, nextItems) => {
-  resultTitle.textContent = title;
-  resultCopy.textContent = copy;
-  resultNext.innerHTML = nextItems.map((item) => `<li>${item}</li>`).join('');
-  resultCard.classList.remove('result-hidden');
 };
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  const answers = ['q1', 'q2', 'q3', 'q4', 'q5'].map(getValue);
+  const answers = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].map(getCheckedValue);
   if (answers.some((value) => value === null)) {
     alert('すべての質問に回答してください。');
     return;
   }
 
   const total = answers.reduce((sum, value) => sum + value, 0);
+  const matched = patterns.find((pattern) => total >= pattern.min) || patterns[patterns.length - 1];
 
-  if (total >= 8) {
-    renderResult(
-      '相談の準備が進んでいるタイプです',
-      'テーマや資料の整理が進んでいるので、相談に入るとすぐに具体策を詰めやすい状態です。まずはLINEで一言送り、気になる点を3つほど伝えると、予約後のやり取りもスムーズです。',
-      [
-        '聞きたいことを3つに絞って送る',
-        '家計・保険・ローンの資料を手元に置く',
-        'LINEで日程と相談の方向性を送る'
-      ]
-    );
-    return;
-  }
-
-  if (total >= 5) {
-    renderResult(
-      '相談しながら整理すると進みやすいタイプです',
-      '気になっていることはあるものの、まだ少し整理途中かもしれません。無料相談で順番を整えると、次に何を確認すべきかが見えやすくなります。',
-      [
-        '悩みを1〜2個に絞ってみる',
-        '家計や保険の資料を1つだけでも確認する',
-        '無料相談で優先順位を一緒に整理する'
-      ]
-    );
-    return;
-  }
-
-  renderResult(
-    'まずは無料相談で整理から始めるタイプです',
-    'まだ相談内容がまとまっていなくても大丈夫です。LINEで一言送ってもらえれば、何を整理するとよいかを一緒に考えられます。',
-    [
-      '今いちばん気になることを一言で送る',
-      '資料がなくても、そのまま相談して大丈夫です',
-      'LINEで整理しながら、必要なら予約につなげる'
-    ]
-  );
+  resultTitle.textContent = matched.title;
+  resultCopy.textContent = matched.copy;
+  resultScore.textContent = `${matched.scoreLabel} / スコア ${total}点`;
+  resultNext.innerHTML = matched.next.map((item) => `<li>${item}</li>`).join('');
+  resultCard.classList.remove('result-hidden');
+  resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
 resetButton.addEventListener('click', () => {
   form.reset();
   resultCard.classList.add('result-hidden');
-  resultTitle.textContent = '';
+  resultTitle.textContent = '結果';
   resultCopy.textContent = '';
+  resultScore.textContent = '';
   resultNext.innerHTML = '';
 });
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    const first = document.querySelector('.question-card');
+    if (first) first.scrollIntoView({ behavior: 'instant', block: 'start' });
+  });
+}
