@@ -1,0 +1,15 @@
+
+/* ロゴボタンサイズ統一 */
+.social-buttons img{
+  width:20px;
+  height:20px;
+  object-fit:contain;
+}
+
+/* ボタン内テキストと揃える */
+.social-buttons a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:6px 8px;
+}
