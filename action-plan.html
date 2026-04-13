@@ -4,9 +4,13 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>相談前整理チェック | くわばらＦＰオフィス</title>
-  <meta name="description" content="相談前に3分で整理できるチェックページです。今の悩みを言葉にしやすくし、LINE相談につなげます。"/>
+  <meta name="description" content="相談前に3分でできる整理チェックです。今の悩みや準備状況を確認して、LINE相談につなげやすくします。"/>
   <link href="./style.css" rel="stylesheet"/>
   <link href="./mini-tools.css" rel="stylesheet"/>
+  <link rel="icon" href="./favicon.png" type="image/png"/>
+  <link rel="icon" href="./favicon.ico" sizes="any"/>
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png"/>
+  <link rel="manifest" href="./manifest.json"/>
 </head>
 <body>
 <header class="site-header" id="top">
@@ -14,12 +18,11 @@
     <a class="brand" href="./index.html">くわばらＦＰオフィス</a>
     <button aria-controls="global-nav" aria-expanded="false" class="menu-toggle" type="button">メニュー</button>
     <nav aria-label="グローバルナビゲーション" class="global-nav" id="global-nav">
-      <a href="./index.html#reasons">相談がしやすい理由</a>
-      <a href="./index.html#profile">プロフィール・経歴</a>
-      <a href="./index.html#needs">こんなお悩み</a>
-      <a href="./index.html#services">相談できる内容</a>
+      <a href="./index.html#reasons">相談の特徴</a>
+      <a href="./index.html#profile">プロフィール紹介</a>
+      <a href="./index.html#services">相談できるテーマ</a>
       <a href="./index.html#fees">料金プラン</a>
-      <a href="./index.html#contact">LINE・予約はこちら</a>
+      <a href="./index.html#contact">LINE・予約</a>
     </nav>
   </div>
 </header>
@@ -28,103 +31,94 @@
   <section class="page-hero-simple">
     <div class="container">
       <div class="page-breadcrumb"><a href="./index.html">ホーム</a><span>›</span><span>相談前整理チェック</span></div>
-      <h1 class="page-title">3分でわかる<br>相談前整理チェック</h1>
-      <p class="page-lead">まだ悩みがまとまっていなくても大丈夫です。質問に答えるだけで、LINEで何を伝えるとよいかが見えます。</p>
+      <h1 class="page-title">相談前整理チェック</h1>
+      <p class="page-lead">相談前に、今の悩みと準備状況を3分で整理できるチェックページです。回答後は、LINE相談で話しやすくなります。</p>
     </div>
   </section>
 
   <section class="page-shell">
     <div class="container page-grid">
       <div class="page-panel">
-        <form class="tool-form" id="consultation-prep-form">
+        <form class="tool-form" id="precheck-form">
           <div class="question-card reveal">
-            <h2 class="question-title">Q1. いま一番気になっているテーマは何ですか？</h2>
+            <h2 class="question-title">Q1. 相談したいテーマは、だいたい決まっていますか？</h2>
             <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="q1" value="2"><div><strong>1つに絞れている</strong><span>教育費、住宅、保険など、相談したいテーマが明確です。</span></div></label>
-              <label class="radio-option"><input type="radio" name="q1" value="1"><div><strong>いくつかある</strong><span>候補はあるが、優先順位を整理したい状態です。</span></div></label>
-              <label class="radio-option"><input type="radio" name="q1" value="0"><div><strong>まだ曖昧</strong><span>何から話せばよいか、これから整理したい状態です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q1" value="2"><div><strong>はい、かなり決まっている</strong><span>教育費・住宅・保険など、相談したい分野がはっきりしています。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q1" value="1"><div><strong>なんとなく決まっている</strong><span>気になる分野はあるが、優先順位はまだ迷っています。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q1" value="0"><div><strong>まだ決まっていない</strong><span>今の不安を言葉にするところから始めたい状態です。</span></div></label>
             </div>
           </div>
 
           <div class="question-card reveal">
-            <h2 class="question-title">Q2. 相談の希望時期はどれに近いですか？</h2>
+            <h2 class="question-title">Q2. 今の家計の数字は、ざっくり把握できていますか？</h2>
             <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="q2" value="2"><div><strong>できるだけ早く</strong><span>家計や進路の判断を早めに進めたい状態です。</span></div></label>
-              <label class="radio-option"><input type="radio" name="q2" value="1"><div><strong>今月中くらい</strong><span>近いうちに一度整理できれば十分です。</span></div></label>
-              <label class="radio-option"><input type="radio" name="q2" value="0"><div><strong>まだ未定</strong><span>時期は未定だが、準備は少し進めておきたい状態です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q2" value="2"><div><strong>把握できている</strong><span>収入・支出・貯蓄のイメージがあります。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q2" value="1"><div><strong>一部だけ分かる</strong><span>固定費や貯蓄は見えているが、全体はまだ曖昧です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q2" value="0"><div><strong>あまり分かっていない</strong><span>まずは家計の現状を整理したい状態です。</span></div></label>
             </div>
           </div>
 
           <div class="question-card reveal">
-            <h2 class="question-title">Q3. 手元にある資料はありますか？</h2>
+            <h2 class="question-title">Q3. 相談で一番知りたいことは何ですか？</h2>
             <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="q3" value="2"><div><strong>ある程度そろっている</strong><span>家計表、保険証券、住宅ローン情報などが確認できます。</span></div></label>
-              <label class="radio-option"><input type="radio" name="q3" value="1"><div><strong>少しある</strong><span>一部だけ準備できていて、これから集める段階です。</span></div></label>
-              <label class="radio-option"><input type="radio" name="q3" value="0"><div><strong>まだない</strong><span>資料はなくても大丈夫です。まずは口頭で整理できます。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q3" value="2"><div><strong>何から始めればいいか</strong><span>最初の一歩をはっきりさせたいです。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q3" value="1"><div><strong>今のままでよいか</strong><span>現状の方向性を第三者の視点で確認したいです。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q3" value="0"><div><strong>まだ考えを整理したい</strong><span>質問したいことをまとめるところから始めたいです。</span></div></label>
             </div>
           </div>
 
           <div class="question-card reveal">
-            <h2 class="question-title">Q4. 相談で一番知りたいことはどれですか？</h2>
+            <h2 class="question-title">Q4. ご家族とお金の話は、どのくらい共有できていますか？</h2>
             <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="q4" value="2"><div><strong>優先順位</strong><span>何から手を付けるかを知りたいです。</span></div></label>
-              <label class="radio-option"><input type="radio" name="q4" value="1"><div><strong>見直しの方向性</strong><span>どこを整えるべきかを知りたいです。</span></div></label>
-              <label class="radio-option"><input type="radio" name="q4" value="0"><div><strong>まずは相談の入口</strong><span>何を話せばよいかを一緒に整理したいです。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q4" value="2"><div><strong>かなり共有できている</strong><span>夫婦・家族で話し合う土台があります。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q4" value="1"><div><strong>少し共有している</strong><span>一部は話せるが、まとまった時間はまだ少ないです。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q4" value="0"><div><strong>あまり共有できていない</strong><span>まずは自分の考えを整理したい段階です。</span></div></label>
             </div>
           </div>
 
           <div class="question-card reveal">
-            <h2 class="question-title">Q5. LINEで一言送る準備はできそうですか？</h2>
+            <h2 class="question-title">Q5. 相談の準備は、どのくらいできていますか？</h2>
             <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="q5" value="2"><div><strong>できる</strong><span>悩みの一言は送れそうです。</span></div></label>
-              <label class="radio-option"><input type="radio" name="q5" value="1"><div><strong>簡単ならできる</strong><span>短い文章なら送れそうです。</span></div></label>
-              <label class="radio-option"><input type="radio" name="q5" value="0"><div><strong>まだ不安</strong><span>まずはこのチェックで整理してから進めたいです。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q5" value="2"><div><strong>メモや資料がある</strong><span>数字や資料を少し持って相談できます。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q5" value="1"><div><strong>少しだけある</strong><span>必要なものをこれから集める段階です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q5" value="0"><div><strong>まだ何もない</strong><span>まずは相談の入り口を作りたい状態です。</span></div></label>
             </div>
           </div>
 
           <div class="form-actions">
-            <button class="button line" id="prep-submit" type="submit">相談準備度をみる</button>
-            <a class="button ghost" href="./index.html#contact">LINE相談に進む</a>
+            <button class="button primary" type="submit">チェックする</button>
+            <button class="button ghost" id="reset-check" type="button">やり直す</button>
           </div>
-          <p class="form-note">準備が少なくても大丈夫です。結果を見ながら、何をLINEで送るかを整えられます。</p>
-        </form>
+          <p class="form-note">すべて答えなくても大丈夫、とはせず、いったん5問で整理する形にしています。</p>
 
-        <section class="result-card result-hidden" id="prep-result" aria-live="polite">
-          <p class="result-label">CHECK RESULT</p>
-          <h2 class="result-title" id="prep-title"></h2>
-          <p class="result-copy" id="prep-copy"></p>
-          <ul class="result-next" id="prep-next"></ul>
-          <div class="result-actions">
-            <a class="button line" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank">LINEで相談する</a>
-            <a class="button primary" href="./index.html#fees">料金を見る</a>
+          <div class="result-card result-hidden" id="result-card">
+            <p class="result-label">CHECK RESULT</p>
+            <h2 class="result-title" id="result-title"></h2>
+            <p class="result-copy" id="result-copy"></p>
+            <p class="result-subcopy" id="result-score"></p>
+            <ul class="result-next" id="result-next"></ul>
+            <div class="result-actions">
+              <a class="button line lift-on-hover" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank">LINEで無料相談してみる</a>
+              <a class="button reserve lift-on-hover" href="https://app.spirinc.com/t/i51z4D0myb7D1Fd-R63M6/as/he_EM0oRj1WhJec_xsWiC/confirm" rel="noopener noreferrer" target="_blank">Spirで予約する</a>
+            </div>
           </div>
-        </section>
+        </form>
       </div>
 
       <aside class="page-side">
-        <div class="notice-box reveal stagger-1">
-          <p class="side-card-title">LINEで送るとよいもの</p>
+        <div class="page-panel">
+          <h2 class="side-card-title">相談前に見ておくと整理しやすいこと</h2>
           <ul class="side-list">
-            <li>今一番気になるテーマ</li>
-            <li>ざっくりした希望時期</li>
-            <li>資料の有無</li>
+            <li>今いちばん気になるテーマ</li>
+            <li>家計・保険・教育費のざっくり状況</li>
+            <li>家族にまだ伝えきれていない不安</li>
+            <li>相談で最終的に知りたいこと</li>
           </ul>
         </div>
-        <div class="notice-box reveal stagger-2">
-          <p class="side-card-title">このチェックの使い方</p>
-          <ul class="side-list">
-            <li>全部埋まっていなくても問題ありません。</li>
-            <li>わかる範囲だけ答えれば十分です。</li>
-            <li>結果を見て、そのままLINEへ進めます。</li>
-          </ul>
-        </div>
-        <div class="notice-box reveal stagger-3">
-          <p class="side-card-title">無料相談で整理しやすいこと</p>
-          <ul class="side-list">
-            <li>何から考えるかの優先順位</li>
-            <li>今の家計で確認すべき点</li>
-            <li>次に取る行動</li>
-          </ul>
+
+        <div class="notice-box">
+          <strong>まだ整理できていなくても大丈夫です。</strong>
+          <p>このチェックは、相談の入口を作るためのものです。結果を見ながら、LINEで一言送っていただければ、次の順番を一緒に考えられます。</p>
         </div>
       </aside>
     </div>
@@ -135,18 +129,10 @@
   <div class="container footer-inner">
     <div class="footer-left">
       <p>© 2026 くわばらＦＰオフィス</p>
-      <div aria-label="公式リンク" class="footer-social">
-        <a aria-label="LINE" class="social-pill social-pill-line line-chip" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank"><span>LINEで相談</span></a>
-        <a aria-label="YouTube" class="social-pill social-pill-youtube" href="https://youtube.com/@1e240k?si=uDjklptJoXEi2mPi" rel="noopener noreferrer" target="_blank"><span>YouTube</span></a>
-        <a aria-label="note" class="social-pill social-pill-note" href="https://note.com/fp_yosuke" rel="noopener noreferrer" target="_blank"><span>note</span></a>
-        <a aria-label="X" class="social-pill social-pill-x" href="https://x.com/fp_yosuke?s=21" rel="noopener noreferrer" target="_blank"><span>X</span></a>
-      </div>
     </div>
     <a href="./index.html">ホームに戻る</a>
   </div>
 </footer>
-
 <script src="./action-plan.js"></script>
-<script src="./script.js"></script>
 </body>
 </html>

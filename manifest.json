@@ -6,11 +6,13 @@
     "mini-tools.css",
     "favicon.png",
     "apple-touch-icon.png",
+    "favicon.ico",
     "hero-bg-clean.jpg",
     "profile-photo.jpg",
     "education-check.html",
     "education-check.js",
     "action-plan.html",
-    "action-plan.js"
+    "action-plan.js",
+    "manifest.json"
   ]
 }
