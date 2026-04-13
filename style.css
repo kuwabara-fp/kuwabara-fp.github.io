@@ -259,6 +259,40 @@ img {
   color: #fff;
 }
 
+
+.hero-side {
+  display: grid;
+  gap: 16px;
+}
+
+.hero-brand-card {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 18px 18px 16px;
+  background: rgba(255,255,255,0.96);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+
+.hero-brand-image {
+  width: min(100%, 240px);
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  border-radius: 24px;
+  filter: drop-shadow(0 16px 26px rgba(17, 34, 68, 0.12));
+}
+
+.hero-brand-name {
+  margin: 0;
+  color: var(--primary-dark);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  font-size: 0.98rem;
+  text-align: center;
+}
+
 .hero-point-box {
   background: rgba(255,255,255,0.96);
   color: var(--text);
@@ -1256,6 +1290,14 @@ img {
 
   .hero-point-box {
     padding: 18px;
+  }
+
+  .hero-brand-card {
+    padding: 14px;
+  }
+
+  .hero-brand-image {
+    width: min(100%, 200px);
   }
 
   .button {
@@ -2437,227 +2479,5 @@ img {
 
   .social-pill > span {
     font-size: 0.9rem;
-  }
-}
-
-
-/* --- v35: LINE-first and clearer pricing hierarchy --- */
-.button.line,
-.hero-buttons .button.line,
-.contact-buttons .button.line {
-  min-width: 280px;
-}
-
-.button.reserve,
-.hero-buttons .button.reserve,
-.contact-buttons .button.reserve {
-  min-width: 188px;
-}
-
-.button.mail,
-.hero-buttons .button.mail,
-.contact-buttons .button.mail {
-  min-width: 164px;
-}
-
-.services-cta {
-  display: grid;
-  justify-items: center;
-  gap: 10px;
-  margin-top: 24px;
-  padding: 22px 18px 0;
-  text-align: center;
-}
-
-.services-cta .services-spir {
-  min-width: 220px;
-}
-
-.services-cta p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.94rem;
-}
-
-.contact-flow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 14px 0 4px;
-}
-
-.contact-flow span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 32px;
-  padding: 0 12px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #f7fbff 0%, #eef4ff 100%);
-  border: 1px solid rgba(45,99,183,0.12);
-  color: var(--primary-dark);
-  font-size: 0.84rem;
-  font-weight: 800;
-}
-
-.pricing-card-basic {
-  background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
-}
-
-.pricing-card-mid {
-  background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%);
-  border: 2px solid rgba(45, 99, 183, 0.34);
-  box-shadow: 0 22px 48px rgba(28, 63, 122, 0.16);
-  transform: translateY(-4px);
-}
-
-.pricing-card-premium {
-  background: linear-gradient(180deg, #ffffff 0%, #f6f8ff 100%);
-  border: 1px solid rgba(77,107,179,0.18);
-}
-
-.pricing-card-mid .plan-badge {
-  background: linear-gradient(135deg, rgba(45,99,183,0.14), rgba(120,165,241,0.14));
-}
-
-.pricing-card-premium .plan-badge {
-  background: rgba(77,107,179,0.1);
-}
-
-.plan-button {
-  display: flex;
-  margin-top: 18px;
-  min-width: 0;
-  width: 100%;
-  justify-content: center;
-}
-
-.plan-button.button.reserve,
-.plan-button.button.line {
-  min-width: 0;
-}
-
-.plan-button.button.reserve {
-  background: linear-gradient(135deg, #5f49d6 0%, #4330b4 100%);
-}
-
-.plan-button.button.reserve:hover {
-  background: linear-gradient(135deg, #523dc6 0%, #37289f 100%);
-}
-
-.social-pill,
-.profile-link-chip,
-.footer-social a {
-  min-height: 42px;
-  padding: 0 14px;
-  border-radius: 16px;
-}
-
-.social-pill:not(.social-pill-line),
-.profile-link-chip:not(.line-chip),
-.footer-social a:not(.line-chip) {
-  min-width: 88px;
-  color: var(--text);
-  background: linear-gradient(180deg, #fbfcff 0%, #f5f8fd 100%);
-  border-color: rgba(45,99,183,0.12);
-  box-shadow: 0 10px 20px rgba(22, 44, 86, 0.08);
-  font-size: 0.88rem;
-}
-
-.social-pill-line,
-.profile-link-chip.line-chip,
-.footer-social a.line-chip,
-.footer-line.line-chip,
-.button.line {
-  min-width: 132px;
-  min-height: 48px;
-  padding: 0 18px;
-  color: #fff;
-  background: linear-gradient(135deg, #22c55e 0%, #118d43 100%);
-  border-color: rgba(17,147,69,0.48);
-  box-shadow: 0 16px 30px rgba(17,147,69,0.2);
-  font-weight: 900;
-}
-
-.social-pill-line:hover,
-.profile-link-chip.line-chip:hover,
-.footer-social a.line-chip:hover,
-.footer-line.line-chip:hover,
-.button.line:hover {
-  background: linear-gradient(135deg, #1fb155 0%, #0e7d3a 100%);
-}
-
-.profile-links,
-.footer-social {
-  gap: 8px;
-}
-
-.mobile-cta a.line {
-  flex: 1.35;
-}
-
-.mobile-cta a.reserve {
-  flex: 0.95;
-}
-
-.mobile-cta a.mail {
-  flex: 0.75;
-}
-
-@media (max-width: 767px) {
-  .hero-buttons .button.line,
-  .contact-buttons .button.line {
-    min-width: 0;
-  }
-
-  .hero-buttons .button.reserve,
-  .contact-buttons .button.reserve,
-  .hero-buttons .button.mail,
-  .contact-buttons .button.mail {
-    min-width: 0;
-  }
-
-  .profile-links,
-  .footer-social {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .profile-link-chip,
-  .footer-social a {
-    width: calc(50% - 4px);
-    min-height: 40px;
-  }
-
-  .profile-link-chip.line-chip,
-  .footer-social a.line-chip {
-    width: 100%;
-  }
-
-  .social-pill:not(.social-pill-line),
-  .profile-link-chip:not(.line-chip),
-  .footer-social a:not(.line-chip) {
-    min-width: 0;
-  }
-
-  .contact-flow {
-    gap: 6px;
-  }
-
-  .contact-flow span {
-    font-size: 0.8rem;
-    min-height: 30px;
-  }
-
-  .services-cta {
-    padding-top: 18px;
-  }
-
-  .services-cta .services-spir {
-    width: 100%;
-    max-width: 260px;
-  }
-
-  .plan-button {
-    min-height: 50px;
   }
 }

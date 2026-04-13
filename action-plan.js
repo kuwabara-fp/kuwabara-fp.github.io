@@ -1,73 +1,92 @@
-const form = document.getElementById('precheck-form');
-const resultCard = document.getElementById('result-card');
-const resultTitle = document.getElementById('result-title');
-const resultCopy = document.getElementById('result-copy');
-const resultScore = document.getElementById('result-score');
-const resultNext = document.getElementById('result-next');
-const resetButton = document.getElementById('reset-check');
+const storageKey = 'kuwabara-fp-action-plan-v1';
+const form = document.getElementById('action-plan-form');
+const saveButton = document.getElementById('save-plan');
+const printButton = document.getElementById('print-plan');
+const clearButton = document.getElementById('clear-plan');
+const saveStatus = document.getElementById('save-status');
+const progressLabel = document.getElementById('progress-label');
 
-const patterns = [
-  {
-    min: 8,
-    title: '相談準備が進んでいるタイプです',
-    copy: '相談したいテーマと準備状況がかなり整っています。LINEで一言送っていただければ、次の一歩はかなりスムーズです。',
-    score: '目安：8〜10点',
-    next: [
-      '相談したいテーマを1つに絞って送る',
-      '家計や保険の資料があれば手元に置く',
-      '必要ならそのままSpirで日程を選ぶ'
-    ]
-  },
-  {
-    min: 4,
-    title: 'あと少しで整うタイプです',
-    copy: '悩みはある程度見えています。相談前に、気になることを1行だけ言葉にしておくと、面談が進めやすくなります。',
-    score: '目安：4〜7点',
-    next: [
-      '今いちばん気になることを1行で書く',
-      '家計の固定費だけざっくり確認する',
-      'LINEで送る内容を短くまとめる'
-    ]
-  },
-  {
-    min: 0,
-    title: 'まずは整理から始めるタイプです',
-    copy: 'まだ迷いが多い状態でも大丈夫です。相談の入口づくりから始めて、何を優先するかを一緒に見つけるのが合っています。',
-    score: '目安：0〜3点',
-    next: [
-      '今いちばん不安なことを1つだけ書く',
-      '家族に話しにくいことをメモにする',
-      'まずはLINEで状況を送ってみる'
-    ]
+const formElements = Array.from(form.querySelectorAll('textarea, input[type="text"], input[type="checkbox"]'));
+
+const updateTaskState = () => {
+  const taskRows = form.querySelectorAll('.task-row');
+  let done = 0;
+
+  taskRows.forEach((row) => {
+    const checkbox = row.querySelector('input[type="checkbox"]');
+    row.classList.toggle('is-complete', checkbox.checked);
+    if (checkbox.checked) done += 1;
+  });
+
+  progressLabel.textContent = `進捗：${done} / ${taskRows.length} 完了`;
+};
+
+const readFormData = () => {
+  const data = {};
+  formElements.forEach((el) => {
+    if (el.type === 'checkbox') {
+      data[el.name] = el.checked;
+    } else {
+      data[el.name] = el.value;
+    }
+  });
+  return data;
+};
+
+const writeFormData = (data) => {
+  formElements.forEach((el) => {
+    if (!(el.name in data)) return;
+    if (el.type === 'checkbox') {
+      el.checked = Boolean(data[el.name]);
+    } else {
+      el.value = data[el.name];
+    }
+  });
+  updateTaskState();
+};
+
+const saveData = () => {
+  const data = readFormData();
+  localStorage.setItem(storageKey, JSON.stringify(data));
+  const time = new Date();
+  saveStatus.textContent = `保存済み：${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}`;
+};
+
+const loadData = () => {
+  const saved = localStorage.getItem(storageKey);
+  if (!saved) {
+    updateTaskState();
+    return;
   }
-];
 
-const getValue = (name) => {
-  const checked = form.querySelector(`input[name="${name}"]:checked`);
-  return checked ? Number(checked.value) : 0;
+  try {
+    const data = JSON.parse(saved);
+    writeFormData(data);
+    saveStatus.textContent = '前回保存した内容を読み込みました';
+  } catch (error) {
+    saveStatus.textContent = '保存データを読み込めませんでした';
+  }
 };
 
-const renderResult = (total) => {
-  const matched = patterns.find((p) => total >= p.min) || patterns[patterns.length - 1];
-  resultTitle.textContent = matched.title;
-  resultCopy.textContent = matched.copy;
-  resultScore.textContent = matched.score;
-  resultNext.innerHTML = matched.next.map((item) => `<li>${item}</li>`).join('');
-  resultCard.classList.remove('result-hidden');
-  resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-};
+saveButton.addEventListener('click', saveData);
 
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const total = ['q1', 'q2', 'q3', 'q4', 'q5'].reduce((sum, name) => sum + getValue(name), 0);
-  renderResult(total);
+printButton.addEventListener('click', () => {
+  window.print();
 });
 
-resetButton.addEventListener('click', () => {
+clearButton.addEventListener('click', () => {
+  const agreed = window.confirm('入力した内容をこの端末から削除します。よろしいですか？');
+  if (!agreed) return;
+
   form.reset();
-  resultCard.classList.add('result-hidden');
-  resultTitle.textContent = '';
-  resultCopy.textContent = '';
-  resultScore.textContent = '';
-  resultNext.innerHTML = '';
+  localStorage.removeItem(storageKey);
+  saveStatus.textContent = '内容を削除しました';
+  updateTaskState();
 });
+
+formElements.forEach((el) => {
+  el.addEventListener('input', updateTaskState);
+  el.addEventListener('change', updateTaskState);
+});
+
+loadData();
