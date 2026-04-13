@@ -1,15 +1,136 @@
+/* v49: CTAボタンとフッターSNSリンクのサイズ調整 */
 
-/* ロゴボタンサイズ統一 */
-.social-buttons img{
-  width:20px;
-  height:20px;
-  object-fit:contain;
+/* CONTACT: LINE / Spir / メールのボタンサイズを他の主要ボタンと統一 */
+.contact-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: stretch;
 }
 
-/* ボタン内テキストと揃える */
-.social-buttons a{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:6px 8px;
+.contact-buttons .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  width: 220px;
+  min-width: 220px;
+  min-height: 54px;
+  padding: 0 22px;
+  white-space: nowrap;
+}
+
+.contact-buttons .button .btn-icon,
+.contact-buttons .button img,
+.contact-buttons .button svg {
+  width: 1em;
+  height: 1em;
+  flex: 0 0 1em;
+}
+
+.contact-buttons .button .btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-buttons .button > span,
+.contact-buttons .button .btn-icon + span {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* FOOTER: YouTube / LINE / note / X を文字サイズ相当の横並びに変更 */
+.footer-social {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: auto !important;
+  max-width: none !important;
+}
+
+.footer-social a {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.38em;
+  width: auto !important;
+  min-width: 0 !important;
+  min-height: auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.92) !important;
+  transform: none !important;
+  text-decoration: none;
+}
+
+.footer-social a::before,
+.footer-social a::after {
+  content: none !important;
+  display: none !important;
+}
+
+.footer-social a > span {
+  position: static !important;
+  z-index: auto !important;
+  display: inline !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  transform: none !important;
+  color: inherit !important;
+}
+
+.footer-social a img,
+.footer-social a svg,
+.footer-social a .social-mark {
+  width: 1em !important;
+  height: 1em !important;
+  flex: 0 0 1em;
+}
+
+.footer-social a .social-mark {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  background: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* 並び順を指定 */
+.footer-social a[aria-label="YouTube"] { order: 1; }
+.footer-social a[aria-label="LINE"] { order: 2; }
+.footer-social a[aria-label="note"] { order: 3; }
+.footer-social a[aria-label="X"] { order: 4; }
+
+.footer-social a:hover,
+.footer-social a:focus-visible {
+  color: #ffffff !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .contact-buttons .button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .footer-social {
+    gap: 10px;
+  }
+
+  .footer-social a {
+    font-size: 0.95rem;
+  }
 }
