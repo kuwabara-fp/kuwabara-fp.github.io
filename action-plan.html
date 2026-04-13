@@ -3,21 +3,23 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>面談後アクションプラン | くわばらＦＰオフィス</title>
-  <meta name="description" content="面談で整理した内容を、スマホで保存・確認・印刷できるアクションプランです。"/>
+  <title>相談前整理チェック | くわばらＦＰオフィス</title>
+  <meta name="description" content="相談前に3分で整理できるチェックページです。今の悩みを言葉にしやすくし、LINE相談につなげます。"/>
   <link href="./style.css" rel="stylesheet"/>
   <link href="./mini-tools.css" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header" id="top">
   <div class="container header-inner">
-    <a class="brand" href="../index.html">くわばらＦＰオフィス</a>
+    <a class="brand" href="./index.html">くわばらＦＰオフィス</a>
     <button aria-controls="global-nav" aria-expanded="false" class="menu-toggle" type="button">メニュー</button>
     <nav aria-label="グローバルナビゲーション" class="global-nav" id="global-nav">
-      <a href="../index.html#services">相談できる内容</a>
-      <a href="../index.html#fees">料金プラン</a>
-      <a href="../index.html#flow">ご相談の流れ</a>
-      <a href="../index.html#contact">予約・お問い合わせ</a>
+      <a href="./index.html#reasons">相談がしやすい理由</a>
+      <a href="./index.html#profile">プロフィール・経歴</a>
+      <a href="./index.html#needs">こんなお悩み</a>
+      <a href="./index.html#services">相談できる内容</a>
+      <a href="./index.html#fees">料金プラン</a>
+      <a href="./index.html#contact">LINE・予約はこちら</a>
     </nav>
   </div>
 </header>
@@ -25,90 +27,105 @@
 <main>
   <section class="page-hero-simple">
     <div class="container">
-      <div class="page-breadcrumb"><a href="../index.html">ホーム</a><span>›</span><span>面談後アクションプラン</span></div>
-      <h1 class="page-title">面談後アクションプラン</h1>
-      <p class="page-lead">面談で整理した内容を、そのままスマホで持ち帰れるシートです。ブラウザ内保存と印刷に対応しています。</p>
+      <div class="page-breadcrumb"><a href="./index.html">ホーム</a><span>›</span><span>相談前整理チェック</span></div>
+      <h1 class="page-title">3分でわかる<br>相談前整理チェック</h1>
+      <p class="page-lead">まだ悩みがまとまっていなくても大丈夫です。質問に答えるだけで、LINEで何を伝えるとよいかが見えます。</p>
     </div>
   </section>
 
   <section class="page-shell">
     <div class="container page-grid">
       <div class="page-panel">
-        <form class="sheet-grid" id="action-plan-form">
-          <div class="sheet-meta">
-            <span>保存方法：この端末のブラウザ内に保存</span>
-            <span id="save-status">未保存</span>
-          </div>
-
-          <div class="field-group">
-            <label for="today-summary">今日の整理ポイント</label>
-            <textarea id="today-summary" name="todaySummary" placeholder="例：教育費の備えは方向性が見えてきたが、固定費の見直し余地がある"></textarea>
-          </div>
-
-          <div class="priority-grid">
-            <div class="field-group">
-              <label for="priority-1">優先順位1</label>
-              <input id="priority-1" name="priority1" type="text" placeholder="例：通信費の確認"/>
-            </div>
-            <div class="field-group">
-              <label for="priority-2">優先順位2</label>
-              <input id="priority-2" name="priority2" type="text" placeholder="例：保険証券の棚卸し"/>
-            </div>
-            <div class="field-group">
-              <label for="priority-3">優先順位3</label>
-              <input id="priority-3" name="priority3" type="text" placeholder="例：教育費積立額の決定"/>
+        <form class="tool-form" id="consultation-prep-form">
+          <div class="question-card reveal">
+            <h2 class="question-title">Q1. いま一番気になっているテーマは何ですか？</h2>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="q1" value="2"><div><strong>1つに絞れている</strong><span>教育費、住宅、保険など、相談したいテーマが明確です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q1" value="1"><div><strong>いくつかある</strong><span>候補はあるが、優先順位を整理したい状態です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q1" value="0"><div><strong>まだ曖昧</strong><span>何から話せばよいか、これから整理したい状態です。</span></div></label>
             </div>
           </div>
 
-          <div class="field-group">
-            <label>今月やること</label>
-            <div class="task-grid">
-              <label class="task-row"><input name="task1done" type="checkbox"/><input name="task1text" type="text" placeholder="例：家計簿アプリの固定費を見直す"/></label>
-              <label class="task-row"><input name="task2done" type="checkbox"/><input name="task2text" type="text" placeholder="例：保険証券を1か所に集める"/></label>
-              <label class="task-row"><input name="task3done" type="checkbox"/><input name="task3text" type="text" placeholder="例：教育費に回す金額を決める"/></label>
+          <div class="question-card reveal">
+            <h2 class="question-title">Q2. 相談の希望時期はどれに近いですか？</h2>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="q2" value="2"><div><strong>できるだけ早く</strong><span>家計や進路の判断を早めに進めたい状態です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q2" value="1"><div><strong>今月中くらい</strong><span>近いうちに一度整理できれば十分です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q2" value="0"><div><strong>まだ未定</strong><span>時期は未定だが、準備は少し進めておきたい状態です。</span></div></label>
             </div>
           </div>
 
-          <div class="field-group">
-            <label for="within-3months">3か月以内にやること</label>
-            <textarea id="within-3months" name="within3months" placeholder="例：教育費の必要額をざっくり試算し、家族で共有する"></textarea>
+          <div class="question-card reveal">
+            <h2 class="question-title">Q3. 手元にある資料はありますか？</h2>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="q3" value="2"><div><strong>ある程度そろっている</strong><span>家計表、保険証券、住宅ローン情報などが確認できます。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q3" value="1"><div><strong>少しある</strong><span>一部だけ準備できていて、これから集める段階です。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q3" value="0"><div><strong>まだない</strong><span>資料はなくても大丈夫です。まずは口頭で整理できます。</span></div></label>
+            </div>
           </div>
 
-          <div class="field-group">
-            <label for="next-meeting-note">次回までのメモ</label>
-            <textarea id="next-meeting-note" name="nextMeetingNote" placeholder="例：通信費と保険の見直し後、毎月の改善額を確認する"></textarea>
+          <div class="question-card reveal">
+            <h2 class="question-title">Q4. 相談で一番知りたいことはどれですか？</h2>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="q4" value="2"><div><strong>優先順位</strong><span>何から手を付けるかを知りたいです。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q4" value="1"><div><strong>見直しの方向性</strong><span>どこを整えるべきかを知りたいです。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q4" value="0"><div><strong>まずは相談の入口</strong><span>何を話せばよいかを一緒に整理したいです。</span></div></label>
+            </div>
           </div>
 
-          <div class="sheet-actions">
-            <button class="button primary" id="save-plan" type="button">この内容を保存</button>
-            <button class="button secondary" id="print-plan" type="button">印刷する</button>
-            <button class="button secondary" id="clear-plan" type="button">内容を消す</button>
+          <div class="question-card reveal">
+            <h2 class="question-title">Q5. LINEで一言送る準備はできそうですか？</h2>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="q5" value="2"><div><strong>できる</strong><span>悩みの一言は送れそうです。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q5" value="1"><div><strong>簡単ならできる</strong><span>短い文章なら送れそうです。</span></div></label>
+              <label class="radio-option"><input type="radio" name="q5" value="0"><div><strong>まだ不安</strong><span>まずはこのチェックで整理してから進めたいです。</span></div></label>
+            </div>
           </div>
-          <p class="print-note">※印刷を押すと、入力内容をA4で保存・印刷しやすい表示になります。</p>
+
+          <div class="form-actions">
+            <button class="button line" id="prep-submit" type="submit">相談準備度をみる</button>
+            <a class="button ghost" href="./index.html#contact">LINE相談に進む</a>
+          </div>
+          <p class="form-note">準備が少なくても大丈夫です。結果を見ながら、何をLINEで送るかを整えられます。</p>
         </form>
+
+        <section class="result-card result-hidden" id="prep-result" aria-live="polite">
+          <p class="result-label">CHECK RESULT</p>
+          <h2 class="result-title" id="prep-title"></h2>
+          <p class="result-copy" id="prep-copy"></p>
+          <ul class="result-next" id="prep-next"></ul>
+          <div class="result-actions">
+            <a class="button line" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank">LINEで相談する</a>
+            <a class="button primary" href="./index.html#fees">料金を見る</a>
+          </div>
+        </section>
       </div>
 
       <aside class="page-side">
-        <div class="page-panel">
-          <h2 class="side-card-title">このシートの使い方</h2>
+        <div class="notice-box reveal stagger-1">
+          <p class="side-card-title">LINEで送るとよいもの</p>
           <ul class="side-list">
-            <li>面談後すぐに、整理ポイントと優先順位を入力する</li>
-            <li>今月やることを3つまでに絞る</li>
-            <li>完了した項目にチェックを付ける</li>
-            <li>必要なら印刷して家族と共有する</li>
+            <li>今一番気になるテーマ</li>
+            <li>ざっくりした希望時期</li>
+            <li>資料の有無</li>
           </ul>
         </div>
-
-        <div class="status-box">
-          <strong id="progress-label">進捗：0 / 3 完了</strong>
-          <p>今月やることの進み具合がここに表示されます。</p>
+        <div class="notice-box reveal stagger-2">
+          <p class="side-card-title">このチェックの使い方</p>
+          <ul class="side-list">
+            <li>全部埋まっていなくても問題ありません。</li>
+            <li>わかる範囲だけ答えれば十分です。</li>
+            <li>結果を見て、そのままLINEへ進めます。</li>
+          </ul>
         </div>
-
-        <div class="notice-box">
-          このページは一般的な整理ツールです。個別の状況に応じた具体的な判断や優先順位の調整は、面談で一緒に確認します。
+        <div class="notice-box reveal stagger-3">
+          <p class="side-card-title">無料相談で整理しやすいこと</p>
+          <ul class="side-list">
+            <li>何から考えるかの優先順位</li>
+            <li>今の家計で確認すべき点</li>
+            <li>次に取る行動</li>
+          </ul>
         </div>
-
-        <a class="button line" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank">LINEで相談する</a>
       </aside>
     </div>
   </section>
@@ -118,11 +135,18 @@
   <div class="container footer-inner">
     <div class="footer-left">
       <p>© 2026 くわばらＦＰオフィス</p>
+      <div aria-label="公式リンク" class="footer-social">
+        <a aria-label="LINE" class="social-pill social-pill-line line-chip" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank"><span>LINEで相談</span></a>
+        <a aria-label="YouTube" class="social-pill social-pill-youtube" href="https://youtube.com/@1e240k?si=uDjklptJoXEi2mPi" rel="noopener noreferrer" target="_blank"><span>YouTube</span></a>
+        <a aria-label="note" class="social-pill social-pill-note" href="https://note.com/fp_yosuke" rel="noopener noreferrer" target="_blank"><span>note</span></a>
+        <a aria-label="X" class="social-pill social-pill-x" href="https://x.com/fp_yosuke?s=21" rel="noopener noreferrer" target="_blank"><span>X</span></a>
+      </div>
     </div>
+    <a href="./index.html">ホームに戻る</a>
   </div>
 </footer>
 
-<script src="./script.js"></script>
 <script src="./action-plan.js"></script>
+<script src="./script.js"></script>
 </body>
 </html>

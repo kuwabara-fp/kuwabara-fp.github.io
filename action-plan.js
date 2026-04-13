@@ -1,92 +1,66 @@
-const storageKey = 'kuwabara-fp-action-plan-v1';
-const form = document.getElementById('action-plan-form');
-const saveButton = document.getElementById('save-plan');
-const printButton = document.getElementById('print-plan');
-const clearButton = document.getElementById('clear-plan');
-const saveStatus = document.getElementById('save-status');
-const progressLabel = document.getElementById('progress-label');
+const form = document.getElementById('consultation-prep-form');
+const resultCard = document.getElementById('prep-result');
+const resultTitle = document.getElementById('prep-title');
+const resultCopy = document.getElementById('prep-copy');
+const resultNext = document.getElementById('prep-next');
 
-const formElements = Array.from(form.querySelectorAll('textarea, input[type="text"], input[type="checkbox"]'));
-
-const updateTaskState = () => {
-  const taskRows = form.querySelectorAll('.task-row');
-  let done = 0;
-
-  taskRows.forEach((row) => {
-    const checkbox = row.querySelector('input[type="checkbox"]');
-    row.classList.toggle('is-complete', checkbox.checked);
-    if (checkbox.checked) done += 1;
-  });
-
-  progressLabel.textContent = `進捗：${done} / ${taskRows.length} 完了`;
+const getAnswer = (name) => {
+  const checked = form.querySelector(`input[name="${name}"]:checked`);
+  return checked ? Number(checked.value) : null;
 };
 
-const readFormData = () => {
-  const data = {};
-  formElements.forEach((el) => {
-    if (el.type === 'checkbox') {
-      data[el.name] = el.checked;
-    } else {
-      data[el.name] = el.value;
-    }
-  });
-  return data;
+const renderResult = ({ title, copy, next }) => {
+  resultTitle.textContent = title;
+  resultCopy.textContent = copy;
+  resultNext.innerHTML = next.map((item) => `<li>${item}</li>`).join('');
+  resultCard.classList.remove('result-hidden');
+  resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
 
-const writeFormData = (data) => {
-  formElements.forEach((el) => {
-    if (!(el.name in data)) return;
-    if (el.type === 'checkbox') {
-      el.checked = Boolean(data[el.name]);
-    } else {
-      el.value = data[el.name];
-    }
-  });
-  updateTaskState();
-};
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
 
-const saveData = () => {
-  const data = readFormData();
-  localStorage.setItem(storageKey, JSON.stringify(data));
-  const time = new Date();
-  saveStatus.textContent = `保存済み：${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}`;
-};
-
-const loadData = () => {
-  const saved = localStorage.getItem(storageKey);
-  if (!saved) {
-    updateTaskState();
+  const values = ['q1', 'q2', 'q3', 'q4', 'q5'].map(getAnswer);
+  if (values.some((value) => value === null)) {
+    alert('すべての質問に回答してください。');
     return;
   }
 
-  try {
-    const data = JSON.parse(saved);
-    writeFormData(data);
-    saveStatus.textContent = '前回保存した内容を読み込みました';
-  } catch (error) {
-    saveStatus.textContent = '保存データを読み込めませんでした';
+  const score = values.reduce((sum, value) => sum + value, 0);
+
+  if (score >= 8) {
+    renderResult({
+      title: 'かなり相談準備ができています',
+      copy: '悩みのテーマと相談の流れが見えています。LINEで状況を一言送れば、そのまま日程調整や相談の整理に進みやすい状態です。',
+      next: [
+        'LINEで相談したいテーマを1つ送る',
+        '手元にある資料があれば一緒に伝える',
+        '予約したい時期を添える'
+      ]
+    });
+    return;
   }
-};
 
-saveButton.addEventListener('click', saveData);
+  if (score >= 4) {
+    renderResult({
+      title: '整理しながら進めるとスムーズです',
+      copy: '相談したい方向性は見えていますが、資料や優先順位を少し整えると、面談がさらに進めやすくなります。',
+      next: [
+        'テーマを1つか2つに絞る',
+        'ある資料だけでよいので用意する',
+        'LINEで「気になっていること」を一言送る'
+      ]
+    });
+    return;
+  }
 
-printButton.addEventListener('click', () => {
-  window.print();
+  renderResult({
+    title: 'まずは一言送るところからで大丈夫です',
+    copy: 'まだ悩みがまとまっていなくても問題ありません。無料相談では、現在地を一緒に整理するところから始められます。',
+    next: [
+      '今いちばん気になることを1つ書く',
+      '希望時期は「未定」でも問題なし',
+      'わからない点はそのまま送って大丈夫'
+    ]
+  });
 });
-
-clearButton.addEventListener('click', () => {
-  const agreed = window.confirm('入力した内容をこの端末から削除します。よろしいですか？');
-  if (!agreed) return;
-
-  form.reset();
-  localStorage.removeItem(storageKey);
-  saveStatus.textContent = '内容を削除しました';
-  updateTaskState();
-});
-
-formElements.forEach((el) => {
-  el.addEventListener('input', updateTaskState);
-  el.addEventListener('change', updateTaskState);
-});
-
-loadData();

@@ -4,12 +4,13 @@
     "style.css",
     "script.js",
     "mini-tools.css",
+    "favicon.png",
+    "apple-touch-icon.png",
     "hero-bg-clean.jpg",
     "profile-photo.jpg",
-    "tools/education-check.html",
-    "tools/education-check.js",
-    "sheets/action-plan.html",
-    "sheets/action-plan.js",
-    "はじめに読む_アップロード手順.txt"
+    "education-check.html",
+    "education-check.js",
+    "action-plan.html",
+    "action-plan.js"
   ]
 }
