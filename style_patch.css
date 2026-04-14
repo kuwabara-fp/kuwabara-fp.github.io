@@ -347,28 +347,12 @@
   }
 }
 
-
-/* v70: reasons cards removed */
-#reasons {
-  padding-bottom: 28px;
-}
-
-#reasons .section-intro {
-  margin-bottom: 0;
-}
-
-@media (max-width: 767px) {
-  #reasons {
-    padding-bottom: 18px;
-  }
-}
-
-
-/* v70: remove feature number boxes and make needs section more conversational */
+/* v71: remove reason number boxes while keeping the card text */
 .reason-number {
   display: none !important;
 }
 
+/* v71: make the worries section more readable as question cards */
 .needs-grid {
   align-items: stretch !important;
 }
@@ -388,10 +372,15 @@
   font-size: 0.99rem !important;
 }
 
-/* Footer SNS logos: exactly match the profile logo size */
+/* v71: footer SNS logos exactly match the profile SNS logo sizing */
 :root {
   --social-logo-size-desktop: 2rem;
   --social-logo-size-mobile: 1.95rem;
+}
+
+.profile-links,
+.footer-social {
+  gap: 12px !important;
 }
 
 .profile-links a.social-logo-btn,
@@ -400,9 +389,22 @@
   height: var(--social-logo-size-desktop) !important;
   min-width: var(--social-logo-size-desktop) !important;
   min-height: var(--social-logo-size-desktop) !important;
+  border-radius: 0.5rem !important;
+}
+
+.profile-links a.social-logo-btn img,
+.footer-social a.social-logo-btn img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
 }
 
 @media (max-width: 767px) {
+  .profile-links,
+  .footer-social {
+    gap: 10px !important;
+  }
+
   .profile-links a.social-logo-btn,
   .footer-social a.social-logo-btn {
     width: var(--social-logo-size-mobile) !important;
