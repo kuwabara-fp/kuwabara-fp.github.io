@@ -362,3 +362,56 @@
     padding-bottom: 18px;
   }
 }
+
+
+/* v70: remove feature number boxes and make needs section more conversational */
+.reason-number {
+  display: none !important;
+}
+
+.needs-grid {
+  align-items: stretch !important;
+}
+
+.need-item {
+  align-items: flex-start !important;
+  min-height: 92px !important;
+  padding: 16px 18px !important;
+}
+
+.need-item .need-check {
+  margin-top: 2px !important;
+}
+
+.need-item span:last-child {
+  line-height: 1.45 !important;
+  font-size: 0.99rem !important;
+}
+
+/* Footer SNS logos: exactly match the profile logo size */
+:root {
+  --social-logo-size-desktop: 2rem;
+  --social-logo-size-mobile: 1.95rem;
+}
+
+.profile-links a.social-logo-btn,
+.footer-social a.social-logo-btn {
+  width: var(--social-logo-size-desktop) !important;
+  height: var(--social-logo-size-desktop) !important;
+  min-width: var(--social-logo-size-desktop) !important;
+  min-height: var(--social-logo-size-desktop) !important;
+}
+
+@media (max-width: 767px) {
+  .profile-links a.social-logo-btn,
+  .footer-social a.social-logo-btn {
+    width: var(--social-logo-size-mobile) !important;
+    height: var(--social-logo-size-mobile) !important;
+    min-width: var(--social-logo-size-mobile) !important;
+    min-height: var(--social-logo-size-mobile) !important;
+  }
+
+  .need-item {
+    min-height: auto !important;
+  }
+}
