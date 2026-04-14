@@ -240,3 +240,33 @@
   font-size: 0.88rem;
   letter-spacing: 0;
 }
+
+
+/* v60: 初回面談Spirボタンを紫系で統一 */
+.button.reserve.reserve-free {
+  background: linear-gradient(135deg, #7b61ff 0%, #6246ea 100%) !important;
+  color: #ffffff !important;
+}
+
+.button.reserve.reserve-free:hover,
+.button.reserve.reserve-free:focus-visible {
+  background: linear-gradient(135deg, #6d54f0 0%, #5338d0 100%) !important;
+  color: #ffffff !important;
+}
+
+.button.reserve.reserve-free .btn-main,
+.button.reserve.reserve-free .btn-note {
+  color: #ffffff !important;
+}
+
+.mobile-cta .mobile-cta-spir {
+  background: linear-gradient(135deg, #7b61ff 0%, #6246ea 100%) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+}
+
+.mobile-cta .mobile-cta-spir:hover,
+.mobile-cta .mobile-cta-spir:focus-visible {
+  background: linear-gradient(135deg, #6d54f0 0%, #5338d0 100%) !important;
+  color: #ffffff !important;
+}
