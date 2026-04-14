@@ -209,3 +209,34 @@
 .footer-social a.social-logo-btn-x img {
   border-radius: 0.62rem !important;
 }
+
+
+/* v58: note/X角丸をLINE相当に調整、下部CTAのSpir文言調整 */
+.profile-links a.social-logo-btn,
+.footer-social a.social-logo-btn {
+  border-radius: 0.82rem !important;
+}
+
+.profile-links a.social-logo-btn img,
+.footer-social a.social-logo-btn img {
+  border-radius: 0.82rem !important;
+}
+
+.profile-links a.social-logo-btn-note,
+.footer-social a.social-logo-btn-note,
+.profile-links a.social-logo-btn-x,
+.footer-social a.social-logo-btn-x {
+  border-radius: 0.82rem !important;
+}
+
+.profile-links a.social-logo-btn-note img,
+.footer-social a.social-logo-btn-note img,
+.profile-links a.social-logo-btn-x img,
+.footer-social a.social-logo-btn-x img {
+  border-radius: 0.82rem !important;
+}
+
+.mobile-cta-button.mobile-cta-spir span {
+  font-size: 0.88rem;
+  letter-spacing: 0;
+}
