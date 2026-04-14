@@ -2,6 +2,12 @@ const toggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.global-nav');
 const header = document.querySelector('.site-header');
 
+const closeNav = () => {
+  if (!toggle || !nav) return;
+  nav.classList.remove('is-open');
+  toggle.setAttribute('aria-expanded', 'false');
+};
+
 if (toggle && nav) {
   toggle.addEventListener('click', () => {
     const expanded = toggle.getAttribute('aria-expanded') === 'true';
@@ -11,9 +17,21 @@ if (toggle && nav) {
 
   nav.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      nav.classList.remove('is-open');
-      toggle.setAttribute('aria-expanded', 'false');
+      closeNav();
     });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (window.innerWidth > 960) return;
+    if (!nav.classList.contains('is-open')) return;
+    if (nav.contains(event.target) || toggle.contains(event.target)) return;
+    closeNav();
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 960) {
+      closeNav();
+    }
   });
 }
 
