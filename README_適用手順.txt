@@ -1,10 +1,21 @@
 適用ファイル:
-- style_patch_v49.css
+- index.html
+- style_patch.css
+- favicon.ico
+- favicon.png
+- favicon.jpeg
+- favicon-32.png
+- apple-touch-icon.png
+- line_icon_original_crop.png
+- youtube_play_icon.png
+- note_icon_square.png
+- x_icon_512.png
 
 反映方法:
-1. このCSSの中身を、現在の style.css の末尾に追記してください。
-   または、style_patch_v49.css を style.css の後に読み込んでください。
-2. GitHub Pages の反映後、以下を確認してください。
+1. ZIPを展開してください。
+2. 中のファイルを、GitHub Pages のルート階層に上書きアップロードしてください。
+3. index.html では style_patch.css の読み込みを追加済みです。
+4. 反映後、以下を確認してください。
    - CONTACT欄の LINE / Spir / メール が同じ幅・高さになっている
-   - ページ最下部の YouTube / LINE / note / X が横並びになっている
-   - フッターSNSリンクが大きなボタンではなく、文字サイズ相当の見た目になっている
+   - ページ最下部の YouTube / LINE / note / X が小さいロゴで横並びになっている
+   - ファビコンとタッチアイコンが差し替わっている
