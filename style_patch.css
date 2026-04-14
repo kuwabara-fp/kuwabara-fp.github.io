@@ -270,3 +270,79 @@
   background: linear-gradient(135deg, #6d54f0 0%, #5338d0 100%) !important;
   color: #ffffff !important;
 }
+
+/* v61: noteロゴの角丸を少し戻して調整 */
+.profile-links a.social-logo-btn-note,
+.footer-social a.social-logo-btn-note {
+  border-radius: 0.58rem !important;
+}
+
+.profile-links a.social-logo-btn-note img,
+.footer-social a.social-logo-btn-note img {
+  border-radius: 0.58rem !important;
+}
+
+
+
+/* v62: ヘッダー右端に初回面談CTAを追加 */
+.header-inner {
+  display: grid !important;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.global-nav {
+  justify-self: center;
+  flex-wrap: nowrap;
+  gap: 4px;
+}
+
+.global-nav a {
+  min-height: 42px;
+  padding: 0 10px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.header-cta.button {
+  min-width: 168px;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(64, 40, 160, 0.22);
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  justify-self: end;
+  white-space: nowrap;
+}
+
+.header-cta.button > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1180px) {
+  .header-cta {
+    display: none !important;
+  }
+
+  .header-inner {
+    grid-template-columns: auto auto 1fr;
+  }
+
+  .global-nav {
+    justify-self: end;
+  }
+}
+
+@media (max-width: 960px) {
+  .header-inner {
+    display: flex !important;
+  }
+
+  .header-cta {
+    display: none !important;
+  }
+}
