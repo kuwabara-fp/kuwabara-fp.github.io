@@ -1,6 +1,8 @@
-/* v55: CONTACTボタン統一 + プロフィール/フッターSNSロゴ調整 */
+/* v56: SNSロゴ・Spir文言・SEO対応に伴う見た目調整 */
 
-/* CONTACT: LINE / Spir / メールを他の主要ボタンと揃える */
+/* style_patch を最後に読み込んで上書き */
+
+/* CONTACT: LINE / Spir / メールのサイズ統一 */
 .contact-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -18,7 +20,6 @@
   min-height: 46px;
   padding: 0 16px;
   border-radius: 14px;
-  white-space: nowrap;
   text-align: center;
 }
 
@@ -34,7 +35,43 @@
   justify-content: center;
 }
 
-/* プロフィール欄・フッター欄のSNSロゴを、文字より少し大きめにし、枠線表示を廃止 */
+/* 無料面談のSpirボタン文言 */
+.button.reserve.reserve-free {
+  min-height: 68px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+.button.reserve.reserve-free .btn-multiline {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.button.reserve.reserve-free .btn-main {
+  display: block;
+  font-size: 0.98rem;
+  font-weight: 800;
+}
+
+.button.reserve.reserve-free .btn-note {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.25;
+  opacity: 0.95;
+}
+
+.mobile-cta-button.mobile-cta-spir span {
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+/* プロフィール欄・フッター欄のSNSロゴ */
 .profile-links,
 .footer-social {
   display: flex !important;
@@ -48,16 +85,16 @@
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 1.7rem !important;
-  height: 1.7rem !important;
-  min-width: 1.7rem !important;
-  min-height: 1.7rem !important;
-  padding: 0.06rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  min-width: 2rem !important;
+  min-height: 2rem !important;
+  padding: 0.14rem !important;
   border: 0 !important;
-  border-radius: 0 !important;
+  border-radius: 0.55rem !important;
   background: transparent !important;
   box-shadow: none !important;
-  overflow: visible !important;
+  overflow: hidden !important;
   transform: none !important;
   filter: none !important;
   text-decoration: none !important;
@@ -79,36 +116,38 @@
   object-fit: contain !important;
 }
 
-/* Xロゴのみ背景を白にする */
+/* Xロゴのみ黒背景＋白表示 */
 .profile-links a.social-logo-btn-x,
 .footer-social a.social-logo-btn-x {
-  background: #ffffff !important;
-  border-radius: 2px !important;
+  background: #000000 !important;
+  border-radius: 0.55rem !important;
+}
+
+.profile-links a.social-logo-btn-x img,
+.footer-social a.social-logo-btn-x img {
+  filter: brightness(0) invert(1) !important;
 }
 
 .profile-links a.social-logo-btn:hover,
 .profile-links a.social-logo-btn:focus-visible,
 .footer-social a.social-logo-btn:hover,
 .footer-social a.social-logo-btn:focus-visible {
-  opacity: 0.86 !important;
+  opacity: 0.9 !important;
   border: 0 !important;
   box-shadow: none !important;
   transform: none !important;
   filter: none !important;
 }
 
-.profile-links a.social-logo-btn-x:hover,
-.profile-links a.social-logo-btn-x:focus-visible,
-.footer-social a.social-logo-btn-x:hover,
-.footer-social a.social-logo-btn-x:focus-visible {
-  background: #ffffff !important;
-}
-
-/* フッターは YouTube / LINE / note / X の順 */
-.site-footer .footer-social a[aria-label*="YouTube"] { order: 1; }
-.site-footer .footer-social a[aria-label*="LINE"] { order: 2; }
-.site-footer .footer-social a[aria-label*="note"] { order: 3; }
-.site-footer .footer-social a[aria-label*="X"] { order: 4; }
+/* 並び順は LINE / YouTube / note / X */
+.profile-links a.social-logo-btn-line,
+.footer-social a.social-logo-btn-line { order: 1; }
+.profile-links a.social-logo-btn-youtube,
+.footer-social a.social-logo-btn-youtube { order: 2; }
+.profile-links a.social-logo-btn-note,
+.footer-social a.social-logo-btn-note { order: 3; }
+.profile-links a.social-logo-btn-x,
+.footer-social a.social-logo-btn-x { order: 4; }
 
 @media (max-width: 767px) {
   .contact-buttons .button,
@@ -120,6 +159,10 @@
     min-width: 0;
   }
 
+  .button.reserve.reserve-free {
+    min-height: 64px;
+  }
+
   .profile-links,
   .footer-social {
     gap: 10px !important;
@@ -127,9 +170,13 @@
 
   .profile-links a.social-logo-btn,
   .footer-social a.social-logo-btn {
-    width: 1.75rem !important;
-    height: 1.75rem !important;
-    min-width: 1.75rem !important;
-    min-height: 1.75rem !important;
+    width: 1.95rem !important;
+    height: 1.95rem !important;
+    min-width: 1.95rem !important;
+    min-height: 1.95rem !important;
+  }
+
+  .mobile-cta-button.mobile-cta-spir span {
+    font-size: 0.84rem;
   }
 }
