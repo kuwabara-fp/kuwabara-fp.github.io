@@ -417,3 +417,63 @@
     min-height: auto !important;
   }
 }
+
+
+/* v72: reasons cards trimmed to 4 items */
+.reason-cards {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+/* Footer social icons: apply the exact same visual size as profile icons */
+.profile-links,
+.footer-social {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.profile-links a.social-logo-btn,
+.footer-social a.social-logo-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  min-width: 2rem !important;
+  min-height: 2rem !important;
+  max-width: 2rem !important;
+  max-height: 2rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  transform: none !important;
+  text-decoration: none !important;
+}
+
+.profile-links a.social-logo-btn img,
+.footer-social a.social-logo-btn img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  border-radius: inherit !important;
+}
+
+@media (max-width: 1080px) {
+  .reason-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .reason-cards {
+    grid-template-columns: 1fr !important;
+  }
+}
