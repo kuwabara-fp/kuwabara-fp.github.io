@@ -1,21 +1,15 @@
 適用ファイル:
 - index.html
 - style_patch.css
-- favicon.ico
-- favicon.png
-- favicon.jpeg
-- favicon-32.png
-- apple-touch-icon.png
-- line_icon_original_crop.png
-- youtube_play_icon.png
-- note_icon_square.png
-- x_icon_512.png
+- favicon 各種
+- YouTube / LINE / note / X ロゴ画像
+
+今回の調整点:
+- CONTACT欄の LINE / Spir / メールを同サイズに統一
+- フッターの YouTube / LINE / note / X を横並びに調整
+- フッターのロゴサイズを、文字より少しだけ大きめに調整
 
 反映方法:
-1. ZIPを展開してください。
-2. 中のファイルを、GitHub Pages のルート階層に上書きアップロードしてください。
-3. index.html では style_patch.css の読み込みを追加済みです。
-4. 反映後、以下を確認してください。
-   - CONTACT欄の LINE / Spir / メール が同じ幅・高さになっている
-   - ページ最下部の YouTube / LINE / note / X が小さいロゴで横並びになっている
-   - ファビコンとタッチアイコンが差し替わっている
+1. ZIP内のファイルを GitHub Pages のルート階層へ上書きアップロードしてください。
+2. 反映後、ページ最下部のロゴサイズを確認してください。
+3. まだ小さい/大きい場合は、style_patch.css の 1.15rem を 1.1〜1.25rem の範囲で微調整してください。

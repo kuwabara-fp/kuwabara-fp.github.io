@@ -1,4 +1,4 @@
-/* v51: CONTACTボタン統一 + フッターSNS横並び + 添付画像差し替え用 */
+/* v52: CONTACTボタン統一 + フッターSNS横並び + ロゴを文字より少し大きめに調整 */
 
 /* CONTACT: LINE / Spir / メールを他で使っている主要ボタンと同じ寸法に統一 */
 .contact-buttons {
@@ -37,7 +37,7 @@
   min-height: 54px;
 }
 
-/* FOOTER: YouTube / LINE / note / X を文字サイズ相当で横並び */
+/* FOOTER: YouTube / LINE / note / X を横並び。ロゴは文字より少し大きめ */
 .site-footer .footer-social {
   display: flex;
   flex-wrap: wrap;
@@ -52,10 +52,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1rem;
-  height: 1rem;
-  min-width: 1rem;
-  min-height: 1rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  min-width: 1.15rem;
+  min-height: 1.15rem;
   padding: 0;
   border: 0;
   border-radius: 0;
@@ -118,9 +118,9 @@
   }
 
   .site-footer .footer-social a.social-logo-btn {
-    width: 1rem;
-    height: 1rem;
-    min-width: 1rem;
-    min-height: 1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    min-width: 1.1rem;
+    min-height: 1.1rem;
   }
 }
