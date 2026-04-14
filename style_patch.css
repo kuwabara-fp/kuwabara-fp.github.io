@@ -180,3 +180,32 @@
     font-size: 0.84rem;
   }
 }
+
+/* v57: note角丸調整・SNSロゴ統一 */
+.profile-links a.social-logo-btn,
+.footer-social a.social-logo-btn {
+  border-radius: 0.62rem !important;
+}
+
+.profile-links a.social-logo-btn img,
+.footer-social a.social-logo-btn img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  border-radius: 0.62rem !important;
+}
+
+.profile-links a.social-logo-btn-note,
+.footer-social a.social-logo-btn-note,
+.profile-links a.social-logo-btn-x,
+.footer-social a.social-logo-btn-x {
+  border-radius: 0.62rem !important;
+}
+
+.profile-links a.social-logo-btn-note img,
+.footer-social a.social-logo-btn-note img,
+.profile-links a.social-logo-btn-x img,
+.footer-social a.social-logo-btn-x img {
+  border-radius: 0.62rem !important;
+}
