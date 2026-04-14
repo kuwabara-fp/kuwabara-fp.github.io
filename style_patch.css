@@ -1,4 +1,4 @@
-/* v53: CONTACTボタン統一 + プロフィール/フッターSNSロゴ調整 */
+/* v55: CONTACTボタン統一 + プロフィール/フッターSNSロゴ調整 */
 
 /* CONTACT: LINE / Spir / メールを他の主要ボタンと揃える */
 .contact-buttons {
@@ -34,7 +34,7 @@
   justify-content: center;
 }
 
-/* プロフィール欄・フッター欄のSNSロゴを少し大きめにし、枠線表示を廃止 */
+/* プロフィール欄・フッター欄のSNSロゴを、文字より少し大きめにし、枠線表示を廃止 */
 .profile-links,
 .footer-social {
   display: flex !important;
@@ -48,11 +48,11 @@
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 1.5rem !important;
-  height: 1.5rem !important;
-  min-width: 1.5rem !important;
-  min-height: 1.5rem !important;
-  padding: 0.14rem !important;
+  width: 1.7rem !important;
+  height: 1.7rem !important;
+  min-width: 1.7rem !important;
+  min-height: 1.7rem !important;
+  padding: 0.06rem !important;
   border: 0 !important;
   border-radius: 0 !important;
   background: transparent !important;
@@ -79,16 +79,29 @@
   object-fit: contain !important;
 }
 
+/* Xロゴのみ背景を白にする */
+.profile-links a.social-logo-btn-x,
+.footer-social a.social-logo-btn-x {
+  background: #ffffff !important;
+  border-radius: 2px !important;
+}
+
 .profile-links a.social-logo-btn:hover,
 .profile-links a.social-logo-btn:focus-visible,
 .footer-social a.social-logo-btn:hover,
 .footer-social a.social-logo-btn:focus-visible {
-  opacity: 0.82 !important;
+  opacity: 0.86 !important;
   border: 0 !important;
   box-shadow: none !important;
-  background: transparent !important;
   transform: none !important;
   filter: none !important;
+}
+
+.profile-links a.social-logo-btn-x:hover,
+.profile-links a.social-logo-btn-x:focus-visible,
+.footer-social a.social-logo-btn-x:hover,
+.footer-social a.social-logo-btn-x:focus-visible {
+  background: #ffffff !important;
 }
 
 /* フッターは YouTube / LINE / note / X の順 */
@@ -114,10 +127,9 @@
 
   .profile-links a.social-logo-btn,
   .footer-social a.social-logo-btn {
-    width: 1.6rem !important;
-    height: 1.6rem !important;
-    min-width: 1.6rem !important;
-    min-height: 1.6rem !important;
-    padding: 0.12rem !important;
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    min-width: 1.75rem !important;
+    min-height: 1.75rem !important;
   }
 }
