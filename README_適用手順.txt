@@ -1,27 +1,10 @@
-このZIPは、ホームページ公開に必要な主要ファイル一式です。
+適用ファイル:
+- style_patch_v49.css
 
-含まれる内容:
-- index.html
-- style.css / style_patch.css / mini-tools.css / script.js
-- 教育費チェック関連ファイル
-- 相談前整理チェック関連ファイル
-- favicon / apple-touch-icon / SNSロゴ画像
-- hero-bg-clean.jpg
-- profile-photo.jpg
-
-注意:
-- この環境では元の hero-bg-clean.jpg と profile-photo.jpg が未提供だったため、公開できるよう仮画像を同名で同梱しています。
-- 元画像をお持ちの場合は、同名ファイルで上書きしてください。
-- そのほかのリンク先URLや構成は、直近の修正版に合わせています。
-
-GitHub Pagesへの反映:
-1. リポジトリ直下の既存ファイルをバックアップ
-2. このZIPを展開
-3. 展開した全ファイルをリポジトリ直下へアップロードして上書き
-4. 数分待って表示確認
-
-今回の調整:
-- CONTACT欄の LINE / Spir / メール を同サイズ化
-- プロフィール欄下とフッター欄の YouTube / LINE / note / X ロゴを、文字より少し大きめで押しやすく調整
-- SNSロゴ周囲の枠線・背景・影を非表示化
-- フッターの並びを YouTube / LINE / note / X に調整
+反映方法:
+1. このCSSの中身を、現在の style.css の末尾に追記してください。
+   または、style_patch_v49.css を style.css の後に読み込んでください。
+2. GitHub Pages の反映後、以下を確認してください。
+   - CONTACT欄の LINE / Spir / メール が同じ幅・高さになっている
+   - ページ最下部の YouTube / LINE / note / X が横並びになっている
+   - フッターSNSリンクが大きなボタンではなく、文字サイズ相当の見た目になっている

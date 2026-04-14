@@ -2,24 +2,14 @@
   "files": [
     "index.html",
     "style.css",
-    "style_patch.css",
-    "mini-tools.css",
     "script.js",
-    "education-check.html",
-    "education-check.js",
-    "action-plan.html",
-    "action-plan.js",
+    "mini-tools.css",
     "hero-bg-clean.jpg",
     "profile-photo.jpg",
-    "apple-touch-icon.png",
-    "favicon.ico",
-    "favicon.png",
-    "favicon-32.png",
-    "favicon.jpeg",
-    "line_icon_original_crop.png",
-    "youtube_play_icon.png",
-    "note_icon_square.png",
-    "x_icon_512.png",
-    "README_適用手順.txt"
+    "tools/education-check.html",
+    "tools/education-check.js",
+    "sheets/action-plan.html",
+    "sheets/action-plan.js",
+    "はじめに読む_アップロード手順.txt"
   ]
 }
