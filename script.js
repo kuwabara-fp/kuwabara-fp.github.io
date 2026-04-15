@@ -85,6 +85,7 @@ const initSite = () => {
   updateHeader();
   updateAge();
   setupReveal();
+  setupSpirConfirm();
 };
 
 if (document.readyState === 'loading') {
@@ -94,3 +95,18 @@ if (document.readyState === 'loading') {
 }
 
 window.addEventListener('scroll', updateHeader, { passive: true });
+
+
+const setupSpirConfirm = () => {
+  const spirLinks = document.querySelectorAll('a[href*="spirinc.com"]');
+  if (!spirLinks.length) return;
+
+  spirLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const ok = window.confirm('Spirサイトに遷移しますが、よろしいですか？');
+      if (!ok) {
+        event.preventDefault();
+      }
+    });
+  });
+};

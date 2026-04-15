@@ -992,7 +992,147 @@
   }
 
   .hero-badges span {
-    font-size: 0.84rem !important;
-    line-height: 1.4 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    font-size: 0.82rem !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+    text-align: center !important;
+    word-break: keep-all !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .hero-badges span:nth-child(2) {
+    grid-column: 1 / -1 !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+
+/* v85: shorter pricing layout and merged output/sample blocks */
+.plan-note,
+.plan-copy {
+  line-height: 1.55 !important;
+}
+
+.plan-note {
+  margin-bottom: 8px !important;
+}
+
+.plan-copy {
+  margin-top: 0 !important;
+  margin-bottom: 14px !important;
+}
+
+.plan-block-merged {
+  margin-top: 14px !important;
+  padding-top: 14px !important;
+}
+
+.plan-block-merged h4 {
+  margin: 0 0 10px !important;
+  font-size: 0.98rem !important;
+}
+
+.plan-block-merged ul {
+  padding-left: 18px !important;
+}
+
+.plan-block-merged li + li {
+  margin-top: 8px !important;
+}
+
+.plan-actions .button.reserve.reserve-free .btn-note {
+  display: none !important;
+}
+
+/* v85: tighter header and hero spacing */
+.header-inner {
+  min-height: 66px !important;
+}
+
+.hero {
+  min-height: 520px !important;
+}
+
+.hero-grid {
+  padding: 78px 0 34px !important;
+}
+
+.hero-copy {
+  padding: 26px 28px !important;
+  border-radius: 24px !important;
+}
+
+.hero-copy::before {
+  margin-bottom: 14px !important;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5vw, 4.1rem) !important;
+  line-height: 1.12 !important;
+}
+
+.hero-text {
+  margin-top: 14px !important;
+}
+
+.hero-badges {
+  margin-top: 18px !important;
+}
+
+.hero-buttons {
+  margin-top: 18px !important;
+}
+
+@media (max-width: 960px) {
+  .header-inner {
+    min-height: 62px !important;
+  }
+
+  .hero {
+    min-height: 500px !important;
+  }
+
+  .hero-grid {
+    padding: 72px 0 30px !important;
+  }
+
+  .hero-copy {
+    padding: 22px 20px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .header-inner {
+    min-height: 58px !important;
+  }
+
+  .hero {
+    min-height: 460px !important;
+  }
+
+  .hero-grid {
+    padding: 64px 0 24px !important;
+  }
+
+  .hero-copy {
+    padding: 20px 16px !important;
+    border-radius: 20px !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 8vw, 2.7rem) !important;
+  }
+
+  .hero-badges {
+    margin-top: 16px !important;
+  }
+
+  .hero-buttons {
+    margin-top: 16px !important;
   }
 }
