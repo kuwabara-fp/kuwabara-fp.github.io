@@ -2096,3 +2096,34 @@
     padding: 0 14px !important;
   }
 }
+
+
+/* v94: スマホでもヒーローの安心ラベルが整って見えるよう固定幅・固定余白・文字サイズを調整 */
+@media (max-width: 767px) {
+  .hero-badges {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-items: stretch !important;
+    align-items: stretch !important;
+    gap: 9px !important;
+  }
+
+  .hero-badges span {
+    display: flex !important;
+    width: 100% !important;
+    min-height: 42px !important;
+    padding: 8px 14px !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+    font-size: 0.8rem !important;
+    line-height: 1.45 !important;
+    letter-spacing: 0 !important;
+    white-space: normal !important;
+    word-break: keep-all !important;
+    overflow-wrap: break-word !important;
+  }
+}
