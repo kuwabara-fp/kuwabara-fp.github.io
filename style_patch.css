@@ -1672,3 +1672,111 @@
     margin-top: 12px !important;
   }
 }
+
+/* v88: tighten header and hero spacing further */
+.header-inner {
+  min-height: 52px !important;
+  gap: 10px !important;
+}
+
+.global-nav a {
+  min-height: 36px !important;
+  padding: 0 8px !important;
+  font-size: 0.88rem !important;
+}
+
+.hero {
+  min-height: 424px !important;
+}
+
+.hero-grid {
+  padding: 50px 0 14px !important;
+}
+
+.hero-copy {
+  max-width: 680px !important;
+  padding: 16px 18px !important;
+  border-radius: 18px !important;
+}
+
+.hero-copy::before {
+  margin-bottom: 8px !important;
+}
+
+.hero h1 {
+  font-size: clamp(2.05rem, 4.4vw, 3.55rem) !important;
+}
+
+.hero-text {
+  margin-top: 8px !important;
+  line-height: 1.62 !important;
+}
+
+.hero-badges {
+  margin-top: 12px !important;
+}
+
+.hero-buttons {
+  margin-top: 12px !important;
+}
+
+@media (max-width: 960px) {
+  .header-inner {
+    min-height: 50px !important;
+  }
+
+  .global-nav a {
+    min-height: 34px !important;
+    padding: 0 7px !important;
+    font-size: 0.86rem !important;
+  }
+
+  .hero {
+    min-height: 398px !important;
+  }
+
+  .hero-grid {
+    padding: 46px 0 12px !important;
+  }
+
+  .hero-copy {
+    max-width: 660px !important;
+    padding: 14px 14px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .header-inner {
+    min-height: 48px !important;
+  }
+
+  .hero {
+    min-height: 368px !important;
+  }
+
+  .hero-grid {
+    padding: 42px 0 10px !important;
+  }
+
+  .hero-copy {
+    padding: 12px 10px !important;
+    border-radius: 14px !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.72rem, 6.8vw, 2.25rem) !important;
+  }
+
+  .hero-text {
+    margin-top: 7px !important;
+    font-size: 0.94rem !important;
+  }
+
+  .hero-badges {
+    margin-top: 10px !important;
+  }
+
+  .hero-buttons {
+    margin-top: 10px !important;
+  }
+}
