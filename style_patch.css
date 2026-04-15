@@ -1562,3 +1562,113 @@
     min-height: 118px;
   }
 }
+
+
+/* v87: tighten header and hero spacing further, restore v85 service illustration markup */
+.header-inner {
+  min-height: 56px !important;
+  gap: 12px !important;
+}
+
+.global-nav a {
+  min-height: 38px !important;
+  padding: 0 9px !important;
+  font-size: 0.9rem !important;
+}
+
+.hero {
+  min-height: 448px !important;
+}
+
+.hero-grid {
+  padding: 56px 0 18px !important;
+}
+
+.hero-copy {
+  max-width: 700px !important;
+  padding: 18px 20px !important;
+  border-radius: 20px !important;
+}
+
+.hero-copy::before {
+  margin-bottom: 10px !important;
+}
+
+.hero h1 {
+  font-size: clamp(2.15rem, 4.6vw, 3.75rem) !important;
+  line-height: 1.08 !important;
+}
+
+.hero-text {
+  margin-top: 10px !important;
+  line-height: 1.66 !important;
+}
+
+.hero-badges {
+  margin-top: 14px !important;
+}
+
+.hero-buttons {
+  margin-top: 14px !important;
+}
+
+@media (max-width: 960px) {
+  .header-inner {
+    min-height: 54px !important;
+  }
+
+  .global-nav a {
+    min-height: 36px !important;
+    padding: 0 8px !important;
+    font-size: 0.88rem !important;
+  }
+
+  .hero {
+    min-height: 418px !important;
+  }
+
+  .hero-grid {
+    padding: 52px 0 16px !important;
+  }
+
+  .hero-copy {
+    padding: 16px 16px !important;
+    max-width: 680px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .header-inner {
+    min-height: 52px !important;
+  }
+
+  .hero {
+    min-height: 392px !important;
+  }
+
+  .hero-grid {
+    padding: 48px 0 12px !important;
+  }
+
+  .hero-copy {
+    padding: 14px 12px !important;
+    border-radius: 16px !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 7vw, 2.4rem) !important;
+  }
+
+  .hero-text {
+    margin-top: 8px !important;
+    font-size: 0.96rem !important;
+  }
+
+  .hero-badges {
+    margin-top: 12px !important;
+  }
+
+  .hero-buttons {
+    margin-top: 12px !important;
+  }
+}
