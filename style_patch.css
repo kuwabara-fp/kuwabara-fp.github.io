@@ -1921,3 +1921,20 @@
     margin-top: 14px !important;
   }
 }
+
+
+/* v90: hero badges visibility improvement */
+.hero-badges span {
+  background: rgba(255,255,255,0.20) !important;
+  border: 1px solid rgba(255,255,255,0.34) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.14);
+}
+
+@media (max-width: 767px) {
+  .hero-badges span {
+    background: rgba(255,255,255,0.22) !important;
+    border: 1px solid rgba(255,255,255,0.36) !important;
+    color: #ffffff !important;
+  }
+}
