@@ -552,3 +552,80 @@
     max-height: var(--social-logo-size-mobile) !important;
   }
 }
+
+/* v74: footer social logos must exactly match profile logos, especially note size and no border */
+.footer-social {
+  gap: 12px !important;
+}
+
+.footer-social a.social-logo-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: var(--social-logo-size-desktop) !important;
+  height: var(--social-logo-size-desktop) !important;
+  min-width: var(--social-logo-size-desktop) !important;
+  min-height: var(--social-logo-size-desktop) !important;
+  max-width: var(--social-logo-size-desktop) !important;
+  max-height: var(--social-logo-size-desktop) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  overflow: hidden !important;
+  border-radius: 0.5rem !important;
+  line-height: 1 !important;
+}
+
+.footer-social a.social-logo-btn::before,
+.footer-social a.social-logo-btn::after {
+  content: none !important;
+  display: none !important;
+}
+
+.footer-social a.social-logo-btn > * {
+  position: static !important;
+  z-index: auto !important;
+}
+
+.footer-social a.social-logo-btn img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: inherit !important;
+}
+
+.footer-social a.social-logo-btn-note,
+.footer-social a.social-logo-btn-note img {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+@media (max-width: 767px) {
+  .footer-social {
+    gap: 10px !important;
+  }
+
+  .footer-social a.social-logo-btn {
+    width: var(--social-logo-size-mobile) !important;
+    height: var(--social-logo-size-mobile) !important;
+    min-width: var(--social-logo-size-mobile) !important;
+    min-height: var(--social-logo-size-mobile) !important;
+    max-width: var(--social-logo-size-mobile) !important;
+    max-height: var(--social-logo-size-mobile) !important;
+  }
+}
