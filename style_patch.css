@@ -1780,3 +1780,144 @@
     margin-top: 10px !important;
   }
 }
+
+
+/* v89: hero badges less button-like, tighter header/hero spacing */
+.site-header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.header-inner {
+  min-height: 56px !important;
+  gap: 14px;
+}
+
+.global-nav {
+  gap: 4px;
+}
+
+.global-nav a {
+  min-height: 38px;
+  padding: 0 10px;
+}
+
+.hero {
+  min-height: 500px !important;
+}
+
+.hero-grid {
+  gap: 18px !important;
+  padding: 46px 0 22px !important;
+}
+
+.hero-copy {
+  max-width: 760px;
+}
+
+.hero h1 {
+  margin-bottom: 0;
+}
+
+.hero-text {
+  margin-top: 16px !important;
+  max-width: 700px;
+  font-size: 1.02rem;
+  line-height: 1.72;
+}
+
+.hero-badges {
+  margin-top: 16px !important;
+  gap: 8px 9px !important;
+  align-items: flex-start;
+}
+
+.hero-badges span {
+  min-height: 28px !important;
+  padding: 4px 10px !important;
+  border-radius: 10px !important;
+  background: rgba(255,255,255,0.10) !important;
+  border: 1px solid rgba(255,255,255,0.16) !important;
+  box-shadow: none !important;
+  font-size: 0.81rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em;
+  line-height: 1.35 !important;
+  color: rgba(255,255,255,0.96) !important;
+}
+
+.hero-badges span::before,
+.hero-badges span::after {
+  content: none !important;
+}
+
+.hero-buttons {
+  margin-top: 16px !important;
+  gap: 10px !important;
+}
+
+.hero-buttons .button {
+  min-height: 48px;
+}
+
+@media (max-width: 960px) {
+  .header-inner {
+    min-height: 54px !important;
+  }
+
+  .hero {
+    min-height: 460px !important;
+  }
+
+  .hero-grid {
+    padding: 40px 0 18px !important;
+    gap: 16px !important;
+  }
+
+  .hero-text {
+    font-size: 0.98rem;
+    line-height: 1.68;
+  }
+}
+
+@media (max-width: 767px) {
+  .header-inner {
+    min-height: 50px !important;
+  }
+
+  .menu-toggle {
+    padding: 8px 12px;
+  }
+
+  .hero {
+    min-height: 420px !important;
+  }
+
+  .hero-grid {
+    padding: 34px 0 14px !important;
+    gap: 14px !important;
+  }
+
+  .hero-text {
+    margin-top: 12px !important;
+    font-size: 0.94rem;
+    line-height: 1.62;
+  }
+
+  .hero-badges {
+    margin-top: 12px !important;
+    gap: 7px !important;
+  }
+
+  .hero-badges span {
+    min-height: 0 !important;
+    padding: 5px 9px !important;
+    font-size: 0.74rem !important;
+    border-radius: 9px !important;
+    white-space: normal !important;
+  }
+
+  .hero-buttons {
+    margin-top: 14px !important;
+  }
+}
