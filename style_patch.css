@@ -642,3 +642,43 @@
   content: none !important;
   display: none !important;
 }
+
+
+/* v80: improve LINE CTA conversion */
+.hero-line-note {
+  margin: 12px 0 0 !important;
+  color: rgba(255,255,255,0.92) !important;
+  font-size: 0.92rem !important;
+  line-height: 1.65 !important;
+  max-width: 720px !important;
+}
+
+.contact-line-note {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 32px !important;
+  padding: 0 12px !important;
+  margin: 14px 0 0 !important;
+  border-radius: 999px !important;
+  background: rgba(39, 183, 40, 0.10) !important;
+  color: #177718 !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+}
+
+.hero-buttons .button.line,
+.contact-buttons .button.line,
+.needs-cta .button.line {
+  min-width: 232px !important;
+}
+
+@media (max-width: 767px) {
+  .hero-line-note {
+    font-size: 0.86rem !important;
+  }
+
+  .contact-line-note {
+    width: fit-content !important;
+    max-width: 100% !important;
+  }
+}
