@@ -682,3 +682,148 @@
     max-width: 100% !important;
   }
 }
+
+
+/* v81: pricing colors + sample boxes + remove hero line note */
+.hero-line-note {
+  display: none !important;
+}
+
+.pricing-card-free {
+  background: linear-gradient(180deg, #fcfaff 0%, #f1ebff 100%) !important;
+  border: 2px solid rgba(123, 99, 223, 0.24) !important;
+  box-shadow: 0 18px 42px rgba(101, 79, 203, 0.14) !important;
+}
+
+.plan-badge-free {
+  background: linear-gradient(135deg, rgba(123, 99, 223, 0.14) 0%, rgba(94, 72, 197, 0.14) 100%) !important;
+  color: #5b45be !important;
+}
+
+.pricing-card-free .plan-price {
+  color: #5b45be !important;
+}
+
+.pricing-card-free .plan-note {
+  color: #5d4f8d !important;
+  font-weight: 700 !important;
+}
+
+.pricing-card-free .plan-copy,
+.pricing-card-free .plan-block ul,
+.pricing-card-free .plan-sample-list {
+  color: #51456f !important;
+}
+
+.pricing-card.featured {
+  background: linear-gradient(180deg, #fffdf7 0%, #fff4e4 100%) !important;
+  border: 2px solid rgba(212, 140, 39, 0.26) !important;
+  box-shadow: 0 18px 42px rgba(203, 131, 36, 0.14) !important;
+}
+
+.pricing-card.featured .plan-badge {
+  background: linear-gradient(135deg, rgba(212, 140, 39, 0.14) 0%, rgba(180, 110, 20, 0.14) 100%) !important;
+  color: #8b4c10 !important;
+}
+
+.pricing-card.featured .plan-price {
+  color: #9b5717 !important;
+}
+
+.pricing-card.featured .plan-note {
+  color: #7c5838 !important;
+  font-weight: 700 !important;
+}
+
+.pricing-card.featured .button.reserve {
+  background: linear-gradient(135deg, #d48c2a 0%, #b96f16 100%) !important;
+  color: #fff !important;
+  border: 0 !important;
+  box-shadow: 0 16px 34px rgba(185, 111, 22, 0.24) !important;
+}
+
+.pricing-card.featured .button.reserve:hover,
+.pricing-card.featured .button.reserve:focus-visible {
+  background: linear-gradient(135deg, #c98124 0%, #a96411 100%) !important;
+}
+
+.pricing-card-premium {
+  background: linear-gradient(180deg, #f8fbff 0%, #edf3ff 100%) !important;
+  border: 2px solid rgba(31, 77, 147, 0.20) !important;
+  box-shadow: 0 18px 42px rgba(31, 77, 147, 0.10) !important;
+}
+
+.pricing-card-premium .plan-badge-soft {
+  background: linear-gradient(135deg, rgba(31, 77, 147, 0.12) 0%, rgba(21, 56, 109, 0.12) 100%) !important;
+  color: #1f4d93 !important;
+}
+
+.pricing-card-premium .plan-price {
+  color: #1f4d93 !important;
+}
+
+.pricing-card-premium .plan-note {
+  color: #415a85 !important;
+  font-weight: 700 !important;
+}
+
+.pricing-card-premium .button.mail {
+  background: linear-gradient(135deg, #1f4d93 0%, #15386d 100%) !important;
+  color: #fff !important;
+  border: 0 !important;
+  box-shadow: 0 16px 34px rgba(21, 56, 109, 0.22) !important;
+}
+
+.pricing-card-premium .button.mail:hover,
+.pricing-card-premium .button.mail:focus-visible {
+  background: linear-gradient(135deg, #1b4483 0%, #112f5a 100%) !important;
+}
+
+.plan-sample {
+  margin-top: 18px !important;
+}
+
+.plan-sample h4 {
+  margin: 0 0 10px !important;
+  font-size: 0.98rem !important;
+  color: var(--primary-dark) !important;
+}
+
+.plan-sample-box {
+  padding: 14px 15px !important;
+  border-radius: 14px !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  border: 1px solid rgba(45, 99, 183, 0.10) !important;
+}
+
+.pricing-card-free .plan-sample-box {
+  background: rgba(255, 255, 255, 0.72) !important;
+  border-color: rgba(123, 99, 223, 0.16) !important;
+}
+
+.pricing-card.featured .plan-sample-box {
+  background: rgba(255, 255, 255, 0.76) !important;
+  border-color: rgba(212, 140, 39, 0.18) !important;
+}
+
+.pricing-card-premium .plan-sample-box {
+  background: rgba(255, 255, 255, 0.76) !important;
+  border-color: rgba(31, 77, 147, 0.16) !important;
+}
+
+.plan-sample-title {
+  margin: 0 0 8px !important;
+  font-weight: 800 !important;
+  color: var(--text) !important;
+  line-height: 1.45 !important;
+}
+
+.plan-sample-list {
+  margin: 0 !important;
+  padding-left: 18px !important;
+  color: var(--muted) !important;
+}
+
+.plan-sample-list li + li {
+  margin-top: 8px !important;
+}
