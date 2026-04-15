@@ -1938,3 +1938,123 @@
     color: #ffffff !important;
   }
 }
+
+/* v91: stronger hero labels and tighter header/hero spacing */
+.site-header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.header-inner {
+  min-height: 52px !important;
+  gap: 12px !important;
+}
+
+.global-nav {
+  gap: 2px !important;
+}
+
+.global-nav a {
+  min-height: 34px !important;
+  padding: 0 9px !important;
+}
+
+.hero {
+  min-height: 460px !important;
+}
+
+.hero-grid {
+  gap: 16px !important;
+  padding: 36px 0 16px !important;
+}
+
+.hero-text {
+  margin-top: 12px !important;
+}
+
+.hero-badges {
+  margin-top: 12px !important;
+  gap: 7px 8px !important;
+}
+
+.hero-badges span {
+  min-height: 0 !important;
+  padding: 4px 9px !important;
+  border-radius: 8px !important;
+  background: rgba(255,255,255,0.88) !important;
+  border: 1px solid rgba(255,255,255,0.94) !important;
+  color: #1f3f74 !important;
+  text-shadow: none !important;
+  font-weight: 800 !important;
+  letter-spacing: 0 !important;
+}
+
+.hero-buttons {
+  margin-top: 14px !important;
+}
+
+.hero-buttons .button {
+  min-height: 46px !important;
+}
+
+@media (max-width: 960px) {
+  .header-inner {
+    min-height: 48px !important;
+  }
+
+  .hero {
+    min-height: 420px !important;
+  }
+
+  .hero-grid {
+    padding: 30px 0 14px !important;
+    gap: 14px !important;
+  }
+
+  .hero-badges span {
+    padding: 4px 8px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .header-inner {
+    min-height: 46px !important;
+  }
+
+  .global-nav a {
+    min-height: 40px !important;
+  }
+
+  .hero {
+    min-height: 380px !important;
+  }
+
+  .hero-grid {
+    padding: 24px 0 10px !important;
+    gap: 12px !important;
+  }
+
+  .hero-text {
+    margin-top: 10px !important;
+  }
+
+  .hero-badges {
+    margin-top: 10px !important;
+    gap: 6px !important;
+  }
+
+  .hero-badges span {
+    padding: 4px 8px !important;
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+    border-radius: 8px !important;
+  }
+
+  .hero-buttons {
+    margin-top: 12px !important;
+  }
+
+  .hero-buttons .button {
+    min-height: 44px !important;
+  }
+}
