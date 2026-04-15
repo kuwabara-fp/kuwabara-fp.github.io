@@ -636,3 +636,9 @@
     max-height: var(--profile-social-size-mobile) !important;
   }
 }
+
+/* v79: remove extra "おすすめ" ribbon above 人気No.1 */
+.pricing-card.featured::before {
+  content: none !important;
+  display: none !important;
+}
