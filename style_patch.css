@@ -2127,3 +2127,41 @@
     overflow-wrap: break-word !important;
   }
 }
+
+
+/* v96: ヒーロー見出しの強制改行をなくし、安心ラベルの縦幅をさらに圧縮 */
+.hero h1 {
+  white-space: normal !important;
+  max-width: 14.5em;
+}
+
+.hero h1 br {
+  display: none !important;
+}
+
+.hero-badges {
+  margin-top: 8px !important;
+  gap: 6px 10px !important;
+}
+
+.hero-badges span {
+  min-height: 34px !important;
+  padding: 5px 12px !important;
+  border-radius: 10px !important;
+  line-height: 1.2 !important;
+}
+
+@media (max-width: 767px) {
+  .hero-badges {
+    gap: 6px !important;
+    margin-top: 8px !important;
+  }
+
+  .hero-badges span {
+    min-height: 32px !important;
+    padding: 5px 12px !important;
+    font-size: 0.84rem !important;
+    line-height: 1.2 !important;
+    border-radius: 10px !important;
+  }
+}
