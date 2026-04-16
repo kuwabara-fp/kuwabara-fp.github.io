@@ -86,6 +86,7 @@ const initSite = () => {
   updateAge();
   setupReveal();
   setupSpirConfirm();
+  setupInlineDiagnosis();
 };
 
 if (document.readyState === 'loading') {
@@ -109,4 +110,228 @@ const setupSpirConfirm = () => {
       }
     });
   });
+};
+
+
+const setupInlineDiagnosis = () => {
+  const form = document.getElementById('inline-diagnosis-form');
+  if (!form) return;
+
+  const steps = Array.from(form.querySelectorAll('.diag-step'));
+  const prevButton = document.getElementById('diag-prev');
+  const resetButton = document.getElementById('diag-reset');
+  const progressText = document.getElementById('diag-progress-text');
+  const progressBar = document.getElementById('diag-progress-bar');
+  const resultCard = document.getElementById('diag-result');
+  const resultTitle = document.getElementById('diag-result-title');
+  const resultCopy = document.getElementById('diag-result-copy');
+  const resultNote = document.getElementById('diag-result-note');
+  const lineMessage = document.getElementById('diag-line-message');
+  const lineLink = document.getElementById('diag-line-link');
+  const copyButton = document.getElementById('diag-copy');
+  const summaryTheme = document.getElementById('diag-summary-theme');
+  const summaryClarity = document.getElementById('diag-summary-clarity');
+  const summaryUrgency = document.getElementById('diag-summary-urgency');
+  const summaryContact = document.getElementById('diag-summary-contact');
+
+  const body = document.body;
+  const lineOfficialAccountId = (body.dataset.lineOaId || '').trim();
+  const lineFallbackUrl = body.dataset.lineFallbackUrl || 'https://lin.ee/rTetBKJ';
+  const isMobileLineSupported = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
+
+  const labels = {
+    theme: {
+      kakei: '家計見直し',
+      future: '教育費・住宅・老後',
+      start: '何から相談すべきか整理'
+    },
+    clarity: {
+      high: 'ある程度わかっている',
+      mid: '一部だけわかる',
+      low: 'まだ整理できていない'
+    },
+    urgency: {
+      high: 'なるべく早く',
+      mid: '1〜2か月以内',
+      low: 'まず情報整理から'
+    },
+    contact: {
+      line: 'LINEで気軽に相談したい',
+      reserve: '面談予約から進めたい',
+      hesitate: 'まだ少し迷っている'
+    }
+  };
+
+  const themeLead = {
+    kakei: '家計見直しについて相談したいです。',
+    future: '教育費・住宅・老後のお金について整理したいです。',
+    start: '何から相談するとよいか整理したいです。'
+  };
+
+  const answers = {
+    theme: '',
+    clarity: '',
+    urgency: '',
+    contact: ''
+  };
+
+  let currentStep = 0;
+
+  const updateProgress = () => {
+    const stepNumber = currentStep + 1;
+    progressText.textContent = `質問 ${stepNumber} / ${steps.length}`;
+    progressBar.style.width = `${(stepNumber / steps.length) * 100}%`;
+    prevButton.disabled = currentStep === 0;
+  };
+
+  const showStep = (index) => {
+    currentStep = Math.max(0, Math.min(index, steps.length - 1));
+    steps.forEach((step, stepIndex) => {
+      const active = stepIndex === currentStep;
+      step.hidden = !active;
+      step.classList.toggle('is-active', active);
+    });
+    updateProgress();
+  };
+
+  const getDiagnosis = () => {
+    if ((answers.contact === 'reserve' && answers.urgency !== 'low') || (answers.urgency === 'high' && answers.clarity === 'high')) {
+      return {
+        title: '面談予約まで進めやすい状態です',
+        copy: '相談テーマと時期がかなり見えています。まずはこの結果をLINEで送っておくと、その後の面談でも話が早くなります。'
+      };
+    }
+
+    if (answers.contact === 'hesitate' || answers.clarity === 'low' || answers.theme === 'start') {
+      return {
+        title: 'まずはLINEで整理メモを送るのが向いています',
+        copy: 'まだ悩みが完全に固まっていなくても問題ありません。結果メモを送るだけでも、何から整理するかが見えやすくなります。'
+      };
+    }
+
+    return {
+      title: 'LINEでひとこと相談しやすい状態です',
+      copy: '今の悩みと優先順位がある程度見えています。下の文面のまま送れば、最初のやり取りを始めやすい状態です。'
+    };
+  };
+
+  const buildLineMessage = () => {
+    const diagnosis = getDiagnosis();
+    return [
+      'こんにちは。ホームページの4問診断をやってみました。',
+      '',
+      `【診断結果】${diagnosis.title}`,
+      `【気になること】${labels.theme[answers.theme]}`,
+      `【整理状況】${labels.clarity[answers.clarity]}`,
+      `【相談したい時期】${labels.urgency[answers.urgency]}`,
+      `【今の気持ち】${labels.contact[answers.contact]}`,
+      '',
+      `${themeLead[answers.theme]}`,
+      'この内容から相談したいです。'
+    ].join('\n');
+  };
+
+  const renderResult = () => {
+    const diagnosis = getDiagnosis();
+    const message = buildLineMessage();
+
+    resultTitle.textContent = diagnosis.title;
+    resultCopy.textContent = diagnosis.copy;
+    summaryTheme.textContent = labels.theme[answers.theme];
+    summaryClarity.textContent = labels.clarity[answers.clarity];
+    summaryUrgency.textContent = labels.urgency[answers.urgency];
+    summaryContact.textContent = labels.contact[answers.contact];
+    lineMessage.value = message;
+    lineLink.dataset.message = message;
+
+    if (lineOfficialAccountId && isMobileLineSupported) {
+      const encodedLineId = encodeURIComponent(lineOfficialAccountId);
+      lineLink.href = `https://line.me/R/oaMessage/${encodedLineId}/?${encodeURIComponent(message)}`;
+      lineLink.dataset.mode = 'oa';
+      resultNote.textContent = 'スマホでは、LINE公式アカウントの入力欄にこの文面を入れた状態で開きます。';
+    } else {
+      lineLink.href = lineFallbackUrl;
+      lineLink.dataset.mode = 'fallback';
+      resultNote.textContent = 'このサイトには現在LINEの短縮リンクが設定されています。クリック時に相談メモをコピーしてからLINEを開くようにしています。LINE公式アカウントのベーシックIDを設定すると、入力欄プリセットにも切り替えられます。';
+    }
+
+    resultCard.classList.remove('result-hidden');
+    resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  const resetDiagnosis = () => {
+    Object.keys(answers).forEach((key) => {
+      answers[key] = '';
+    });
+
+    form.querySelectorAll('.diag-option').forEach((button) => {
+      button.classList.remove('is-selected');
+    });
+
+    resultCard.classList.add('result-hidden');
+    showStep(0);
+  };
+
+  const copyMessage = async () => {
+    if (!lineMessage.value) return false;
+    try {
+      await navigator.clipboard.writeText(lineMessage.value);
+      copyButton.textContent = 'コピーしました';
+      window.setTimeout(() => {
+        copyButton.textContent = '相談メモをコピー';
+      }, 1800);
+      return true;
+    } catch (error) {
+      lineMessage.focus();
+      lineMessage.select();
+      return false;
+    }
+  };
+
+  steps.forEach((step, index) => {
+    step.querySelectorAll('.diag-option').forEach((button) => {
+      button.addEventListener('click', () => {
+        const question = step.dataset.question;
+        answers[question] = button.dataset.value;
+        step.querySelectorAll('.diag-option').forEach((option) => {
+          option.classList.remove('is-selected');
+        });
+        button.classList.add('is-selected');
+
+        if (index < steps.length - 1) {
+          window.setTimeout(() => showStep(index + 1), 120);
+          return;
+        }
+
+        window.setTimeout(renderResult, 120);
+      });
+    });
+  });
+
+  prevButton.addEventListener('click', () => {
+    if (currentStep > 0) {
+      showStep(currentStep - 1);
+    }
+  });
+
+  resetButton.addEventListener('click', resetDiagnosis);
+  copyButton.addEventListener('click', async () => {
+    await copyMessage();
+  });
+
+  lineLink.addEventListener('click', async (event) => {
+    const mode = lineLink.dataset.mode || 'fallback';
+    if (mode !== 'oa') {
+      await copyMessage();
+      return;
+    }
+
+    if (!isMobileLineSupported) {
+      event.preventDefault();
+      await copyMessage();
+      window.open(lineFallbackUrl, '_blank', 'noopener');
+    }
+  });
+
+  showStep(0);
 };

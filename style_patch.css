@@ -2221,18 +2221,332 @@
 }
 
 
-/* v102: smartphone portrait only — keep the 2nd hero badge text the same size as the others */
-@media (max-width: 767px) and (orientation: portrait) {
-  .hero-badges span,
-  .hero-badges span:nth-child(2) {
-    -webkit-text-size-adjust: 100% !important;
-    text-size-adjust: 100% !important;
+/* v101: inline diagnosis tool */
+.precheck-section .container {
+  display: grid;
+  gap: 18px;
+}
+
+.diagnostic-shell {
+  padding: 24px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+  border: 1px solid rgba(45, 99, 183, 0.10);
+  box-shadow: 0 22px 48px rgba(28, 63, 122, 0.10);
+}
+
+.diagnostic-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.diagnostic-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.diagnostic-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(45, 99, 183, 0.08);
+  border: 1px solid rgba(45, 99, 183, 0.12);
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.diagnostic-progress-wrap {
+  min-width: min(100%, 280px);
+  display: grid;
+  gap: 8px;
+}
+
+.diagnostic-progress-text {
+  margin: 0;
+  text-align: right;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.diagnostic-progress {
+  height: 10px;
+  border-radius: 999px;
+  background: #e9eef8;
+  overflow: hidden;
+}
+
+.diagnostic-progress span {
+  display: block;
+  height: 100%;
+  width: 25%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--primary) 0%, #79a2ea 100%);
+  transition: width 0.24s ease;
+}
+
+.diagnostic-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.inline-diagnosis-form,
+.diagnostic-side {
+  display: grid;
+  gap: 16px;
+}
+
+.diag-step {
+  padding: 22px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+  border: 1px solid rgba(45, 99, 183, 0.10);
+}
+
+.diag-step-label {
+  margin: 0 0 10px;
+  color: var(--primary);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.diag-step h3 {
+  margin: 0 0 16px;
+  color: var(--primary-dark);
+  font-size: clamp(1.08rem, 2.2vw, 1.28rem);
+  line-height: 1.45;
+}
+
+.diag-options {
+  display: grid;
+  gap: 12px;
+}
+
+.diag-option {
+  width: 100%;
+  text-align: left;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(45, 99, 183, 0.14);
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.diag-option strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--primary-dark);
+  font-size: 1rem;
+}
+
+.diag-option span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+
+.diag-option:hover,
+.diag-option:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(45, 99, 183, 0.28);
+  box-shadow: 0 14px 28px rgba(28, 63, 122, 0.08);
+}
+
+.diag-option.is-selected {
+  background: linear-gradient(180deg, #eef5ff 0%, #ffffff 100%);
+  border-color: rgba(45, 99, 183, 0.36);
+  box-shadow: 0 16px 30px rgba(45, 99, 183, 0.12);
+}
+
+.diag-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.diag-nav .button {
+  min-width: 0;
+  min-height: 46px;
+  padding: 0 18px;
+  box-shadow: none;
+}
+
+.diag-nav .button.ghost {
+  background: #fff;
+  color: var(--primary-dark);
+  border: 1px solid rgba(45, 99, 183, 0.16);
+}
+
+.diag-nav .button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.diagnostic-side-card {
+  padding: 20px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid rgba(45, 99, 183, 0.10);
+}
+
+.diagnostic-side-title,
+.diag-result-title {
+  margin: 0 0 12px;
+  color: var(--primary-dark);
+}
+
+.diagnostic-side-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.diagnostic-side-list li + li {
+  margin-top: 9px;
+}
+
+.diag-result {
+  gap: 0;
+}
+
+.diag-result-copy {
+  margin: 0;
+  color: var(--muted);
+}
+
+.diag-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.diag-summary-item {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  border: 1px solid var(--line);
+}
+
+.diag-summary-item span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.diag-summary-item strong {
+  display: block;
+  color: var(--primary-dark);
+  line-height: 1.55;
+}
+
+.diag-message-card {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #eef5ff 0%, #ffffff 100%);
+  border: 1px solid rgba(45, 99, 183, 0.14);
+}
+
+.diag-message-label {
+  margin: 0 0 10px;
+  color: var(--primary-dark);
+  font-weight: 800;
+}
+
+#diag-line-message {
+  width: 100%;
+  min-height: 180px;
+  resize: vertical;
+  border-radius: 14px;
+  border: 1px solid rgba(45, 99, 183, 0.14);
+  padding: 14px;
+  font: inherit;
+  line-height: 1.65;
+  color: var(--text);
+  background: #fff;
+}
+
+.diag-result-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.diag-result-actions .button {
+  width: 100%;
+  min-width: 0;
+}
+
+.diag-result-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 1080px) {
+  .diagnostic-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .diagnostic-shell {
+    padding: 18px;
+    border-radius: 20px;
   }
 
-  .hero-badges span:nth-child(2) {
-    font-size: 0.9rem !important;
-    font-weight: 800 !important;
-    line-height: 1.28 !important;
-    letter-spacing: 0.01em !important;
+  .diagnostic-head {
+    align-items: start;
+  }
+
+  .diagnostic-progress-wrap {
+    min-width: 100%;
+  }
+
+  .diagnostic-progress-text {
+    text-align: left;
+  }
+
+  .diag-step {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .diag-step h3 {
+    font-size: 1.04rem;
+  }
+
+  .diag-option {
+    padding: 15px 14px;
+  }
+
+  .diag-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .diag-nav {
+    flex-direction: column;
+  }
+
+  .diag-nav .button {
+    width: 100%;
   }
 }

@@ -5,6 +5,11 @@ const resultCopy = document.getElementById('result-copy');
 const resultScore = document.getElementById('result-score');
 const resultNext = document.getElementById('result-next');
 const resetButton = document.getElementById('reset-check');
+const resultLineLink = document.getElementById('result-line-link');
+
+const lineOfficialAccountId = '@771xcevp';
+const lineFallbackUrl = 'https://lin.ee/rTetBKJ';
+const isMobileLineSupported = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
 
 const patterns = [
   {
@@ -63,6 +68,26 @@ form.addEventListener('submit', (event) => {
   resultCopy.textContent = matched.copy;
   resultScore.textContent = `${matched.scoreLabel} / スコア ${total}点`;
   resultNext.innerHTML = matched.next.map((item) => `<li>${item}</li>`).join('');
+
+  const lineMessage = [
+    '相談前整理チェックの結果を送ります。',
+    `診断結果：${matched.title}`,
+    `${matched.scoreLabel}`,
+    `スコア：${total}点`,
+    `コメント：${matched.copy}`,
+    '次にやること：',
+    ...matched.next.map((item, index) => `${index + 1}. ${item}`)
+  ].join('\n');
+
+  if (resultLineLink) {
+    const encodedLineId = encodeURIComponent(lineOfficialAccountId);
+    if (lineOfficialAccountId && isMobileLineSupported) {
+      resultLineLink.href = `https://line.me/R/oaMessage/${encodedLineId}/?${encodeURIComponent(lineMessage)}`;
+    } else {
+      resultLineLink.href = lineFallbackUrl;
+    }
+  }
+
   resultCard.classList.remove('result-hidden');
   resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
