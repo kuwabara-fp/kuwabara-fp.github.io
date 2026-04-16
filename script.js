@@ -141,31 +141,31 @@ const setupInlineDiagnosis = () => {
 
   const labels = {
     theme: {
-      kakei: '家計見直し',
-      future: '教育費・住宅・老後',
-      start: '何から相談すべきか整理'
+      kakei: '頑張っているのに貯まりにくい',
+      future: '教育費・住宅・老後が同時に気になる',
+      start: '夫婦で何から話せばいいか整理したい'
     },
     clarity: {
-      high: 'ある程度わかっている',
-      mid: '一部だけわかる',
-      low: 'まだ整理できていない'
+      high: '大枠はつかめている',
+      mid: '一部だけ分かる',
+      low: '忙しくて後回しになっている'
     },
     urgency: {
-      high: 'なるべく早く',
-      mid: '1〜2か月以内',
-      low: 'まず情報整理から'
+      high: '今の家計の優先順位をはっきりさせたい',
+      mid: '教育費・住宅・老後のバランスを見たい',
+      low: '夫婦で話しやすい整理メモがほしい'
     },
     contact: {
-      line: 'LINEで気軽に相談したい',
-      reserve: '面談予約から進めたい',
-      hesitate: 'まだ少し迷っている'
+      line: 'まずはLINEで状況を送って整理したい',
+      reserve: '面談予約をしてまとめて相談したい',
+      hesitate: 'まだ迷うので送る内容を整えたい'
     }
   };
 
   const themeLead = {
-    kakei: '家計見直しについて相談したいです。',
-    future: '教育費・住宅・老後のお金について整理したいです。',
-    start: '何から相談するとよいか整理したいです。'
+    kakei: '毎月のやりくりと貯蓄のバランスを整理したいです。',
+    future: '教育費・住宅・老後のお金を、どんな順番で考えるとよいか整理したいです。',
+    start: '夫婦で何から話し始めるとよいか、整理したいです。'
   };
 
   const answers = {
@@ -195,40 +195,41 @@ const setupInlineDiagnosis = () => {
   };
 
   const getDiagnosis = () => {
-    if ((answers.contact === 'reserve' && answers.urgency !== 'low') || (answers.urgency === 'high' && answers.clarity === 'high')) {
+    if ((answers.contact === 'reserve' && answers.urgency !== 'low') || (answers.clarity === 'high' && answers.urgency === 'high')) {
       return {
-        title: '面談予約まで進めやすい状態です',
-        copy: '相談テーマと時期がかなり見えています。まずはこの結果をLINEで送っておくと、その後の面談でも話が早くなります。'
+        title: '面談でまとめて整理すると進みやすい状態です',
+        copy: '家計の現状と相談したい優先順位がある程度見えています。共働きや子育てで忙しい中でも、面談で一度まとめて整理すると、その後の判断がかなりしやすくなりそうです。'
       };
     }
 
-    if (answers.contact === 'hesitate' || answers.clarity === 'low' || answers.theme === 'start') {
+    if (answers.contact === 'hesitate' || answers.clarity === 'low' || answers.theme === 'start' || answers.urgency === 'low') {
       return {
-        title: 'まずはLINEで整理メモを送るのが向いています',
-        copy: 'まだ悩みが完全に固まっていなくても問題ありません。結果メモを送るだけでも、何から整理するかが見えやすくなります。'
+        title: 'まずはLINEで状況を送るのが向いています',
+        copy: 'まだ考えが途中でも問題ありません。共働き子育て世帯は、悩みがまとまる前に時間だけ過ぎやすいので、まずは今の状況を短く送って、整理の入口を作るのがおすすめです。'
       };
     }
 
     return {
-      title: 'LINEでひとこと相談しやすい状態です',
-      copy: '今の悩みと優先順位がある程度見えています。下の文面のまま送れば、最初のやり取りを始めやすい状態です。'
+      title: 'LINEで相談を始めやすい状態です',
+      copy: '悩みの軸がある程度見えています。今の家計と将来のお金の不安を、下の文面のまま送るだけでも、次に何を確認すべきかが整理しやすくなります。'
     };
   };
 
   const buildLineMessage = () => {
     const diagnosis = getDiagnosis();
     return [
-      'こんにちは。ホームページの4問診断をやってみました。',
+      'こんにちは。ホームページの4問チェックをやってみました。',
       '',
       `【診断結果】${diagnosis.title}`,
-      `【気になること】${labels.theme[answers.theme]}`,
-      `【整理状況】${labels.clarity[answers.clarity]}`,
-      `【相談したい時期】${labels.urgency[answers.urgency]}`,
+      `【今いちばん近い不安】${labels.theme[answers.theme]}`,
+      `【家計や将来資金の見え方】${labels.clarity[answers.clarity]}`,
+      `【相談して整えたいこと】${labels.urgency[answers.urgency]}`,
       `【今の気持ち】${labels.contact[answers.contact]}`,
       '',
       `${themeLead[answers.theme]}`,
-      'この内容から相談したいです。'
-    ].join('\n');
+      '共働きと子育てで後回しになりがちなので、どこから整理するとよいか相談したいです。'
+    ].join('
+');
   };
 
   const renderResult = () => {

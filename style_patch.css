@@ -2550,3 +2550,46 @@
     width: 100%;
   }
 }
+
+
+/* v104: stronger inline diagnosis copy button contrast and richer card text */
+.diag-result-actions .button.ghost,
+.diag-result-actions .button.ghost:visited {
+  background: #ffffff !important;
+  color: var(--primary-dark) !important;
+  border: 1px solid rgba(31, 77, 147, 0.22) !important;
+  box-shadow: none !important;
+  font-weight: 800;
+}
+
+.diag-result-actions .button.ghost:hover,
+.diag-result-actions .button.ghost:focus-visible {
+  background: #f4f8ff !important;
+  color: var(--primary-dark) !important;
+  border-color: rgba(31, 77, 147, 0.34) !important;
+}
+
+.diag-option strong {
+  font-size: 1.02rem;
+  line-height: 1.45;
+}
+
+.diag-option span {
+  color: #4d5f7e;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.diag-step h3 {
+  line-height: 1.55;
+}
+
+#diag-copy {
+  color: var(--primary-dark) !important;
+}
+
+@media (max-width: 767px) {
+  .diag-result-actions .button.ghost {
+    font-size: 0.98rem;
+  }
+}
