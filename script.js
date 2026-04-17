@@ -228,7 +228,7 @@ const setupInlineDiagnosis = () => {
       '',
       `${themeLead[answers.theme]}`,
       '共働きと子育てで後回しになりがちなので、どこから整理するとよいか相談したいです。'
-    ].join('\\n');
+    ].join('\r\n');
   };
 
   const renderResult = () => {
