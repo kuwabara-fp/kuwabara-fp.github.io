@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>無料診断ツール | くわばらＦＰオフィス</title>
+  <meta name="description" content="共働き子育て世帯向けの無料診断ツール。5〜7問に答えるだけで、家計バランス・教育資金・将来資金の準備度合いが分かります。結果はそのままLINEで送ることができます。" />
+  <!-- 既存のスタイルシートを読み込み、診断ツールの見た目をサイト全体のトーンに合わせます -->
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./mini-tools.css" />
+  <style>
+    /* 診断ツール独自のスタイル。不要な余白調整とセクションの切り替えに利用します */
+    #questions-section,
+    #result-section {
+      display: none;
+    }
+    .theme-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .theme-buttons button {
+      width: 100%;
+    }
+    @media (min-width: 600px) {
+      .theme-buttons {
+        flex-direction: row;
+      }
+      .theme-buttons button {
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="./index.html">くわばらＦＰオフィス</a>
+      <button class="menu-toggle" type="button" aria-controls="global-nav" aria-expanded="false">メニュー</button>
+      <nav class="global-nav" id="global-nav" aria-label="グローバルナビゲーション">
+        <a href="./index.html#reasons">相談の特徴</a>
+        <a href="./index.html#profile">プロフィール</a>
+        <a href="./index.html#needs">お悩み</a>
+        <a href="./index.html#precheck">3分おためし</a>
+        <a href="./index.html#services">相談内容</a>
+        <a href="./index.html#fees">料金プラン</a>
+        <a href="./index.html#flow">ご相談の流れ</a>
+        <a href="./index.html#faq">よくある質問</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ページのヒーローセクション。診断ツールの目的を明示しています -->
+    <section class="page-hero-simple">
+      <div class="container">
+        <div class="page-breadcrumb">
+          <a href="./index.html">ホーム</a>
+          <span>›</span>
+          <span>無料診断ツール</span>
+        </div>
+        <h1 class="page-title">無料診断ツール</h1>
+        <p class="page-lead">共働き子育て世帯に向けた、家計バランス・教育資金・将来資金の準備度合いをチェックできる無料診断です。5〜7問の簡単な質問に答えるだけで、ご家庭の課題や強みが分かります。診断結果はそのままLINEで送ることができ、相談のきっかけ作りに役立ちます。</p>
+      </div>
+    </section>
+
+    <!-- 診断ツール本体を配置するシェル -->
+    <section class="page-shell">
+      <div class="container page-grid">
+        <div class="page-panel">
+          <div id="diagnosis-tool">
+            <!-- テーマ選択セクション -->
+            <section id="selection-section" class="question-card">
+              <h2 class="question-title">診断したいテーマを選んでください</h2>
+              <p class="question-help">いちばん気になる項目からチェックできます。どれから始めても大丈夫です。</p>
+              <div class="theme-buttons">
+                <button type="button" class="button primary theme-btn" data-theme="balance">家計バランス診断</button>
+                <button type="button" class="button primary theme-btn" data-theme="education">教育資金診断</button>
+                <button type="button" class="button primary theme-btn" data-theme="future">将来資金診断</button>
+              </div>
+            </section>
+            <!-- 質問表示セクション -->
+            <section id="questions-section">
+              <form id="diagnosis-form" class="tool-form">
+                <div id="questions-container"></div>
+                <div class="form-actions">
+                  <button class="button primary" type="submit">結果を見る</button>
+                  <button class="button ghost" type="button" id="diagnosis-reset">やり直す</button>
+                </div>
+              </form>
+            </section>
+            <!-- 結果表示セクション -->
+            <section id="result-section" class="result-card result-hidden">
+              <p class="result-label">CHECK RESULT</p>
+              <h2 class="result-title" id="diag-result-title"></h2>
+              <p class="result-copy" id="diag-result-copy"></p>
+              <ul class="result-next" id="diag-result-next"></ul>
+              <div class="result-actions">
+                <button type="button" class="button secondary" id="copy-memo-btn">相談メモをコピー</button>
+                <a class="button line" id="line-link" href="#" rel="noopener noreferrer" target="_blank">診断結果をLINEで送ってみる</a>
+              </div>
+              <button type="button" class="button ghost" id="restart-btn">最初からやり直す</button>
+            </section>
+          </div>
+        </div>
+        <aside class="page-side">
+          <div class="page-panel">
+            <h2 class="side-card-title">この診断で分かること</h2>
+            <ul class="side-list">
+              <li>家計のバランスや貯蓄状況</li>
+              <li>教育費の準備度合い</li>
+              <li>老後など将来資金の安心度</li>
+              <li>次に取るべき行動のヒント</li>
+            </ul>
+          </div>
+          <div class="notice-box">
+            診断はあくまで目安です。結果が低くても問題はありません。大切なのは、今の状態を知って次の一歩を決めることです。
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <p>© 2026 くわばらＦＰオフィス</p>
+        <div aria-label="公式リンク" class="footer-social">
+          <a aria-label="YouTube" class="social-pill social-pill-youtube" href="https://youtube.com/@1e240k?si=uDjklptJoXEi2mPi" rel="noopener noreferrer" target="_blank"><span>YouTube</span></a>
+          <a aria-label="note" class="social-pill social-pill-note" href="https://note.com/fp_yosuke" rel="noopener noreferrer" target="_blank"><span>note</span></a>
+          <a aria-label="X" class="social-pill social-pill-x" href="https://x.com/fp_yosuke?s=21" rel="noopener noreferrer" target="_blank"><span>X</span></a>
+          <a aria-label="LINE" class="social-pill social-pill-line line-chip" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank"><span>LINE</span></a>
+        </div>
+      </div>
+      <a href="./index.html">ホームへ戻る</a>
+    </div>
+  </footer>
+
+  <!-- サイト共通のスクリプトと診断ツール専用スクリプトを読み込みます -->
+  <script src="./script.js"></script>
+  <script src="./diagnosis.js"></script>
+</body>
+</html>

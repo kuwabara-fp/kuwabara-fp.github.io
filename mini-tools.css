@@ -435,33 +435,3 @@
     break-inside: avoid;
   }
 }
-
-
-/* v103: 3分チェック buttons + LINE result CTA */
-.form-actions .button {
-  font-size: 1.02rem;
-  min-height: 54px;
-  padding-inline: 22px;
-}
-
-.form-actions .check-submit-button,
-.form-actions .check-reset-button {
-  font-size: 1.02rem;
-  font-weight: 800;
-}
-
-.result-actions .result-line-link {
-  min-width: 280px;
-}
-
-@media (max-width: 640px) {
-  .form-actions .button {
-    font-size: 1rem;
-    min-height: 52px;
-  }
-
-  .result-actions .result-line-link {
-    width: 100%;
-    min-width: 0;
-  }
-}
