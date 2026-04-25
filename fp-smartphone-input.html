@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f766e" />
+  <title>くわばらFPオフィス｜スマホ入力版 家計整理ツール</title>
+  <meta name="description" content="共働き・子育て世帯向け。家計、教育費、住宅購入、相談前メモ、90日改善プランをスマホで入力し、LINE相談メモを作成できます。" />
+  <style>
+    :root {
+      --bg:#f5f7f6; --card:#ffffff; --ink:#13231f; --muted:#68736f; --line:#dbe4e0;
+      --primary:#0f766e; --primary-dark:#0b5f59; --primary-soft:#e2f2ef; --warning:#fff7ed;
+      --shadow:0 18px 40px rgba(15,35,31,.08); --radius:18px;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      background:linear-gradient(180deg,#e9f3f0 0%, var(--bg) 240px);
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP","Segoe UI",sans-serif;
+      line-height:1.65;
+      -webkit-text-size-adjust:100%;
+    }
+    main, .app-header { width:min(100%, 920px); margin:0 auto; padding:20px; }
+    .app-header { padding-top:max(22px, env(safe-area-inset-top)); }
+    .brand-row { display:flex; gap:14px; align-items:center; }
+    .brand-mark {
+      width:52px; height:52px; border-radius:16px; display:grid; place-items:center;
+      background:var(--primary); color:#fff; font-weight:800; letter-spacing:.04em; box-shadow:var(--shadow);
+    }
+    .eyebrow { margin:0 0 4px; color:var(--primary-dark); font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    h1,h2,h3,h4,p { overflow-wrap:anywhere; }
+    h1 { margin:0; font-size:clamp(28px, 8vw, 46px); line-height:1.16; letter-spacing:-.03em; }
+    h2 { margin:0 0 6px; font-size:clamp(22px, 6vw, 32px); line-height:1.25; letter-spacing:-.02em; }
+    h3 { margin:0 0 8px; font-size:18px; }
+    h4 { margin:0 0 12px; font-size:16px; }
+    .lead { margin:18px 0 0; color:#31413d; font-size:15px; }
+    .hero-actions, .sticky-actions, .cta-row {
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:18px;
+    }
+    .primary-btn, .secondary-btn, .ghost-btn, .copy-btn {
+      appearance:none; border:0; border-radius:999px; min-height:46px; padding:12px 18px;
+      font-size:15px; font-weight:800; text-decoration:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;
+    }
+    .primary-btn { background:var(--primary); color:#fff; box-shadow:0 10px 24px rgba(15,118,110,.24); }
+    .primary-btn:active { background:var(--primary-dark); }
+    .secondary-btn { background:var(--primary-soft); color:var(--primary-dark); }
+    .ghost-btn, .copy-btn { background:#fff; color:var(--primary-dark); border:1px solid var(--line); }
+    .notice-card, .tool-panel, .footer-cta {
+      background:rgba(255,255,255,.92); border:1px solid var(--line); border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:18px; margin:16px 0;
+    }
+    .notice-card ol { margin:8px 0 0; padding-left:22px; }
+    .tool-nav {
+      display:flex; gap:8px; overflow-x:auto; padding:6px 0 12px; position:sticky; top:0; z-index:10;
+      background:rgba(245,247,246,.94); backdrop-filter:blur(12px); border-bottom:1px solid rgba(219,228,224,.6);
+    }
+    .tool-tab {
+      flex:0 0 auto; border:1px solid var(--line); background:#fff; color:#354642; border-radius:999px;
+      padding:10px 14px; font-weight:800; min-height:42px;
+    }
+    .tool-tab.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .tool-panel { display:none; }
+    .tool-panel.active { display:block; animation:fadeIn .18s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
+    .section-title { margin-bottom:16px; }
+    .section-title p:not(.eyebrow) { margin:6px 0 0; color:var(--muted); font-size:14px; }
+    .card-list { border:0; padding:0; margin:0; display:grid; gap:10px; }
+    .check-card {
+      display:grid; grid-template-columns:26px 1fr; gap:10px; align-items:start; min-height:56px;
+      background:#fff; border:1px solid var(--line); border-radius:14px; padding:13px; font-weight:650;
+    }
+    .check-card input { width:22px; height:22px; accent-color:var(--primary); margin-top:1px; }
+    .form-grid, .child-grid, .action-list, .priority-list { display:grid; gap:12px; }
+    .form-grid { grid-template-columns:1fr; }
+    .input-block, .action-card label, .priority-list label {
+      display:grid; gap:7px; background:#fff; border:1px solid var(--line); border-radius:14px; padding:13px;
+    }
+    .input-block > span, .action-card label > span, .priority-list label > span { font-size:13px; color:#3a4a46; font-weight:800; }
+    input, select, textarea {
+      width:100%; border:1px solid #cfd9d5; border-radius:12px; background:#fff; color:var(--ink);
+      font:inherit; font-size:16px; padding:12px; min-height:46px;
+    }
+    textarea { resize:vertical; }
+    input:focus, select:focus, textarea:focus { outline:3px solid rgba(15,118,110,.18); border-color:var(--primary); }
+    small, .small-note { color:var(--muted); font-size:12px; }
+    .unit-input { display:grid; grid-template-columns:1fr auto; align-items:center; gap:8px; }
+    .unit-input em { font-style:normal; color:var(--muted); font-weight:800; white-space:nowrap; }
+    .mini-section { margin:16px 0; padding:14px; border-radius:16px; background:#f9fbfa; border:1px solid var(--line); }
+    .mini-section p { margin:0 0 12px; color:var(--muted); font-size:13px; }
+    .result-box, .metric, .memo-box {
+      border:1px solid var(--line); border-radius:16px; background:#fff; padding:15px; margin-top:14px;
+    }
+    .result-box { background:linear-gradient(180deg,#ffffff 0%,#f4fbf9 100%); }
+    .result-label, .metric span { display:block; color:var(--muted); font-size:12px; font-weight:800; }
+    .result-box strong, .metric strong { display:block; margin-top:4px; font-size:22px; letter-spacing:-.02em; }
+    .result-box p, .metric small { display:block; margin:4px 0 0; color:var(--muted); font-size:12px; }
+    .result-grid { display:grid; gap:10px; grid-template-columns:1fr; margin:14px 0; }
+    .metric.highlight { background:#eef8f5; border-color:#bfe0d9; }
+    .metric.warning { background:var(--warning); border-color:#fed7aa; }
+    .priority-list label { grid-template-columns:1fr 110px; align-items:center; }
+    .action-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:14px; display:grid; gap:10px; }
+    .action-card label { padding:0; border:0; }
+    .plan-steps { display:grid; gap:10px; margin:14px 0; }
+    .plan-steps article { background:#fff; border:1px solid var(--line); border-radius:14px; padding:13px; }
+    .plan-steps span { color:var(--primary-dark); font-weight:900; font-size:12px; }
+    .plan-steps p { margin:4px 0 0; }
+    .sticky-actions {
+      position:sticky; bottom:env(safe-area-inset-bottom); padding:10px 0 0;
+      background:linear-gradient(180deg, rgba(245,247,246,0), var(--bg) 34%);
+    }
+    .memo-header { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; }
+    .memo-header h3 { margin:0; }
+    .memo-box textarea { background:#f9fbfa; font-size:14px; min-height:180px; }
+    .footer-cta { margin-bottom:max(20px, env(safe-area-inset-bottom)); }
+    .tool-note { margin-top:12px; font-size:13px; color:var(--muted); }
+    .toast {
+      position:fixed; left:50%; bottom:calc(18px + env(safe-area-inset-bottom)); transform:translateX(-50%);
+      background:#13231f; color:#fff; border-radius:999px; padding:10px 16px; font-weight:800; z-index:50; box-shadow:var(--shadow);
+    }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    @media (min-width: 720px) {
+      main, .app-header { padding-inline:28px; }
+      .notice-card, .tool-panel, .footer-cta { padding:24px; }
+      .form-grid, .result-grid { grid-template-columns:repeat(2, 1fr); }
+      .child-grid, .action-list { grid-template-columns:repeat(3, 1fr); }
+      .hero-actions .primary-btn, .hero-actions .ghost-btn { min-width:190px; }
+    }
+    @media print {
+      body { background:#fff; }
+      .tool-nav, .sticky-actions, .hero-actions, .footer-cta, .copy-btn { display:none !important; }
+      .tool-panel { display:block !important; box-shadow:none; break-after:page; }
+    }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand-row">
+      <div class="brand-mark" aria-hidden="true">FP</div>
+      <div>
+        <p class="eyebrow">くわばらFPオフィス 無料ツール</p>
+        <h1>スマホで入力できる<br />家計整理ツール</h1>
+      </div>
+    </div>
+    <p class="lead">共働き・子育て世帯の家計、教育費、住宅購入、老後資金の不安を、スマホで整理できます。入力内容はこの端末内に保存され、外部送信されません。</p>
+    <div class="hero-actions">
+      <a class="primary-btn" href="#tools">ツールを選ぶ</a>
+      <button class="ghost-btn" type="button" data-action="clear-all">入力をリセット</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="notice-card" aria-label="使い方">
+      <h2>使い方</h2>
+      <ol>
+        <li>気になるテーマのツールを開く</li>
+        <li>わかる範囲だけ入力する</li>
+        <li>最後に「LINE相談メモを作る」を押す</li>
+        <li>表示された文章をコピーしてLINEで送る</li>
+      </ol>
+    </section>
+
+    <nav id="tools" class="tool-nav" aria-label="ツール選択">
+      <button class="tool-tab active" type="button" data-tool="checklist">家計診断</button>
+      <button class="tool-tab" type="button" data-tool="education">教育費</button>
+      <button class="tool-tab" type="button" data-tool="housing">住宅予算</button>
+      <button class="tool-tab" type="button" data-tool="prep">相談前メモ</button>
+      <button class="tool-tab" type="button" data-tool="plan90">90日改善</button>
+    </nav>
+
+    <section id="checklist" class="tool-panel active" data-panel="checklist">
+      <div class="section-title">
+        <p class="eyebrow">3分診断</p>
+        <h2>共働き家計見直しチェック</h2>
+        <p>チェックが多いほど、家計の設計図を整理する効果が大きい状態です。</p>
+      </div>
+
+      <fieldset class="card-list" id="checklist-items">
+        <legend class="sr-only">家計の気になる項目</legend>
+        <label class="check-card"><input type="checkbox" name="householdIssue" value="毎月は回っているのに、なぜかお金が増えていかない" />毎月は回っているのに、なぜかお金が増えていかない</label>
+        <label class="check-card"><input type="checkbox" name="householdIssue" value="教育費をいつまでに、いくら準備すればよいか曖昧" />教育費をいつまでに、いくら準備すればよいか曖昧</label>
+        <label class="check-card"><input type="checkbox" name="householdIssue" value="住宅購入や住み替えの予算が感覚ベース" />住宅購入や住み替えの予算が感覚ベース</label>
+        <label class="check-card"><input type="checkbox" name="householdIssue" value="ボーナスの使い道がその場しのぎになりやすい" />ボーナスの使い道がその場しのぎになりやすい</label>
+        <label class="check-card"><input type="checkbox" name="householdIssue" value="保険の内容を自分で説明しきれない" />保険の内容を自分で説明しきれない</label>
+        <label class="check-card"><input type="checkbox" name="householdIssue" value="NISA・iDeCoと目的のつながりが薄い" />NISA・iDeCoと目的のつながりが薄い</label>
+        <label class="check-card"><input type="checkbox" name="householdIssue" value="固定費を見直したいが、何から切るべきか決められない" />固定費を見直したいが、何から切るべきか決められない</label>
+        <label class="check-card"><input type="checkbox" name="householdIssue" value="口座や家計アプリが分散して全体像を見失いやすい" />口座や家計アプリが分散して全体像を見失いやすい</label>
+        <label class="check-card"><input type="checkbox" name="householdIssue" value="夫婦でお金の話をする時間が取りにくい" />夫婦でお金の話をする時間が取りにくい</label>
+        <label class="check-card"><input type="checkbox" name="householdIssue" value="ネット情報が多すぎて迷う" />ネット情報が多すぎて迷う</label>
+      </fieldset>
+
+      <div class="result-box" id="checklist-result">
+        <span class="result-label">診断結果</span>
+        <strong>未入力です</strong>
+        <p>気になる項目にチェックしてください。</p>
+      </div>
+
+      <label class="input-block">
+        <span>いちばん相談したいテーマ</span>
+        <select name="checkMainTheme">
+          <option value="">選択してください</option>
+          <option>家計全体</option>
+          <option>教育費</option>
+          <option>住宅購入・住み替え</option>
+          <option>保険</option>
+          <option>老後資金</option>
+          <option>NISA・資産形成</option>
+        </select>
+      </label>
+
+      <label class="input-block">
+        <span>補足メモ</span>
+        <textarea name="checkFreeMemo" rows="4" placeholder="例：教育費と住宅ローンの両立が不安です"></textarea>
+      </label>
+
+      <div class="sticky-actions">
+        <button class="primary-btn" type="button" data-generate="checklist">LINE相談メモを作る</button>
+      </div>
+      <div class="memo-box" data-memo="checklist" hidden>
+        <div class="memo-header">
+          <h3>LINEに貼る相談メモ</h3>
+          <button type="button" class="copy-btn" data-copy="checklist">コピー</button>
+        </div>
+        <textarea readonly rows="9"></textarea>
+        <div class="cta-row">
+          <a class="secondary-btn" data-send="checklist" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank">LINEを開く</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="tool-panel" data-panel="education">
+      <div class="section-title">
+        <p class="eyebrow">教育費</p>
+        <h2>教育費準備シミュレーター</h2>
+        <p>大学入学時点を目安に、今の積立で足りるかをざっくり確認します。</p>
+      </div>
+
+      <div class="form-grid">
+        <label class="input-block">
+          <span>教育費の目標額</span>
+          <div class="unit-input"><input type="number" name="eduTarget" value="500" min="0" inputmode="decimal" /><em>万円</em></div>
+          <small>子ども1人あたりの目標額。迷う場合は500万円から。</small>
+        </label>
+        <label class="input-block">
+          <span>現在の教育費貯蓄</span>
+          <div class="unit-input"><input type="number" name="eduCurrent" value="100" min="0" inputmode="decimal" /><em>万円</em></div>
+        </label>
+        <label class="input-block">
+          <span>毎月の教育費積立</span>
+          <div class="unit-input"><input type="number" name="eduMonthly" value="2" min="0" step="0.1" inputmode="decimal" /><em>万円/月</em></div>
+        </label>
+        <label class="input-block">
+          <span>想定利回り</span>
+          <div class="unit-input"><input type="number" name="eduReturn" value="0" min="0" step="0.1" inputmode="decimal" /><em>%/年</em></div>
+          <small>保守的に見る場合は0%で入力。</small>
+        </label>
+      </div>
+
+      <div class="mini-section">
+        <h3>子どもの年齢</h3>
+        <p>該当する人数だけ入力してください。</p>
+        <div class="child-grid">
+          <label class="input-block compact"><span>第1子</span><div class="unit-input"><input type="number" name="childAge1" value="8" min="0" max="22" inputmode="numeric" /><em>歳</em></div></label>
+          <label class="input-block compact"><span>第2子</span><div class="unit-input"><input type="number" name="childAge2" min="0" max="22" inputmode="numeric" /><em>歳</em></div></label>
+          <label class="input-block compact"><span>第3子</span><div class="unit-input"><input type="number" name="childAge3" min="0" max="22" inputmode="numeric" /><em>歳</em></div></label>
+        </div>
+      </div>
+
+      <div class="result-grid" id="education-result">
+        <div class="metric"><span>必要準備額</span><strong>-</strong><small>目標額の合計</small></div>
+        <div class="metric"><span>大学入学時見込み</span><strong>-</strong><small>今の貯蓄＋積立</small></div>
+        <div class="metric warning"><span>不足 / 余力</span><strong>-</strong><small>マイナスなら不足</small></div>
+      </div>
+
+      <label class="input-block">
+        <span>気になること</span>
+        <textarea name="eduMemo" rows="4" placeholder="例：今の積立で大学資金が足りるか不安です"></textarea>
+      </label>
+
+      <div class="sticky-actions">
+        <button class="primary-btn" type="button" data-generate="education">LINE相談メモを作る</button>
+      </div>
+      <div class="memo-box" data-memo="education" hidden>
+        <div class="memo-header">
+          <h3>LINEに貼る相談メモ</h3>
+          <button type="button" class="copy-btn" data-copy="education">コピー</button>
+        </div>
+        <textarea readonly rows="10"></textarea>
+        <div class="cta-row">
+          <a class="secondary-btn" data-send="education" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank">LINEを開く</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="housing" class="tool-panel" data-panel="housing">
+      <div class="section-title">
+        <p class="eyebrow">住宅予算</p>
+        <h2>住宅購入ざっくり予算シート</h2>
+        <p>家計に無理のない購入上限を、管理費や税金も含めて確認します。</p>
+      </div>
+
+      <div class="form-grid">
+        <label class="input-block"><span>毎月の住宅費に回せる額</span><div class="unit-input"><input type="number" name="homePay" value="12" min="0" step="0.1" /><em>万円/月</em></div></label>
+        <label class="input-block"><span>管理・修繕・固定資産税など</span><div class="unit-input"><input type="number" name="homeRunning" value="2" min="0" step="0.1" /><em>万円/月</em></div></label>
+        <label class="input-block"><span>返済期間</span><div class="unit-input"><input type="number" name="homeYears" value="35" min="1" max="50" /><em>年</em></div></label>
+        <label class="input-block"><span>想定金利</span><div class="unit-input"><input type="number" name="homeRate" value="1.0" min="0" step="0.1" /><em>%</em></div></label>
+        <label class="input-block"><span>金利上昇ストレス</span><div class="unit-input"><input type="number" name="homeStress" value="1.0" min="0" step="0.1" /><em>%</em></div></label>
+        <label class="input-block"><span>自己資金</span><div class="unit-input"><input type="number" name="homeCash" value="300" min="0" /><em>万円</em></div></label>
+        <label class="input-block"><span>諸費用率</span><div class="unit-input"><input type="number" name="homeCostRate" value="8" min="0" step="0.1" /><em>%</em></div></label>
+      </div>
+
+      <div class="result-grid" id="housing-result">
+        <div class="metric"><span>ローン返済に使える額</span><strong>-</strong><small>住宅費から維持費を差し引いた額</small></div>
+        <div class="metric"><span>借入目安</span><strong>-</strong><small>現在金利ベース</small></div>
+        <div class="metric highlight"><span>購入予算目安</span><strong>-</strong><small>自己資金込み</small></div>
+        <div class="metric warning"><span>金利上昇後の借入目安</span><strong>-</strong><small>ストレスチェック</small></div>
+      </div>
+
+      <label class="input-block">
+        <span>気になること</span>
+        <textarea name="homeMemo" rows="4" placeholder="例：教育費を残しながら無理ない価格帯を知りたいです"></textarea>
+      </label>
+
+      <div class="sticky-actions">
+        <button class="primary-btn" type="button" data-generate="housing">LINE相談メモを作る</button>
+      </div>
+      <div class="memo-box" data-memo="housing" hidden>
+        <div class="memo-header">
+          <h3>LINEに貼る相談メモ</h3>
+          <button type="button" class="copy-btn" data-copy="housing">コピー</button>
+        </div>
+        <textarea readonly rows="10"></textarea>
+        <div class="cta-row">
+          <a class="secondary-btn" data-send="housing" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank">LINEを開く</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="prep" class="tool-panel" data-panel="prep">
+      <div class="section-title">
+        <p class="eyebrow">相談前メモ</p>
+        <h2>相談前 お金の整理メモ</h2>
+        <p>わかる範囲だけ入れておけば、初回相談の質を上げやすくなります。</p>
+      </div>
+
+      <div class="form-grid">
+        <label class="input-block"><span>家族構成</span><input type="text" name="prepFamily" placeholder="例：夫婦＋子ども2人" /></label>
+        <label class="input-block"><span>住まい</span><input type="text" name="prepHome" placeholder="例：賃貸 / 持ち家" /></label>
+        <label class="input-block"><span>勤務形態</span><input type="text" name="prepWork" placeholder="例：夫婦とも会社員" /></label>
+        <label class="input-block"><span>一番相談したいテーマ</span><input type="text" name="prepTheme" placeholder="例：教育費と住宅" /></label>
+        <label class="input-block"><span>世帯手取り月収</span><div class="unit-input"><input type="number" name="prepIncome" min="0" step="0.1" /><em>万円/月</em></div></label>
+        <label class="input-block"><span>毎月の貯蓄・投資</span><div class="unit-input"><input type="number" name="prepSaving" min="0" step="0.1" /><em>万円/月</em></div></label>
+        <label class="input-block"><span>固定費</span><div class="unit-input"><input type="number" name="prepFixed" min="0" step="0.1" /><em>万円/月</em></div></label>
+        <label class="input-block"><span>変動費</span><div class="unit-input"><input type="number" name="prepVariable" min="0" step="0.1" /><em>万円/月</em></div></label>
+      </div>
+
+      <div class="mini-section">
+        <h3>優先順位</h3>
+        <p>高 / 中 / 低 でざっくり選んでください。</p>
+        <div class="priority-list">
+          <label><span>教育費</span><select name="prepPriorityEdu"><option>高</option><option selected>中</option><option>低</option></select></label>
+          <label><span>住宅</span><select name="prepPriorityHome"><option>高</option><option selected>中</option><option>低</option></select></label>
+          <label><span>保険</span><select name="prepPriorityInsurance"><option>高</option><option selected>中</option><option>低</option></select></label>
+          <label><span>老後資金</span><select name="prepPriorityRetire"><option>高</option><option selected>中</option><option>低</option></select></label>
+          <label><span>資産形成</span><select name="prepPriorityInvest"><option>高</option><option selected>中</option><option>低</option></select></label>
+        </div>
+      </div>
+
+      <label class="input-block"><span>気になる支出・不安</span><textarea name="prepConcern" rows="4"></textarea></label>
+      <label class="input-block"><span>面談で聞きたいこと</span><textarea name="prepQuestion" rows="4"></textarea></label>
+
+      <div class="sticky-actions">
+        <button class="primary-btn" type="button" data-generate="prep">LINE相談メモを作る</button>
+      </div>
+      <div class="memo-box" data-memo="prep" hidden>
+        <div class="memo-header">
+          <h3>LINEに貼る相談メモ</h3>
+          <button type="button" class="copy-btn" data-copy="prep">コピー</button>
+        </div>
+        <textarea readonly rows="12"></textarea>
+        <div class="cta-row">
+          <a class="secondary-btn" data-send="prep" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank">LINEを開く</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="plan90" class="tool-panel" data-panel="plan90">
+      <div class="section-title">
+        <p class="eyebrow">90日改善</p>
+        <h2>90日 家計改善アクションプラン</h2>
+        <p>相談後の「やること」を小さく区切って、効果・緊急度・進捗を見える化します。</p>
+      </div>
+
+      <div class="action-list">
+        <div class="action-card">
+          <h4>アクション1</h4>
+          <label><span>やること</span><input type="text" name="actionName1" placeholder="例：通信費の見直し" /></label>
+          <label><span>改善額の目安</span><div class="unit-input"><input type="number" name="actionEffect1" min="0" step="100" /><em>円/月</em></div></label>
+          <label><span>緊急度</span><select name="actionUrgency1"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></label>
+          <label><span>やりやすさ</span><select name="actionEase1"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label>
+        </div>
+        <div class="action-card">
+          <h4>アクション2</h4>
+          <label><span>やること</span><input type="text" name="actionName2" placeholder="例：教育費口座の整理" /></label>
+          <label><span>改善額の目安</span><div class="unit-input"><input type="number" name="actionEffect2" min="0" step="100" /><em>円/月</em></div></label>
+          <label><span>緊急度</span><select name="actionUrgency2"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></label>
+          <label><span>やりやすさ</span><select name="actionEase2"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label>
+        </div>
+        <div class="action-card">
+          <h4>アクション3</h4>
+          <label><span>やること</span><input type="text" name="actionName3" placeholder="例：保険証券を集める" /></label>
+          <label><span>改善額の目安</span><div class="unit-input"><input type="number" name="actionEffect3" min="0" step="100" /><em>円/月</em></div></label>
+          <label><span>緊急度</span><select name="actionUrgency3"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></label>
+          <label><span>やりやすさ</span><select name="actionEase3"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label>
+        </div>
+      </div>
+
+      <div class="result-grid" id="plan-result">
+        <div class="metric"><span>想定改善額/月</span><strong>-</strong><small>入力合計</small></div>
+        <div class="metric"><span>想定改善額/年</span><strong>-</strong><small>12か月換算</small></div>
+        <div class="metric highlight"><span>最優先アクション</span><strong>-</strong><small>緊急度・やりやすさ・効果で判定</small></div>
+      </div>
+
+      <div class="plan-steps" id="plan-steps">
+        <article><span>Day 1-30</span><p>最優先の1つだけ着手する。</p></article>
+        <article><span>Day 31-60</span><p>次の改善項目を1つ追加する。</p></article>
+        <article><span>Day 61-90</span><p>浮いたお金の行き先を決める。</p></article>
+      </div>
+
+      <div class="sticky-actions">
+        <button class="primary-btn" type="button" data-generate="plan90">LINE相談メモを作る</button>
+      </div>
+      <div class="memo-box" data-memo="plan90" hidden>
+        <div class="memo-header">
+          <h3>LINEに貼る相談メモ</h3>
+          <button type="button" class="copy-btn" data-copy="plan90">コピー</button>
+        </div>
+        <textarea readonly rows="12"></textarea>
+        <div class="cta-row">
+          <a class="secondary-btn" data-send="plan90" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank">LINEを開く</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer-cta">
+      <h2>入力した内容をそのまま相談の入口にできます</h2>
+      <p class="tool-note">入力内容は端末内だけに保存されます。迷っている段階でも、メモを作ってLINEで送れば相談を始めやすくなります。</p>
+      <div class="cta-row">
+        <a class="primary-btn" href="https://lin.ee/rTetBKJ" rel="noopener noreferrer" target="_blank">LINE公式アカウントを開く</a>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" hidden>コピーしました</div>
+
+  <script>
+    const CONFIG = {
+      lineUrl: "https://lin.ee/rTetBKJ",
+      lineOaId: "@771xcevp"
+    };
+
+    const yen = new Intl.NumberFormat("ja-JP");
+    const stateKey = "kuwabara-fp-mobile-tools-v2";
+
+    function q(sel, root = document) { return root.querySelector(sel); }
+    function qa(sel, root = document) { return Array.from(root.querySelectorAll(sel)); }
+    function num(name) {
+      const el = q(`[name="${name}"]`);
+      if (!el) return 0;
+      const v = Number(String(el.value).replace(/,/g, ""));
+      return Number.isFinite(v) ? v : 0;
+    }
+    function val(name) {
+      const el = q(`[name="${name}"]`);
+      return el ? el.value.trim() : "";
+    }
+    function moneyMan(v) {
+      if (!Number.isFinite(v)) return "-";
+      return `${yen.format(Math.round(v))}万円`;
+    }
+    function moneyYen(v) {
+      if (!Number.isFinite(v)) return "-";
+      return `${yen.format(Math.round(v))}円`;
+    }
+    function showToast(text) {
+      const toast = q(".toast");
+      toast.textContent = text;
+      toast.hidden = false;
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => { toast.hidden = true; }, 2200);
+    }
+
+    function collectFormState() {
+      const data = {};
+      qa("input, select, textarea").forEach(el => {
+        if (!el.name) return;
+        if (el.type === "checkbox") {
+          if (!data[el.name]) data[el.name] = [];
+          if (el.checked) data[el.name].push(el.value);
+        } else {
+          data[el.name] = el.value;
+        }
+      });
+      return data;
+    }
+    function applyFormState(data) {
+      if (!data) return;
+      qa("input, select, textarea").forEach(el => {
+        if (!el.name || data[el.name] === undefined) return;
+        if (el.type === "checkbox") {
+          el.checked = Array.isArray(data[el.name]) && data[el.name].includes(el.value);
+        } else {
+          el.value = data[el.name];
+        }
+      });
+    }
+    function saveState() {
+      localStorage.setItem(stateKey, JSON.stringify(collectFormState()));
+    }
+    function restoreState() {
+      try { applyFormState(JSON.parse(localStorage.getItem(stateKey))); } catch (_ ) {}
+    }
+
+    function selectedIssues() {
+      return qa('input[name="householdIssue"]:checked').map(el => el.value);
+    }
+    function updateChecklist() {
+      const count = selectedIssues().length;
+      const box = q("#checklist-result");
+      let title = "未入力です";
+      let body = "気になる項目にチェックしてください。";
+      if (count > 0 && count <= 2) {
+        title = `チェック ${count}個：大きな破綻は少ない状態`;
+        body = "次は、教育費・住宅・老後資金のうち、優先順位を明確にすると相談効果が出やすいです。";
+      } else if (count <= 5 && count > 2) {
+        title = `チェック ${count}個：改善余地がある状態`;
+        body = "固定費、教育費、住居費を並べて、家計全体の見直し順を決めると進めやすいです。";
+      } else if (count >= 6) {
+        title = `チェック ${count}個：家計の設計図が必要な状態`;
+        body = "1人で抱え込まず、収入・支出・教育費・住宅費をまとめて棚卸しする段階です。";
+      }
+      box.innerHTML = `<span class="result-label">診断結果</span><strong>${title}</strong><p>${body}</p>`;
+    }
+
+    function futureValueMonthly(current, monthly, years, annualRate) {
+      const months = Math.max(0, years * 12);
+      const r = annualRate / 100 / 12;
+      if (months === 0) return current;
+      if (r === 0) return current + monthly * months;
+      return current * Math.pow(1 + r, months) + monthly * ((Math.pow(1 + r, months) - 1) / r);
+    }
+    function educationCalc() {
+      const ages = [num("childAge1"), num("childAge2"), num("childAge3")].filter(a => a > 0 || String(a) === "0");
+      const childCount = ages.length || 1;
+      const target = num("eduTarget") * childCount;
+      const current = num("eduCurrent");
+      const monthly = num("eduMonthly");
+      const rate = num("eduReturn");
+      const yearsList = ages.length ? ages.map(a => Math.max(0, 18 - a)) : [10];
+      const avgYears = yearsList.reduce((a, b) => a + b, 0) / yearsList.length;
+      const expected = futureValueMonthly(current, monthly, avgYears, rate);
+      const gap = expected - target;
+      const metrics = qa("#education-result .metric strong");
+      metrics[0].textContent = moneyMan(target);
+      metrics[1].textContent = moneyMan(expected);
+      metrics[2].textContent = gap >= 0 ? `+${moneyMan(gap)}` : `-${moneyMan(Math.abs(gap))}`;
+      return { childCount, target, current, monthly, rate, avgYears, expected, gap };
+    }
+
+    function loanPV(monthlyPaymentMan, years, annualRate) {
+      const n = years * 12;
+      const r = annualRate / 100 / 12;
+      if (monthlyPaymentMan <= 0 || n <= 0) return 0;
+      if (r === 0) return monthlyPaymentMan * n;
+      return monthlyPaymentMan * (1 - Math.pow(1 + r, -n)) / r;
+    }
+    function housingCalc() {
+      const pay = num("homePay");
+      const running = num("homeRunning");
+      const loanPay = Math.max(0, pay - running);
+      const years = num("homeYears");
+      const rate = num("homeRate");
+      const stress = num("homeStress");
+      const cash = num("homeCash");
+      const costRate = num("homeCostRate") / 100;
+      const borrow = loanPV(loanPay, years, rate);
+      const total = (borrow + cash) / (1 + costRate);
+      const stressBorrow = loanPV(loanPay, years, rate + stress);
+      const metrics = qa("#housing-result .metric strong");
+      metrics[0].textContent = moneyMan(loanPay);
+      metrics[1].textContent = moneyMan(borrow);
+      metrics[2].textContent = moneyMan(total);
+      metrics[3].textContent = moneyMan(stressBorrow);
+      return { pay, running, loanPay, years, rate, stress, cash, costRate, borrow, total, stressBorrow };
+    }
+
+    function planCalc() {
+      const actions = [1, 2, 3].map(i => {
+        const name = val(`actionName${i}`);
+        const effect = num(`actionEffect${i}`);
+        const urgency = num(`actionUrgency${i}`);
+        const ease = num(`actionEase${i}`);
+        const effectScore = effect >= 10000 ? 3 : effect >= 5000 ? 2 : effect > 0 ? 1 : 0;
+        return { name, effect, urgency, ease, score: urgency + ease + effectScore };
+      }).filter(a => a.name || a.effect > 0);
+      const monthly = actions.reduce((sum, a) => sum + a.effect, 0);
+      const best = actions.slice().sort((a, b) => b.score - a.score || b.effect - a.effect)[0];
+      const metrics = qa("#plan-result .metric strong");
+      metrics[0].textContent = moneyYen(monthly);
+      metrics[1].textContent = moneyYen(monthly * 12);
+      metrics[2].textContent = best ? best.name : "-";
+      const steps = q("#plan-steps");
+      if (best) {
+        steps.innerHTML = `
+          <article><span>Day 1-30</span><p>${best.name}に必要な契約・明細・支出履歴を集める。</p></article>
+          <article><span>Day 31-60</span><p>効果が大きい順に実行し、月間改善額を記録する。</p></article>
+          <article><span>Day 61-90</span><p>浮いたお金の使い道を、教育費・防衛資金・老後の順に見直す。</p></article>
+        `;
+      }
+      return { actions, monthly, best };
+    }
+
+    function lineMemoChecklist() {
+      const issues = selectedIssues();
+      const count = issues.length;
+      const theme = val("checkMainTheme") || "家計全体";
+      return `【共働き家計見直しチェック】\nチェック数：${count}個\n特に気になった項目：\n${issues.length ? "・" + issues.join("\n・") : "未入力"}\n\n一番相談したいテーマ：${theme}\nひとこと：${val("checkFreeMemo") || "チェックしてみたら、今の家計で何から見直すべきか優先順位を整理したいです。"}`;
+    }
+    function lineMemoEducation() {
+      const r = educationCalc();
+      return `【教育費準備の相談】\n子どもの人数：${r.childCount}人\n教育費目標額：${moneyMan(r.target)}\n現在の教育費貯蓄：${moneyMan(r.current)}\n毎月の積立：${moneyMan(r.monthly)}/月\n想定利回り：${r.rate}%\n大学入学時見込み：${moneyMan(r.expected)}\n不足/余力：${r.gap >= 0 ? "+" : "-"}${moneyMan(Math.abs(r.gap))}\n\n気になること：\n${val("eduMemo") || "未入力"}\n\n今の積立で足りるか、住宅費や老後資金との優先順位も含めて相談したいです。`;
+    }
+    function lineMemoHousing() {
+      const r = housingCalc();
+      return `【住宅購入予算の相談】\n毎月の住宅費に回せる額：${moneyMan(r.pay)}/月\n管理・修繕・税金等：${moneyMan(r.running)}/月\nローン返済に使える額：${moneyMan(r.loanPay)}/月\n自己資金：${moneyMan(r.cash)}\n返済期間：${r.years}年\n金利：${r.rate}%\n借入目安：${moneyMan(r.borrow)}\n購入予算目安：${moneyMan(r.total)}\n金利上昇後の借入目安：${moneyMan(r.stressBorrow)}\n\n気になること：\n${val("homeMemo") || "未入力"}\n\n教育費や将来の貯蓄を残しながら、無理のない購入上限を相談したいです。`;
+    }
+    function lineMemoPrep() {
+      return `【相談前のお金整理メモ】\n家族構成：${val("prepFamily") || "未入力"}\n住まい：${val("prepHome") || "未入力"}\n勤務形態：${val("prepWork") || "未入力"}\n一番相談したいテーマ：${val("prepTheme") || "未入力"}\n\n世帯手取り月収：${val("prepIncome") || "未入力"}万円/月\n毎月の貯蓄・投資：${val("prepSaving") || "未入力"}万円/月\n固定費：${val("prepFixed") || "未入力"}万円/月\n変動費：${val("prepVariable") || "未入力"}万円/月\n\n優先順位：\n・教育費：${val("prepPriorityEdu")}\n・住宅：${val("prepPriorityHome")}\n・保険：${val("prepPriorityInsurance")}\n・老後資金：${val("prepPriorityRetire")}\n・資産形成：${val("prepPriorityInvest")}\n\n気になる支出・不安：\n${val("prepConcern") || "未入力"}\n\n面談で聞きたいこと：\n${val("prepQuestion") || "未入力"}`;
+    }
+    function lineMemoPlan() {
+      const r = planCalc();
+      const actionText = r.actions.length
+        ? r.actions.map((a, i) => `${i + 1}. ${a.name || "未入力"} / 効果額目安 ${moneyYen(a.effect)} / 緊急度 ${a.urgency} / やりやすさ ${a.ease}`).join("\n")
+        : "未入力";
+      return `【90日家計改善プラン】\n想定改善額/月：${moneyYen(r.monthly)}\n想定改善額/年：${moneyYen(r.monthly * 12)}\n最優先アクション：${r.best ? r.best.name : "未入力"}\n\n登録アクション：\n${actionText}\n\n家計改善を90日で何から進めるべきか、優先順位を相談したいです。`;
+    }
+
+    function buildLineUrl(message) {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
+      if (CONFIG.lineOaId && isMobile) {
+        return `https://line.me/R/oaMessage/${encodeURIComponent(CONFIG.lineOaId)}/?${encodeURIComponent(message)}`;
+      }
+      return CONFIG.lineUrl;
+    }
+
+    const memoBuilders = {
+      checklist: lineMemoChecklist,
+      education: lineMemoEducation,
+      housing: lineMemoHousing,
+      prep: lineMemoPrep,
+      plan90: lineMemoPlan
+    };
+
+    function updateLiveCalculations() {
+      updateChecklist();
+      educationCalc();
+      housingCalc();
+      planCalc();
+    }
+
+    qa(".tool-tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        qa(".tool-tab").forEach(b => b.classList.toggle("active", b === btn));
+        qa(".tool-panel").forEach(panel => panel.classList.toggle("active", panel.dataset.panel === btn.dataset.tool));
+      });
+    });
+
+    document.addEventListener("input", e => {
+      if (e.target.matches("input, select, textarea")) {
+        saveState();
+        updateLiveCalculations();
+      }
+    });
+
+    qa("[data-generate]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.generate;
+        const box = q(`[data-memo="${key}"]`);
+        const area = q("textarea", box);
+        const message = memoBuilders[key]();
+        area.value = message;
+        box.hidden = false;
+        const sendBtn = q(`[data-send="${key}"]`);
+        if (sendBtn) sendBtn.href = buildLineUrl(message);
+        box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    });
+
+    qa("[data-copy]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const key = btn.dataset.copy;
+        const box = q(`[data-memo="${key}"]`);
+        const area = q("textarea", box);
+        try {
+          await navigator.clipboard.writeText(area.value);
+          showToast("コピーしました");
+        } catch {
+          area.select();
+          document.execCommand("copy");
+          showToast("コピーしました");
+        }
+      });
+    });
+
+    q('[data-action="clear-all"]').addEventListener("click", () => {
+      localStorage.removeItem(stateKey);
+      qa("input, select, textarea").forEach(el => {
+        if (el.type === "checkbox") el.checked = false;
+        else if (el.tagName === "SELECT") el.selectedIndex = 0;
+        else if (el.defaultValue !== undefined) el.value = el.defaultValue;
+        else el.value = "";
+      });
+      qa(".memo-box").forEach(box => {
+        box.hidden = true;
+        const area = q("textarea", box);
+        if (area && area.hasAttribute("readonly")) area.value = "";
+      });
+      updateLiveCalculations();
+      showToast("入力をリセットしました");
+    });
+
+    restoreState();
+    updateLiveCalculations();
+  </script>
+</body>
+</html>
