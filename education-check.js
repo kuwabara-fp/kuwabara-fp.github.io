@@ -5,6 +5,11 @@ const resultScore = document.getElementById('result-score');
 const resultNext = document.getElementById('result-next');
 const form = document.getElementById('education-check-form');
 const resetButton = document.getElementById('reset-check');
+const resultLineLink = document.getElementById('result-line-link');
+
+const lineOfficialAccountId = '@771xcevp';
+const lineFallbackUrl = 'https://lin.ee/rTetBKJ';
+const isMobileLineSupported = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
 
 const resultPatterns = [
   {
@@ -67,6 +72,25 @@ form.addEventListener('submit', (event) => {
     li.textContent = item;
     resultNext.appendChild(li);
   });
+
+
+  const lineMessage = [
+    '教育費準備度チェックの結果を送ります。',
+    `診断結果：${matched.title}`,
+    `点数：${total}点 / 12点`,
+    `コメント：${matched.copy}`,
+    '次にやること：',
+    ...matched.next.map((item, index) => `${index + 1}. ${item}`)
+  ].join('\n');
+
+  if (resultLineLink) {
+    const encodedLineId = encodeURIComponent(lineOfficialAccountId);
+    if (lineOfficialAccountId && isMobileLineSupported) {
+      resultLineLink.href = `https://line.me/R/oaMessage/${encodedLineId}/?${encodeURIComponent(lineMessage)}`;
+    } else {
+      resultLineLink.href = lineFallbackUrl;
+    }
+  }
 
   resultCard.classList.remove('result-hidden');
   resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
