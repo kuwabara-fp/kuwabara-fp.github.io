@@ -19,3 +19,26 @@ LINE診断ツールについて
 - トップページ内に4問の診断ツールを追加しています。
 - 現在は body の data-line-fallback-url に既存の LINE リンクを設定しています。
 - LINE 公式アカウントのベーシックIDが分かる場合は、index.html の body タグにある data-line-oa-id に %40xxxxxxx の形式で設定すると、診断結果を入力欄に入れた状態で開けます。
+
+v106 + スマホ入力ツール統合版
+
+追加内容
+- fp-smartphone-input.html をサイト直下に追加
+- トップページのメニューに「無料ツール」を追加
+- トップページ内に「スマホで入力できる家計整理ツール」への導線を追加
+
+確認ポイント
+- index.html から「無料ツールを開く」を押して fp-smartphone-input.html が開く
+- スマホ入力ツール内で「LINE相談メモを作る」を押すと相談メモが生成される
+- スマホではLINEボタンから公式アカウントの入力欄にメモが入った状態で開く
+
+フラット版について
+
+このZIPは、GitHub Pages のルート階層へそのまま上書きアップロードできるように、フォルダを作らない構成にしています。
+
+追加・変更点
+- tools フォルダ、sheets フォルダは作成していません。
+- education-check.html / education-check.js をルート直下に配置しています。
+- action-plan.html / action-plan.js をルート直下に配置しています。
+- fp-smartphone-input.html もルート直下に配置しています。
+- ページ内リンクはルート直下のファイル構成に合わせて調整しています。
