@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#06080c">
+<title>レンジドット — 距離計測 & ドット表現</title>
+<style>
+  :root{
+    --bg:#06080c;
+    --panel:rgba(14,18,26,.94);
+    --line:rgba(255,255,255,.10);
+    --txt:#e9eef4;
+    --sub:#8a98a6;
+    --amber:#ffb454;      /* 距離リードアウト（レンジファインダーの蛍光） */
+    --cyan:#34e3ff;       /* 追尾ボックス／ロック対象 */
+    --warn:#ff6b5e;
+    --ok:#7CFFB2;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Roboto Mono",monospace;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);
+    font-family:var(--mono);overflow:hidden;
+    -webkit-user-select:none;user-select:none;overscroll-behavior:none}
+  #stage{position:fixed;inset:0;touch-action:none}
+  video{display:none}
+  #view{display:block;width:100%;height:100%}
+
+  /* ---- 上部リードアウト ---- */
+  .hud{position:absolute;left:0;right:0;top:0;padding:calc(env(safe-area-inset-top) + 14px) 16px 0;
+    pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:2px}
+  .readout{font-variant-numeric:tabular-nums;font-weight:600;letter-spacing:.02em;
+    font-size:clamp(40px,12vw,72px);line-height:.98;color:var(--amber);
+    text-shadow:0 0 18px rgba(255,180,84,.45),0 1px 0 rgba(0,0,0,.6)}
+  .readout.lost{color:var(--warn);text-shadow:0 0 18px rgba(255,107,94,.4)}
+  .readout.idle{color:var(--sub);text-shadow:none}
+  .status{font-size:12px;color:var(--sub);letter-spacing:.04em;
+    background:rgba(0,0,0,.35);padding:3px 10px;border-radius:999px;backdrop-filter:blur(6px)}
+  .badge{position:absolute;top:calc(env(safe-area-inset-top) + 16px);right:16px;
+    font-size:10px;letter-spacing:.14em;color:var(--sub);
+    border:1px solid var(--line);border-radius:6px;padding:4px 7px;background:rgba(0,0,0,.3)}
+
+  /* ---- 下部コントロール ---- */
+  .bar{position:absolute;left:0;right:0;bottom:0;
+    padding:12px 14px calc(env(safe-area-inset-bottom) + 12px);
+    display:flex;gap:8px;justify-content:center;align-items:stretch;
+    background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0))}
+  .btn{flex:1 1 0;min-height:50px;max-width:120px;border:1px solid var(--line);
+    background:rgba(18,22,30,.7);color:var(--txt);border-radius:13px;
+    font-family:var(--mono);font-size:12px;letter-spacing:.02em;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    backdrop-filter:blur(8px);cursor:pointer;transition:transform .08s,border-color .15s}
+  .btn:active{transform:scale(.95)}
+  .btn .ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8}
+  .btn.on{border-color:var(--cyan);color:var(--cyan)}
+  .btn small{font-size:10px;color:var(--sub)}
+  .btn.on small{color:var(--cyan)}
+
+  /* ---- 設定シート ---- */
+  .scrim{position:absolute;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;
+    transition:opacity .2s;backdrop-filter:blur(2px)}
+  .scrim.show{opacity:1;pointer-events:auto}
+  .sheet{position:absolute;left:0;right:0;bottom:0;z-index:5;
+    background:var(--panel);border-top:1px solid var(--line);
+    border-radius:20px 20px 0 0;padding:8px 18px calc(env(safe-area-inset-bottom) + 20px);
+    transform:translateY(110%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
+    max-height:82vh;overflow-y:auto;box-shadow:0 -20px 60px rgba(0,0,0,.6)}
+  .sheet.show{transform:translateY(0)}
+  .grip{width:38px;height:4px;border-radius:999px;background:var(--line);margin:6px auto 14px}
+  .sec{padding:13px 0;border-bottom:1px solid var(--line)}
+  .sec:last-child{border-bottom:0}
+  .sec h3{margin:0 0 9px;font-size:11px;letter-spacing:.14em;color:var(--sub);font-weight:600;text-transform:uppercase}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:7px 0}
+  .row label{font-size:13px;color:var(--txt)}
+  .seg{display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden}
+  .seg button{appearance:none;border:0;background:transparent;color:var(--sub);
+    font-family:var(--mono);font-size:13px;padding:9px 14px;cursor:pointer;min-width:46px}
+  .seg button.on{background:var(--cyan);color:#04161b;font-weight:600}
+  input[type=range]{-webkit-appearance:none;width:150px;height:3px;border-radius:2px;
+    background:var(--line);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;
+    border-radius:50%;background:var(--cyan);border:3px solid var(--bg);cursor:pointer}
+  input[type=number]{width:74px;background:rgba(0,0,0,.35);border:1px solid var(--line);
+    color:var(--txt);font-family:var(--mono);font-size:14px;border-radius:9px;padding:8px;text-align:right}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+  .chip{border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--sub);
+    font-family:var(--mono);font-size:12px;border-radius:999px;padding:6px 11px;cursor:pointer}
+  .chip:active{border-color:var(--cyan);color:var(--cyan)}
+  .act{display:flex;gap:9px;margin-top:11px}
+  .act button{flex:1;border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--txt);
+    font-family:var(--mono);font-size:13px;border-radius:11px;padding:11px;cursor:pointer}
+  .act button.primary{background:var(--cyan);color:#04161b;border-color:var(--cyan);font-weight:600}
+  .dbg{font-size:11px;color:var(--sub);letter-spacing:.02em;text-align:center;margin-top:4px}
+  .hintline{font-size:11px;color:var(--sub);line-height:1.5;margin-top:8px}
+  .toast{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);
+    background:rgba(0,0,0,.8);border:1px solid var(--line);border-radius:12px;
+    padding:12px 16px;font-size:13px;color:var(--txt);max-width:78vw;text-align:center;
+    opacity:0;pointer-events:none;transition:opacity .2s;z-index:9}
+  .toast.show{opacity:1}
+
+  /* ---- スタート画面 ---- */
+  #start{position:absolute;inset:0;z-index:10;background:radial-gradient(120% 90% at 50% 25%,#0d141f,#06080c);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:28px;text-align:center}
+  #start .logo{font-size:13px;letter-spacing:.5em;color:var(--cyan);text-indent:.5em}
+  #start h1{margin:0;font-size:clamp(30px,9vw,46px);font-weight:600;letter-spacing:.02em;line-height:1.05}
+  #start h1 b{color:var(--amber);font-weight:600}
+  #start p{margin:0;color:var(--sub);font-size:13px;line-height:1.7;max-width:340px}
+  #startBtn{margin-top:6px;border:1px solid var(--cyan);background:rgba(52,227,255,.08);
+    color:var(--cyan);font-family:var(--mono);font-size:16px;letter-spacing:.1em;
+    border-radius:14px;padding:16px 40px;cursor:pointer;transition:transform .08s,background .15s}
+  #startBtn:active{transform:scale(.96);background:rgba(52,227,255,.18)}
+  #startMsg{color:var(--warn);font-size:12px;white-space:pre-line;min-height:1em;max-width:320px}
+  .reticle-mini{width:54px;height:54px;opacity:.7}
+</style>
+</head>
+<body>
+<div id="stage">
+  <video id="video" playsinline muted autoplay></video>
+  <canvas id="view"></canvas>
+
+  <div class="hud">
+    <div id="dist" class="readout idle">— —</div>
+    <div id="status" class="status">起動を待っています</div>
+  </div>
+  <div id="modeBadge" class="badge">通常</div>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- 設定シート -->
+  <div id="scrim" class="scrim"></div>
+  <div id="sheet" class="sheet">
+    <div class="grip"></div>
+
+    <div class="sec">
+      <h3>ドット表現</h3>
+      <div class="row">
+        <label>密度</label>
+        <div class="seg" id="segDensity">
+          <button data-v="low">低</button><button data-v="mid" class="on">中</button><button data-v="high">高</button>
+        </div>
+      </div>
+      <div class="row">
+        <label>スタイル</label>
+        <div class="seg" id="segStyle">
+          <button data-v="size" class="on">サイズ</button><button data-v="color">カラー</button><button data-v="mono">モノクロ</button>
+        </div>
+      </div>
+      <div class="row">
+        <label>背景</label>
+        <div class="seg" id="segBg">
+          <button data-v="black" class="on">黒</button><button data-v="white">白</button>
+        </div>
+      </div>
+      <div class="row">
+        <label>明暗を反転</label>
+        <div class="seg" id="segInv">
+          <button data-v="off" class="on">オフ</button><button data-v="on">オン</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h3>距離計測</h3>
+      <div class="row">
+        <label>色の許容範囲</label>
+        <input type="range" id="tol" min="0.05" max="0.45" step="0.01" value="0.18">
+      </div>
+      <div class="row">
+        <label>対象の実寸（cm）</label>
+        <input type="number" id="realW" min="0.5" step="0.1" value="16">
+      </div>
+      <div class="chips" id="presets">
+        <span class="chip" data-w="16">顔 16</span>
+        <span class="chip" data-w="7">スマホ 7</span>
+        <span class="chip" data-w="8.6">カード 8.6</span>
+        <span class="chip" data-w="6.6">缶 6.6</span>
+        <span class="chip" data-w="21">A4幅 21</span>
+      </div>
+      <div class="row" style="margin-top:13px">
+        <label>校正用の実距離（cm）</label>
+        <input type="number" id="knownDist" min="1" step="1" value="50">
+      </div>
+      <div class="act">
+        <button id="btnCal" class="primary">この距離で校正</button>
+        <button id="btnCalReset">校正リセット</button>
+      </div>
+      <div class="act" style="margin-top:9px">
+        <button id="btnClear">ロック対象をクリア</button>
+      </div>
+      <div class="hintline">
+        画面の被写体をタップするとロックします。実寸を入れて被写体を「校正用の実距離」に置き、校正すると cm 表示が正確になります（校正前は概算）。
+      </div>
+      <div id="dbg" class="dbg">—</div>
+    </div>
+  </div>
+
+  <!-- 下部コントロール -->
+  <div class="bar">
+    <button id="btnMode" class="btn">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="6" cy="6" r="1.6"/><circle cx="12" cy="6" r="1.6"/><circle cx="18" cy="6" r="1.6"/><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/><circle cx="6" cy="18" r="1.6"/><circle cx="12" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg>
+      ドット<small id="modeSub">通常</small>
+    </button>
+    <button id="btnSwitch" class="btn">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M4 8a8 8 0 0113-2.5M20 16A8 8 0 017 18.5"/><path d="M17 4v3.5h-3.5M7 20v-3.5h3.5"/></svg>
+      切替<small>カメラ</small>
+    </button>
+    <button id="btnTorch" class="btn" style="display:none">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M9 2h6l-1 7h3l-7 13 2-9H8z"/></svg>
+      ライト<small>—</small>
+    </button>
+    <button id="btnSettings" class="btn">
+      <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/></svg>
+      設定<small>調整</small>
+    </button>
+  </div>
+
+  <!-- スタート -->
+  <div id="start">
+    <div class="logo">RANGE · DOTS</div>
+    <svg class="reticle-mini" viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" fill="none" stroke="#34e3ff" stroke-width="2"/><path d="M50 8v18M50 74v18M8 50h18M74 50h18" stroke="#34e3ff" stroke-width="2"/><circle cx="50" cy="50" r="3" fill="#ffb454"/></svg>
+    <h1>被写体までの<b>距離</b>を<br>リアルタイム計測</h1>
+    <p>被写体をタップしてロック → 距離を表示。ドットモードで被写体をブロック分割し点描化します。カメラへのアクセスを許可してください。</p>
+    <button id="startBtn">カメラを起動</button>
+    <div id="startMsg"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+  var view = $("view"), vctx = view.getContext("2d");
+  var video = $("video");
+
+  // 計測用の固定解像度キャンバス
+  var pDist = document.createElement("canvas");
+  pDist.width = 192; pDist.height = 144;
+  var dctx = pDist.getContext("2d", { willReadFrequently:true });
+
+  // ドット用キャンバス（グリッド解像度）
+  var pDot = document.createElement("canvas");
+  var gctx = pDot.getContext("2d", { willReadFrequently:true });
+
+  var DEN = { low:28, mid:40, high:54 };
+  var MIN_MATCH = 24;
+
+  var S = {
+    stream:null, track:null, facing:"environment", running:false,
+    mode:"normal", mirror:false,
+    density:"mid", dotStyle:"size", bg:"black", invert:false,
+    tol:0.18, realW:16, focal:210, calibrated:false, torch:false,
+    target:null, widthEMA:0, distEMA:0, cx:0, cy:0, lost:true, box:null,
+    dpr:1, lastT:0, fps:0
+  };
+  var loopId = 0;
+
+  /* ---------- 色空間 ---------- */
+  function rgb2hsv(r,g,b){
+    r/=255; g/=255; b/=255;
+    var mx=Math.max(r,g,b), mn=Math.min(r,g,b), d=mx-mn, h=0;
+    if(d!==0){
+      if(mx===r) h=((g-b)/d)%6;
+      else if(mx===g) h=(b-r)/d+2;
+      else h=(r-g)/d+4;
+      h*=60; if(h<0) h+=360;
+    }
+    return [h, mx===0?0:d/mx, mx];
+  }
+  function hsvDist(h,s,v,t){
+    var dh=Math.abs(h-t[0]); if(dh>180) dh=360-dh; dh/=180;
+    return 0.6*dh + 0.25*Math.abs(s-t[1]) + 0.15*Math.abs(v-t[2]);
+  }
+
+  /* ---------- レイアウト ---------- */
+  function setCanvasSize(){
+    var dpr = Math.min(window.devicePixelRatio||1, 2); S.dpr=dpr;
+    var w = Math.round(view.clientWidth*dpr), h = Math.round(view.clientHeight*dpr);
+    if(view.width!==w || view.height!==h){ view.width=w; view.height=h; }
+    var N = DEN[S.density], gw, gh;
+    if(w<=h){ gw=N; gh=Math.max(1,Math.round(N*h/w)); }
+    else { gh=N; gw=Math.max(1,Math.round(N*w/h)); }
+    if(pDot.width!==gw || pDot.height!==gh){ pDot.width=gw; pDot.height=gh; }
+  }
+
+  function cover(vw,vh,dw,dh){
+    var va=vw/vh, da=dw/dh, sx,sy,sw,sh;
+    if(va>da){ sh=vh; sw=vh*da; sx=(vw-sw)/2; sy=0; }
+    else { sw=vw; sh=vw/da; sx=0; sy=(vh-sh)/2; }
+    return [sx,sy,sw,sh];
+  }
+  function drawCover(ctx,dw,dh){
+    var vw=video.videoWidth, vh=video.videoHeight;
+    if(!vw||!vh) return;
+    var c=cover(vw,vh,dw,dh);
+    ctx.save();
+    if(S.mirror){ ctx.translate(dw,0); ctx.scale(-1,1); }
+    ctx.drawImage(video, c[0],c[1],c[2],c[3], 0,0,dw,dh);
+    ctx.restore();
+  }
+
+  /* ---------- 距離セグメンテーション ---------- */
+  function percentileBounds(counts, total, lo, hi){
+    var loT=total*lo, hiT=total*hi, cum=0, a=0, b=counts.length-1, gotA=false;
+    for(var i=0;i<counts.length;i++){
+      cum+=counts[i];
+      if(!gotA && cum>=loT){ a=i; gotA=true; }
+      if(cum>=hiT){ b=i; break; }
+    }
+    return [a,b];
+  }
+  function segment(){
+    var W=pDist.width, H=pDist.height;
+    drawCover(dctx, W, H);
+    if(!S.target){ S.lost=true; S.box=null; return; }
+    var img; try{ img=dctx.getImageData(0,0,W,H); }catch(e){ return; }
+    var d=img.data, t=S.target, thr=S.tol;
+    var col=new Int32Array(W), rowc=new Int32Array(H);
+    var total=0, sumX=0, sumY=0;
+    var t0=t[0], t1=t[1], t2=t[2];
+    for(var y=0;y<H;y++){
+      var base=y*W*4;
+      for(var x=0;x<W;x++){
+        var i=base+x*4, r=d[i], g=d[i+1], b=d[i+2];
+        var mx=r>g?(r>b?r:b):(g>b?g:b), mn=r<g?(r<b?r:b):(g<b?g:b), dl=mx-mn, h=0;
+        if(dl!==0){
+          if(mx===r) h=((g-b)/dl)%6; else if(mx===g) h=(b-r)/dl+2; else h=(r-g)/dl+4;
+          h*=60; if(h<0) h+=360;
+        }
+        var s=mx===0?0:dl/mx, v=mx/255;
+        var dh=Math.abs(h-t0); if(dh>180) dh=360-dh;
+        if(0.6*(dh/180)+0.25*Math.abs(s-t1)+0.15*Math.abs(v-t2) < thr){
+          col[x]++; rowc[y]++; total++; sumX+=x; sumY+=y;
+        }
+      }
+    }
+    if(total<MIN_MATCH){ S.lost=true; return; }
+    S.lost=false;
+    var bx=percentileBounds(col,total,0.05,0.95);
+    var by=percentileBounds(rowc,total,0.05,0.95);
+    S.box={ xlo:bx[0], xhi:bx[1], ylo:by[0], yhi:by[1] };
+    S.cx=sumX/total; S.cy=sumY/total;
+    var width=Math.max(1, bx[1]-bx[0]+1);
+    S.widthEMA = S.widthEMA>0 ? S.widthEMA + (width-S.widthEMA)*0.3 : width;
+    var dist = S.focal * S.realW / S.widthEMA;
+    S.distEMA = S.distEMA>0 ? S.distEMA + (dist-S.distEMA)*0.3 : dist;
+  }
+
+  /* ---------- 描画 ---------- */
+  function renderNormal(){ drawCover(vctx, view.width, view.height); }
+
+  function renderDots(){
+    var W=view.width, H=view.height;
+    vctx.fillStyle = S.bg==="black" ? "#04060a" : "#f4f6f8";
+    vctx.fillRect(0,0,W,H);
+    drawCover(gctx, pDot.width, pDot.height);
+    var img; try{ img=gctx.getImageData(0,0,pDot.width,pDot.height); }catch(e){ return; }
+    var d=img.data, gw=pDot.width, gh=pDot.height;
+    var cw=W/gw, ch=H/gh, cmin=Math.min(cw,ch);
+    var t=S.target, thr=S.tol, hasT = (t && !S.lost);
+    var dotLight = S.bg==="black" ? "#eef4f8" : "#11151b";
+    for(var y=0;y<gh;y++){
+      for(var x=0;x<gw;x++){
+        var i=(y*gw+x)*4, r=d[i], g=d[i+1], b=d[i+2];
+        var lum=0.299*r+0.587*g+0.114*b, nb=lum/255;
+        if(S.invert) nb=1-nb;
+        var px=x*cw+cw/2, py=y*ch+ch/2, radius, color;
+        if(S.dotStyle==="size"){ radius=cmin*0.5*nb; color=dotLight; }
+        else if(S.dotStyle==="color"){ radius=cmin*0.45*(0.35+0.65*nb); color="rgb("+r+","+g+","+b+")"; }
+        else { radius=cmin*0.42; var gv=Math.round(lum); color="rgb("+gv+","+gv+","+gv+")"; }
+        if(hasT){
+          var mx2=r>g?(r>b?r:b):(g>b?g:b), mn2=r<g?(r<b?r:b):(g<b?g:b), dl2=mx2-mn2, h2=0;
+          if(dl2!==0){
+            if(mx2===r) h2=((g-b)/dl2)%6; else if(mx2===g) h2=(b-r)/dl2+2; else h2=(r-g)/dl2+4;
+            h2*=60; if(h2<0) h2+=360;
+          }
+          var s2=mx2===0?0:dl2/mx2, v2=mx2/255;
+          var dh2=Math.abs(h2-t[0]); if(dh2>180) dh2=360-dh2;
+          if(0.6*(dh2/180)+0.25*Math.abs(s2-t[1])+0.15*Math.abs(v2-t[2]) < thr){
+            color="#34e3ff"; if(S.dotStyle==="size") radius=Math.max(radius,cmin*0.32);
+          }
+        }
+        if(radius>0.4){ vctx.beginPath(); vctx.fillStyle=color; vctx.arc(px,py,radius,0,6.2832); vctx.fill(); }
+      }
+    }
+  }
+
+  function roundRect(ctx,x,y,w,h,r){
+    r=Math.min(r,w/2,h/2);
+    ctx.beginPath();
+    ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+  }
+  function overlay(){
+    var W=view.width, H=view.height, dpr=S.dpr;
+    vctx.save();
+    if(!S.target){
+      var cx=W/2, cy=H/2, r=20*dpr, g=9*dpr;
+      vctx.strokeStyle="rgba(52,227,255,.92)"; vctx.lineWidth=2*dpr;
+      vctx.beginPath(); vctx.arc(cx,cy,r,0,6.2832); vctx.stroke();
+      vctx.beginPath();
+      vctx.moveTo(cx-r-g,cy); vctx.lineTo(cx-r+5*dpr,cy);
+      vctx.moveTo(cx+r-5*dpr,cy); vctx.lineTo(cx+r+g,cy);
+      vctx.moveTo(cx,cy-r-g); vctx.lineTo(cx,cy-r+5*dpr);
+      vctx.moveTo(cx,cy+r-5*dpr); vctx.lineTo(cx,cy+r+g);
+      vctx.stroke();
+      vctx.fillStyle="rgba(255,180,84,.9)";
+      vctx.beginPath(); vctx.arc(cx,cy,2.5*dpr,0,6.2832); vctx.fill();
+    } else if(!S.lost && S.box){
+      var Wp=pDist.width, Hp=pDist.height;
+      var x1=S.box.xlo/Wp*W, x2=(S.box.xhi+1)/Wp*W, y1=S.box.ylo/Hp*H, y2=(S.box.yhi+1)/Hp*H;
+      var bw=x2-x1, bh=y2-y1;
+      vctx.strokeStyle="rgba(52,227,255,.96)"; vctx.lineWidth=2.5*dpr;
+      roundRect(vctx,x1,y1,bw,bh,9*dpr); vctx.stroke();
+      // 中心マーカー
+      var mx=S.cx/Wp*W, my=S.cy/Hp*H;
+      vctx.strokeStyle="rgba(255,180,84,.95)"; vctx.lineWidth=2*dpr;
+      var m=7*dpr;
+      vctx.beginPath();
+      vctx.moveTo(mx-m,my); vctx.lineTo(mx+m,my);
+      vctx.moveTo(mx,my-m); vctx.lineTo(mx,my+m);
+      vctx.stroke();
+    }
+    vctx.restore();
+  }
+
+  /* ---------- HUD ---------- */
+  function updateHUD(){
+    var distEl=$("dist"), stEl=$("status");
+    distEl.classList.remove("idle","lost");
+    if(!S.target){
+      distEl.classList.add("idle"); distEl.textContent="— —";
+      stEl.textContent="被写体をタップしてロック";
+    } else if(S.lost){
+      distEl.classList.add("lost"); distEl.textContent="ロスト";
+      stEl.textContent="対象を画面内に入れてください";
+    } else {
+      var cm=S.distEMA;
+      distEl.textContent = cm<100 ? (cm.toFixed(0)+" cm") : ((cm/100).toFixed(2)+" m");
+      stEl.textContent = S.calibrated ? "ロック中 · 校正済み" : "ロック中 · 概算（要校正）";
+    }
+    var dbg=$("dbg");
+    if(dbg) dbg.textContent = "実測幅 "+S.widthEMA.toFixed(1)+"px / 焦点 "+S.focal.toFixed(0)+" / "+S.fps.toFixed(0)+"fps";
+  }
+
+  /* ---------- ループ ---------- */
+  function startLoop(){
+    var id = ++loopId;
+    function frame(ts){
+      if(id!==loopId) return;
+      if(video.readyState>=2){
+        setCanvasSize();
+        segment();
+        if(S.mode==="normal") renderNormal(); else renderDots();
+        overlay();
+        updateHUD();
+      }
+      if(S.lastT){ var f=1000/(ts-S.lastT); S.fps = S.fps ? S.fps+(f-S.fps)*0.2 : f; }
+      S.lastT=ts;
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ---------- 対象ロック ---------- */
+  function lockAt(nx,ny){
+    var W=pDist.width, H=pDist.height;
+    drawCover(dctx, W, H);
+    var img; try{ img=dctx.getImageData(0,0,W,H); }catch(e){ return; }
+    var d=img.data, px=Math.floor(nx*W), py=Math.floor(ny*H);
+    var R=0,G=0,B=0,n=0;
+    for(var y=py-2;y<=py+2;y++) for(var x=px-2;x<=px+2;x++){
+      if(x<0||y<0||x>=W||y>=H) continue;
+      var i=(y*W+x)*4; R+=d[i]; G+=d[i+1]; B+=d[i+2]; n++;
+    }
+    if(!n) return;
+    S.target = rgb2hsv(R/n, G/n, B/n);
+    S.widthEMA=0; S.distEMA=0; S.lost=true; S.box=null;
+  }
+  view.addEventListener("pointerdown", function(e){
+    if(!S.running) return;
+    var rect=view.getBoundingClientRect();
+    lockAt((e.clientX-rect.left)/rect.width, (e.clientY-rect.top)/rect.height);
+  });
+
+  /* ---------- カメラ ---------- */
+  function start(){
+    var msg=$("startMsg"); msg.textContent="";
+    navigator.mediaDevices.getUserMedia({
+      video:{ facingMode:{ ideal:S.facing }, width:{ideal:1280}, height:{ideal:720} },
+      audio:false
+    }).then(function(stream){
+      S.stream=stream; video.srcObject=stream;
+      return video.play();
+    }).then(function(){
+      S.track = S.stream.getVideoTracks()[0];
+      S.mirror = (S.facing==="user");
+      S.running=true;
+      $("start").style.display="none";
+      var caps = S.track.getCapabilities ? S.track.getCapabilities() : null;
+      $("btnTorch").style.display = (caps && caps.torch) ? "" : "none";
+      setCanvasSize();
+      startLoop();
+    }).catch(function(e){
+      var m = "カメラを起動できませんでした（"+(e.name||e.message)+"）。\nHTTPS でアクセスし、ブラウザのカメラ権限を許可してください。";
+      if($("start").style.display==="none"){ toast("カメラを切り替えできませんでした"); }
+      else { msg.textContent = m; }
+    });
+  }
+  function switchCam(){
+    S.facing = (S.facing==="environment") ? "user" : "environment";
+    if(S.stream){ S.stream.getTracks().forEach(function(t){ t.stop(); }); }
+    S.running=false; S.torch=false; S.lastT=0;
+    start();
+  }
+  function toggleTorch(){
+    if(!S.track || !S.track.getCapabilities) return;
+    var caps=S.track.getCapabilities();
+    if(!caps.torch) return;
+    S.torch=!S.torch;
+    S.track.applyConstraints({ advanced:[{ torch:S.torch }] }).catch(function(){});
+    $("btnTorch").classList.toggle("on", S.torch);
+    $("btnTorch").querySelector("small").textContent = S.torch ? "ON" : "—";
+  }
+
+  /* ---------- UI 配線 ---------- */
+  var toastT;
+  function toast(t){
+    var el=$("toast"); el.textContent=t; el.classList.add("show");
+    clearTimeout(toastT); toastT=setTimeout(function(){ el.classList.remove("show"); }, 1700);
+  }
+  function setMode(m){
+    S.mode=m;
+    var on = (m==="dots");
+    $("btnMode").classList.toggle("on", on);
+    $("modeSub").textContent = on ? "ドット" : "通常";
+    $("modeBadge").textContent = on ? "ドット" : "通常";
+  }
+  $("startBtn").addEventListener("click", start);
+  $("btnMode").addEventListener("click", function(){ setMode(S.mode==="dots"?"normal":"dots"); });
+  $("btnSwitch").addEventListener("click", switchCam);
+  $("btnTorch").addEventListener("click", toggleTorch);
+
+  function openSheet(o){ $("sheet").classList.toggle("show",o); $("scrim").classList.toggle("show",o); }
+  $("btnSettings").addEventListener("click", function(){ openSheet(true); });
+  $("scrim").addEventListener("click", function(){ openSheet(false); });
+
+  function wireSeg(id, fn){
+    var box=$(id);
+    box.addEventListener("click", function(e){
+      var b=e.target.closest("button"); if(!b) return;
+      box.querySelectorAll("button").forEach(function(x){ x.classList.remove("on"); });
+      b.classList.add("on"); fn(b.getAttribute("data-v"));
+    });
+  }
+  wireSeg("segDensity", function(v){ S.density=v; setCanvasSize(); });
+  wireSeg("segStyle", function(v){ S.dotStyle=v; });
+  wireSeg("segBg", function(v){ S.bg=v; });
+  wireSeg("segInv", function(v){ S.invert=(v==="on"); });
+
+  $("tol").addEventListener("input", function(e){ S.tol=parseFloat(e.target.value); });
+  $("realW").addEventListener("input", function(e){
+    var v=parseFloat(e.target.value); if(v>0) S.realW=v;
+  });
+  $("presets").addEventListener("click", function(e){
+    var c=e.target.closest(".chip"); if(!c) return;
+    var w=parseFloat(c.getAttribute("data-w")); S.realW=w; $("realW").value=w;
+  });
+  $("btnCal").addEventListener("click", function(){
+    var kd=parseFloat($("knownDist").value);
+    if(!S.target || S.lost){ toast("先に被写体をタップしてロックしてください"); return; }
+    if(!kd || kd<=0 || S.widthEMA<=0){ toast("実距離と実寸を入力してください"); return; }
+    S.focal = S.widthEMA * kd / S.realW; S.calibrated=true;
+    toast("校正しました（焦点 "+S.focal.toFixed(0)+"）");
+  });
+  $("btnCalReset").addEventListener("click", function(){
+    S.focal=210; S.calibrated=false; toast("校正をリセットしました");
+  });
+  $("btnClear").addEventListener("click", function(){
+    S.target=null; S.lost=true; S.box=null; S.widthEMA=0; S.distEMA=0; toast("ロックを解除しました");
+  });
+
+  window.addEventListener("resize", setCanvasSize);
+  window.addEventListener("orientationchange", function(){ setTimeout(setCanvasSize,250); });
+  if(window.visualViewport) window.visualViewport.addEventListener("resize", setCanvasSize);
+
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    $("startMsg").textContent="このブラウザはカメラ（getUserMedia）に対応していません。";
+    $("startBtn").disabled=true;
+  }
+})();
+</script>
+</body>
+</html>
